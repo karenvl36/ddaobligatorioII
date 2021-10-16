@@ -10,5 +10,6 @@ package logica;
  * @author Karen
  */
 public class Palo {
-    
+    int valor;
+    String descripcion;
 }
