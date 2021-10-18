@@ -13,4 +13,5 @@ public class Color {
     
     
     private String color;
+    private String probando;
 }
