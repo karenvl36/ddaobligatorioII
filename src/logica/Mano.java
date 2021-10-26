@@ -15,13 +15,17 @@ public class Mano {
     
     private List<JugadorPartida> jugadoresActivos;
     private Mazo mazo;
-     private int pozo;
+    private int pozo;
 
       public Mano(List<JugadorPartida> players,Mazo mazo,int pozo){
         this.jugadoresActivos=players;
         this.mazo = mazo;
         this.pozo = pozo;
     }
+      
+      public Mano(){
+          this.mazo = new Mazo();
+      }
 
     public List<JugadorPartida> getJugadoresActivos() {
         return jugadoresActivos;
@@ -45,6 +49,39 @@ public class Mano {
 
     public void setPozo(int pozo) {
         this.pozo = pozo;
+    }
+    
+    
+    public void agregar(JugadorPartida j, int apuesta){
+        if(j.saldoSuficiente(apuesta)){
+        
+            this.jugadoresActivos.add(j);
+            j.restarSaldo(apuesta);
+            sumarPozo(apuesta);
+            iniciarMano();
+        }
+        
+    
+    }
+    
+    
+    
+    public void sumarPozo(int apuesta){
+    
+        this.setPozo(pozo + apuesta);
+    
+    }
+    
+    public void iniciarMano(){
+        
+        mazo.barajar();
+        for(JugadorPartida j:jugadoresActivos ){
+            ManoJugador mj = new ManoJugador();
+            mj.setCartas(mazo.repartir());
+            j.setManoJugador(mj);
+        }
+    
+    
     }
   
    

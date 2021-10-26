@@ -28,4 +28,10 @@ public class UsuarioJugador extends UsuarioGenerico{
     }
     
     
+    public void restarSaldo(int apuesta){
+        this.setSaldo(saldo - apuesta);
+        
+    }
+    
+    
 }

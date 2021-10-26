@@ -12,7 +12,7 @@ package logica;
 public class Fachada {
     private static Fachada instancia;
     ServicioUsuario su = ServicioUsuario.getInstancia();
-    ServicioPartida sp = ServicioPartida.getInstancia();
+    ServicioPartida sp = new ServicioPartida();
 
     public static Fachada getInstancia() {
         if (instancia == null) {
