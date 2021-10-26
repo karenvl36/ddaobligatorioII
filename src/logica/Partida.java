@@ -17,20 +17,16 @@ public class Partida {
 
     private Date fechaInicio;
     private List<Mano> manos;
-    private int apuestaBase;
     private List<JugadorPartida> jugadores;
-    private int cantMaximaJugadores;
+    private Settings settings;
+    private Mano manoActual;
 
-    public Partida(int cantMaxJugadores) {
-        fechaInicio = new Date();
-        manos = new ArrayList<>();
-        this.apuestaBase = 1500;
-        this.cantMaximaJugadores = cantMaxJugadores;
+    public Partida() {
     }
 
-    public int getApuestaBase() {
-        return apuestaBase;
-    }
+ 
+
+
 
     public Date getFecha() {
         return this.fechaInicio;
@@ -40,34 +36,75 @@ public class Partida {
         this.fechaInicio = new Date();
     }
     
-    public boolean agregar(JugadorPartida player){
+    public Partida agregar(JugadorPartida player){
         if(verificarCantJugadores()){
             this.jugadores.add(player);
-            if(!verificarCantJugadores()){
-                iniciar();
-            }
+            return comprobarInicio();
         }
-        return false;
+        return null;
         
+    }
+    
+    public Partida comprobarInicio() {
+        if (!verificarCantJugadores()) {
+            iniciar();
+            return this;
+        }
+        
+       return null;
     }
 
     private boolean verificarCantJugadores() {
-        return (this.cantMaximaJugadores - jugadores.size()) >= 1;
+        return (settings.getInstancia().getCantMaximaJugadores() - jugadores.size()) >= 1;
 
     }
     
     public int jugadoresFaltantes(){
-        return this.cantMaximaJugadores - jugadores.size();
+        return settings.getInstancia().getCantMaximaJugadores()- jugadores.size();
     }
     
     public void iniciar(){
         this.setFecha(new Date());
+        
     }
 
     private void setFecha(Date date) {
         this.fechaInicio = date;
     }
     
+    private void guardarSaldoInicialJugadores(){
+        for(JugadorPartida j: jugadores ){
+        
+            j.setSaldoInicial(j.getJugador().getSaldo());
+        }
+    
+    }
+    
+    private void agregar(Mano m){
+        manos.add(m);
+    }
+    
+    private void nuevaMano(){
+        
+        Mano mano = new Mano();
+        manoActual = mano;
+        agregar(mano);
+        asignarJugadoresAMano();
+        
+        
+  
+    }
+    
+    private void asignarJugadoresAMano(){
+        for(JugadorPartida j: jugadores ){
+        
+          if(j.saldoSuficiente(settings.getInstancia().getApuestaBase())){
+              manoActual.agregar(j, settings.getInstancia().getApuestaBase());
+              
+          }
+        }
+    
+    }
     
     
 
