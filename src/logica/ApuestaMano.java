@@ -11,6 +11,23 @@ package logica;
  */
 public class ApuestaMano {
     
-    int apuestaMano;
+    int valor;
+    JugadorPartida jugador;
+
+    public int getApuestaMano() {
+        return valor;
+    }
+
+    public void setValor(int apuestaMano) {
+        this.valor = apuestaMano;
+    }
+
+    public JugadorPartida getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(JugadorPartida jugador) {
+        this.jugador = jugador;
+    }
     
 }
