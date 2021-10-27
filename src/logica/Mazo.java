@@ -5,6 +5,7 @@
  */
 package logica;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
 public class Mazo {
     public List<Carta> cartas;
     
-    public Mazo(List<Carta> cartas){
-        this.cartas = cartas;
+    public Mazo(){
+
     }
     
     public List<Carta> getCartas(){
@@ -27,6 +28,18 @@ public class Mazo {
         Collections.shuffle(cartas);
     }
     
+    public ArrayList<Carta> repartir() {
+        ArrayList<Carta> repartidas = new ArrayList<Carta>(5);
+        for (int i = 0; i < 5; i++) {
+            repartidas.add(cartas.remove(0));
+        }
+        return repartidas;
+
+    }
+    
+    
  
+    
+
     
 }

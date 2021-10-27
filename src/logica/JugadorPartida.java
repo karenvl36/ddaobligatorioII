@@ -14,11 +14,12 @@ public class JugadorPartida {
     private Partida partida;
     private UsuarioJugador jugador;
     private int saldoInicial;
+    private int gananciaPartida;
+    private int apuestaPartida;
+    private ManoJugador manoJugador;
 
-    public JugadorPartida(Partida p, UsuarioJugador j, int saldoInicial) {
-        this.partida = p;
+    public JugadorPartida(UsuarioJugador j) {
         this.jugador = j;
-        this.saldoInicial = saldoInicial;
     }
 
     public Partida getPartida() {
@@ -44,5 +45,66 @@ public class JugadorPartida {
     public void setSaldoInicial(int saldoInicial) {
         this.saldoInicial = saldoInicial;
     }
+
+    public int getGananciaPartida() {
+        return gananciaPartida;
+    }
+
+    public void setGananciaPartida(int gananciaPartida) {
+        this.gananciaPartida = gananciaPartida;
+    }
+
+    public int getApuestaPartida() {
+        return apuestaPartida;
+    }
+
+    public void setApuestaPartida(int apuestaPartida) {
+        this.apuestaPartida = apuestaPartida;
+    }
+
+    public ManoJugador getManoJugador() {
+        return manoJugador;
+    }
+
+    public void setManoJugador(ManoJugador manoJugador) {
+        this.manoJugador = manoJugador;
+    }
+    
+    public int getSaldo(){
+        return getJugador().getSaldo();
+    }
+    
+    public void guardarSaldoInicial(){
+        setSaldoInicial(this.getSaldo());
+    }
+    
+    
+    
+    public boolean saldoSuficiente(int valorAApostar){
+        return valorAApostar <= jugador.getSaldo();
+        
+       //TODO: throw exception "saldo insuficiente"
+        
+    }
+    
+    public void restarSaldo(int apuesta){
+        sumarApuestaPartida(apuesta);
+        this.jugador.restarSaldo(apuesta);
+    
+    }
+    
+    public void sumarApuestaPartida(int apuesta){
+        apuestaPartida += apuesta;
+    }
+    
+    
+    public boolean aceptarApuesta(int apuesta){
+        return true;
+    }
+    
+    public boolean rechazarApuesta(int apuesta){
+        return false;
+    }
+
 
 }
