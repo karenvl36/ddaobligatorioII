@@ -3,20 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package observador;
 
-/**
- *
- * @author Karen
- */
-public class EstadoManoJugador {
+public interface Observador {
     
-    public enum Estado{
-        PASO,
-        APOSTO,
-        NO_JUGO,
-        FOLD;
-        
+    public enum Evento {
+        JUGADOR_AGREGADO
     }
-    
+ 
+    public void notificar(Observable source, Object event);
 }
