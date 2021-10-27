@@ -16,9 +16,11 @@ public class Mano {
     private List<JugadorPartida> jugadoresActivos;
     private Mazo mazo;
     private int pozo;
+    private int apuesta;
+    private JugadorPartida ganador;
 
       public Mano(List<JugadorPartida> players,Mazo mazo,int pozo){
-        this.jugadoresActivos=players;
+        this.jugadoresActivos = players;
         this.mazo = mazo;
         this.pozo = pozo;
     }
@@ -83,7 +85,39 @@ public class Mano {
     
     
     }
+    
+    public void recibirApuesta(int apuesta, JugadorPartida j){
+        setApuesta(apuesta);
+        //TODO: notificar con Observable la apuesta a matchear a los otros jugadores. 
+
+    
+    }
   
+    
+    public void finalizarMano(){
+        for(JugadorPartida j: jugadoresActivos){
+            if (j.getManoJugador().getEstado().equals(EstadoManoJugador.Estado.PASO)){
+                //TODO: Si todos pasan, termina la mano. El pozo pasa a la próxima mano
+            }
+        
+        }
+        
+        //TODO: Si la mano se jugó, evaluar las manos de cada jugador aun en juego para determinar ganador
+        //TODO: Acreditar pozo a saldo ganador
+        
+        
+        
+    
+    
+    }
+
+    public int getApuesta() {
+        return apuesta;
+    }
+
+    public void setApuesta(int apuesta) {
+        this.apuesta = apuesta;
+    }
    
     
    

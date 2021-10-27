@@ -15,7 +15,7 @@ import java.util.List;
 public class ServicioPartida {
 
     public List<Partida> partidasEnCurso;
-    public Partida partidaNoIniciada; 
+    public Partida partidaAIniciar; 
 //    private static ServicioPartida instancia;
 //
 //    public static ServicioPartida getInstancia() {
@@ -28,7 +28,7 @@ public class ServicioPartida {
 
     public ServicioPartida() {
         this.partidasEnCurso = new ArrayList<>();
-        partidaNoIniciada = new Partida();
+        partidaAIniciar = new Partida();
    
     }
 
@@ -43,17 +43,17 @@ public class ServicioPartida {
     public void crearPartida(){
    
             Partida partidaNueva = new Partida();
-            partidaNoIniciada = partidaNueva;
+            partidaAIniciar = partidaNueva;
 
     }
     
     public void unirJugadorPartida(UsuarioJugador j) {
         JugadorPartida jugador = new JugadorPartida(j);
         
-        if (partidaNoIniciada != null) {
-            if (partidaNoIniciada.agregar(jugador) != null) {
+        if (partidaAIniciar != null) {
+            if (partidaAIniciar.agregar(jugador) != null) {
 
-                this.agregar(partidaNoIniciada);
+                this.agregar(partidaAIniciar);
                 crearPartida();
          
             }
