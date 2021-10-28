@@ -11,8 +11,8 @@ package logica;
  */
 public class Settings {
     
-        private static int apuestaBase;
-        private static int cantMaximaJugadores;
+        private static int apuestaBase; //solo para probar
+        private static int cantMaximaJugadores; //test
         private static Settings instancia; 
 
     public static Settings getInstancia() {

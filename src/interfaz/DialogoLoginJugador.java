@@ -6,7 +6,6 @@
 package interfaz;
 
 import logica.Fachada;
-import logica.Sesion;
 import logica.UsuarioGenerico;
 import logica.UsuarioJugador;
 

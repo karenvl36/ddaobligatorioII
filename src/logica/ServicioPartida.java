@@ -47,14 +47,21 @@ public class ServicioPartida {
 
     }
     
+    public Partida getPartidaSinIniciar(){
+        return this.partidaAIniciar;
+    }
+    
     public void unirJugadorPartida(UsuarioJugador j) {
         JugadorPartida jugador = new JugadorPartida(j);
-        
+        System.out.println(jugador.getJugador().getNick() + jugador.getJugador().getSaldo());
         if (partidaAIniciar != null) {
             if (partidaAIniciar.agregar(jugador) != null) {
-
-                this.agregar(partidaAIniciar);
-                crearPartida();
+                if(partidaAIniciar.comprobarInicio() !=null){
+                    agregar(partidaAIniciar);
+                    crearPartida();
+                }
+               
+                
          
             }
         }

@@ -73,6 +73,7 @@ public class JugadorPartida {
     public int getSaldo(){
         return getJugador().getSaldo();
     }
+   
     
     public void guardarSaldoInicial(){
         setSaldoInicial(this.getSaldo());
