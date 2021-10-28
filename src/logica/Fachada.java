@@ -32,6 +32,15 @@ public class Fachada {
         return su.logInJugador(name, pw);
     }
     
+    
+    public void unirJugadorPartida(UsuarioJugador j){
+         sp.unirJugadorPartida(j);
+    }
+    
+    public Partida getPartidaSinIniciar(){
+        return sp.getPartidaSinIniciar();
+    }
+    
   
     
 }
