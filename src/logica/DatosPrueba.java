@@ -12,6 +12,7 @@ package logica;
 public class DatosPrueba {
 
     public static void cargar() {
+ 
         Settings settings = Settings.getInstancia(); 
         settings.setApuestaBase(300);
         settings.setCantMaximaJugadores(3);

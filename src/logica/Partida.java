@@ -24,6 +24,7 @@ public class Partida extends Observable {
     private Mano manoActual;
 
     public Partida() {
+        settings = Settings.getInstancia();
     }
 
     public Date getFecha() {
@@ -46,12 +47,17 @@ public class Partida extends Observable {
     }
 
     private boolean jugadorYaEnPartida(JugadorPartida player) {
-        return(jugadores.contains(player));
+//        return(jugadores.contains(player));
+          for(JugadorPartida j: jugadores){
+              if(j.getJugador().equals(player.getJugador())) return true;
+          }  
+          
+          return false;
     }
 
     private boolean saldoSuficiente(JugadorPartida player) {
-        //   return player.saldoSuficiente(this.settings.getApuestaBase());
-        return player.saldoSuficiente(300); //cambie esto para probar porque settings tira null exception
+         return player.saldoSuficiente(this.settings.getApuestaBase());
+//        return player.saldoSuficiente(300); //cambie esto para probar porque settings tira null exception
         //TODO: throw exception
     }
 
