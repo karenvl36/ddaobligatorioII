@@ -11,31 +11,43 @@ package logica;
  */
 public class Carta {
     
-    private Figura figura;
+    private int numero;
+    private Palo palo;
+    private String imagen;
+
+    public Carta(int numero, Palo palo, String imagen) {
+        this.numero = numero;
+        this.palo = palo;
+        this.imagen = imagen;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public Palo getPalo() {
+        return palo;
+    }
+
+    public void setPalo(Palo palo) {
+        this.palo = palo;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+   
     
-    private Color color;
     
     
-    public Carta(Figura fig,Color colour){
-        this.figura = fig;
-        this.color = colour;
-    }
-
-    public Figura getFigura() {
-        return figura;
-    }
-
-    public void setFigura(Figura figura) {
-        this.figura = figura;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
     
     
     

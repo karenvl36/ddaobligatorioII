@@ -70,10 +70,20 @@ public class JugadorPartida {
         this.manoJugador = manoJugador;
     }
     
+    public int getSaldo(){
+        return getJugador().getSaldo();
+    }
+    
+    public void guardarSaldoInicial(){
+        setSaldoInicial(this.getSaldo());
+    }
+    
     
     
     public boolean saldoSuficiente(int valorAApostar){
         return valorAApostar <= jugador.getSaldo();
+        
+       //TODO: throw exception "saldo insuficiente"
         
     }
     
@@ -86,5 +96,15 @@ public class JugadorPartida {
     public void sumarApuestaPartida(int apuesta){
         apuestaPartida += apuesta;
     }
+    
+    
+    public boolean aceptarApuesta(int apuesta){
+        return true;
+    }
+    
+    public boolean rechazarApuesta(int apuesta){
+        return false;
+    }
+
 
 }
