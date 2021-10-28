@@ -14,9 +14,10 @@ import java.util.List;
 public class Mano {
     
     private List<JugadorPartida> jugadoresActivos;
+    private List<JugadorPartida> turnos; //TODO: check this
     private Mazo mazo;
     private int pozo;
-    private int apuesta;
+    private ApuestaMano apuesta;
     private JugadorPartida ganador;
 
       public Mano(List<JugadorPartida> players,Mazo mazo,int pozo){
@@ -111,12 +112,12 @@ public class Mano {
     
     }
 
-    public int getApuesta() {
-        return apuesta;
-    }
-
+//    public int getApuesta() {
+//        return apuesta.d;
+//    }
+//
     public void setApuesta(int apuesta) {
-        this.apuesta = apuesta;
+        this.apuesta.setValor(apuesta);
     }
    
     
