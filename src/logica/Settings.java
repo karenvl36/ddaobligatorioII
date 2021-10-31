@@ -13,7 +13,8 @@ public class Settings {
     
         private static int apuestaBase; //solo para probar
         private static int cantMaximaJugadores; //test
-        private static Settings instancia; 
+         private static Settings instancia = new Settings();
+
 
     public static Settings getInstancia() {
         if (instancia == null){
