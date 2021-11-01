@@ -15,7 +15,6 @@ public class ManoJugador {
     int apuestaTurno;
     ArrayList<Carta> cartas;
     Figura figura;
-    EstadoManoJugador estado;
 
     public int getApuestaTurno() {
         return apuestaTurno;
@@ -41,13 +40,7 @@ public class ManoJugador {
         this.figura = figura;
     }
 
-    public EstadoManoJugador getEstado() {
-        return estado;
-    }
 
-    public void setEstado(EstadoManoJugador estado) {
-        this.estado = estado;
-    }
     
     
     
