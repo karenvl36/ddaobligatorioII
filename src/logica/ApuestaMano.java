@@ -5,21 +5,31 @@
  */
 package logica;
 
+import excepciones.ManoException;
+
 /**
  *
  * @author Karen
  */
 public class ApuestaMano {
-    
-    int valor;
-    JugadorPartida jugador;
+
+    private int valor;
+    private JugadorPartida jugador;
+
+    public ApuestaMano(JugadorPartida jugador, int valor) throws ManoException {
+        this.jugador = jugador;
+        setValor(valor);
+    }
 
     public int getApuestaMano() {
         return valor;
     }
 
-    public void setValor(int apuestaMano) {
-        this.valor = apuestaMano;
+    public void setValor(int apuestaMano) throws ManoException {
+        if (validarApuesta(apuestaMano)) {
+            this.valor = apuestaMano;
+        }
+        throw new ManoException("Su saldo es insuficiente para realizar esta apuesta.");
     }
 
     public JugadorPartida getJugador() {
@@ -29,5 +39,9 @@ public class ApuestaMano {
     public void setJugador(JugadorPartida jugador) {
         this.jugador = jugador;
     }
-    
+
+    public boolean validarApuesta(int valorApuesta) {
+        return this.jugador.saldoSuficiente(valorApuesta);
+    }
+
 }
