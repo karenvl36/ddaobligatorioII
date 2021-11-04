@@ -9,11 +9,15 @@ package logica;
  *
  * @author chiqu
  */
-public class EstadoPartidaIniciada extends EstadoPartida {
+public class EstadoPartidaIniciada implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar() {
+    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Exception: no puede ingresar a una partida ya iniciada
     }
+
+    
+  
   
 }

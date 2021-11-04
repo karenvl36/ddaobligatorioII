@@ -81,6 +81,8 @@ public class JugadorPartida {
     
     
     
+    
+    
     public boolean saldoSuficiente(int valorAApostar){
         return valorAApostar <= jugador.getSaldo();
         
@@ -94,24 +96,30 @@ public class JugadorPartida {
     
     }
     
+     private void sumarSaldo(int valor){
+        sumarApuestaPartida(valor);
+        this.jugador.sumarSaldo(valor);
+    }
+    
     private void sumarApuestaPartida(int apuesta){
         apuestaPartida += apuesta;
     }
     
-    
-    public boolean aceptarApuesta(int apuesta){
-        return true;
+    private void sumarGananciaPartida(int valor){
+        gananciaPartida += valor;
     }
     
-    public boolean rechazarApuesta(int apuesta){
-        return false;
+   
+    
+    public void recibirGanancia(int pozo){
+        sumarSaldo(pozo);
+        
     }
     
     public boolean realizarApuesta(int apuesta){
         if(saldoSuficiente(apuesta)){
-        
-            sumarApuestaPartida(apuesta);
-            jugador.restarSaldo(apuesta);
+       
+            restarSaldo(apuesta);
             return true;
         }
         return false;

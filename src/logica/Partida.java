@@ -26,6 +26,7 @@ public class Partida extends Observable {
 
     public Partida() {
         settings = Settings.getInstancia();
+        estado = new EstadoPartidaSinIniciar();
     }
 
     public Date getFecha() {
@@ -37,6 +38,7 @@ public class Partida extends Observable {
     }
 
     public JugadorPartida agregar(UsuarioJugador usuarioJ) {
+       // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
          JugadorPartida jp = new JugadorPartida(usuarioJ);
         if (faltanJugadores() != 0 && !jugadorYaEnPartida(jp) && saldoSuficiente(jp)) {
             this.jugadores.add(jp);
@@ -49,7 +51,7 @@ public class Partida extends Observable {
     }
 
     private boolean jugadorYaEnPartida(JugadorPartida player) {
-//        return(jugadores.contains(player));
+
           for(JugadorPartida j: jugadores){
               if(j.getJugador().equals(player.getJugador())) return true;
           }  
@@ -70,6 +72,7 @@ public class Partida extends Observable {
     public Partida comprobarInicio() {
         if (faltanJugadores() == 0) {
             iniciar();
+            
             return this;
         }
 
@@ -103,6 +106,7 @@ public class Partida extends Observable {
     }
 
     public void iniciar() {
+        estado = new EstadoPartidaIniciada();
         this.setFecha(new Date());
         guardarSaldoInicialJugadores();
         nuevaMano();
@@ -153,6 +157,7 @@ public class Partida extends Observable {
 
     public void retirarJugador(JugadorPartida j) {
         jugadores.remove(j);
+        this.notificar(Observador.Evento.JUGADOR_AGREGADO);
 
     }
 

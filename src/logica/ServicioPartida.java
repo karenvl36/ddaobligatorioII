@@ -52,13 +52,12 @@ public class ServicioPartida {
     }
 
     public JugadorPartida unirJugadorPartida(UsuarioJugador j) {
-        JugadorPartida jugadorRetorno = partidaAIniciar.agregar(j);
+        JugadorPartida jugadorRetorno = null;
         if (partidaAIniciar != null) {
-            if (jugadorRetorno != null) {
-                if (partidaAIniciar.comprobarInicio() != null) {
+            jugadorRetorno = partidaAIniciar.agregar(j);
+            if (jugadorRetorno != null && partidaAIniciar.comprobarInicio() != null) {
                     agregar(partidaAIniciar);
                     crearPartida();
-                }
 
             }
         }

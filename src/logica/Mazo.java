@@ -15,9 +15,10 @@ import java.util.List;
  */
 public class Mazo {
     public List<Carta> cartas;
+    //TODO: Deberíamos hacer el mazo un hashset para que no repita cartas?
     
     public Mazo(){
-
+        //generarCartas?
     }
     
     public List<Carta> getCartas(){
@@ -35,6 +36,12 @@ public class Mazo {
         }
         return repartidas;
 
+    }
+    
+    public void agregar(Carta c){
+        //validar carta?
+        cartas.add(c);
+        //Hashset para que no se agreguen repetidas
     }
     
     

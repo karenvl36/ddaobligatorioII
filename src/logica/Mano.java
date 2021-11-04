@@ -52,6 +52,9 @@ public class Mano {
     public void setApuesta(ApuestaMano apuesta) {
         this.apuesta = apuesta;
     }
+    public ApuestaMano getApuesta(){
+        return this.apuesta;
+    }
 
     public List<JugadorPartida> getJugadoresActivos() {
         return jugadoresActivos;
@@ -60,6 +63,32 @@ public class Mano {
     public void setJugadoresActivos(List<JugadorPartida> jugadoresActivos) {
         this.jugadoresActivos = jugadoresActivos;
     }
+    
+    public List<JugadorPartida> getPasantes() {
+        return pasantes;
+    }
+
+    public void setPasantes(List<JugadorPartida> pasantes) {
+        this.pasantes = pasantes;
+    }
+
+    public JugadorPartida getGanador() {
+        return ganador;
+    }
+
+    public void setGanador(JugadorPartida ganador) {
+        this.ganador = ganador;
+    }
+
+    public EstadoMano getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoMano estado) {
+        this.estado = estado;
+    }
+    
+    
 
     public void agregar(JugadorPartida j, int luz) {
         if (j.realizarApuesta(luz)) {
@@ -94,19 +123,17 @@ public class Mano {
 
     }
 
-//      public void paso(JugadorPartida jp){
-//          pasantes.add(jp);
-//      }
-//      public void aposto(JugadorPartida jp,int montoApostado){
-//          ApuestaMano apuestaMano = new ApuestaMano(jp,montoApostado);
-//          this.apuesta = apuestaMano;
-//          pasantes.clear();
-//          pedirApuestas();
-//      }
+
     public void recibirApuesta(JugadorPartida unApostante, int monto) throws ManoException {
         estado.recibirApuesta(unApostante, monto, this);
         estado = new EstadoManoApostada();
         pedirApuestas();
+    }
+    
+    public void recibirPasar(JugadorPartida pasante) throws ManoException{
+    
+        estado.recibirPasar(pasante, this);
+        comprobarFinalizacion();
     }
 
     private void pedirApuestas() {
@@ -117,12 +144,12 @@ public class Mano {
         }
     }
     
-    private void recibirMatchApuesta(JugadorPartida j){
-        //chequea el saldo suficiente
-        //resta el saldo al jugador
-        //suma al pozo
+    private void recibirMatchApuesta(JugadorPartida j) throws ManoException{
+        if(j.realizarApuesta(apuesta.getValor())){ //pasamos el valor de la apuesta en juego
+            sumarPozo(apuesta.getValor());
         
-    
+        }
+        throw new ManoException("No tiene saldo suficiente para realizar esta apuesta.");
     }
 
     //TODO: tip para hacerlo private y poder acceder desde Estado
@@ -131,30 +158,34 @@ public class Mano {
         pasantes.add(j);
     }
 
-//    public void recibirApuesta(int apuesta, JugadorPartida j){
-//        setApuesta(apuesta);
-//        //TODO: notificar con Observable la apuesta a matchear a los otros jugadores. 
-//
-//    
-//    }
-//    public void vaciarListaPasantes(){
-//    
-//        this.pasantes.clear();
-//    }
-    public void finalizarMano() {
 
-        //TODO: Si todos pasan, termina la mano. El pozo pasa a la próxima mano
+
+    public void finalizarMano() {
+        estado.finalizarMano(this);
+        
+
+       // if(pasantes.size() == jugadoresActivos.size()) //no hay ganador y se pasa el pozo a la próxima mano. 
+       //   if(jugadoresActivos.size() == 1 )   es el ganador
+       //if(jugadoresACtivos.size() > 1 buscar ganador
     }
 
-    //TODO: Si la mano se jugó, evaluar las manos de cada jugador aun en juego para determinar ganador
-    //TODO: Acreditar pozo a saldo ganador
-    void vaciarListaPasantes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+    public void vaciarListaPasantes() {
+        pasantes.clear();
+    }
+
+    public void comprobarFinalizacion() {
+       if( pasantes.size() == jugadoresActivos.size() || jugadoresActivos.size() <= 1){
+       
+           finalizarMano();
+       }
+    }
+
+    public void declararGanador(JugadorPartida jugador) {
+        setGanador(jugador);
+        jugador.recibirGanancia(pozo);
     }
 }
 
-//    public int getApuesta() {
-//        return apuesta.d;
-//    }
-//
+
 
