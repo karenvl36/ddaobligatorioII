@@ -6,36 +6,18 @@
 package logica;
 
 import excepciones.ManoException;
-import java.util.List;
+
 
 /**
  *
  * @author chiqu
  */
-public abstract class EstadoMano {
+public interface EstadoMano {
     
-    protected List<JugadorPartida> pasantes;
-    protected ApuestaMano apuesta;
-
-    public List<JugadorPartida> getPasantes() {
-        return pasantes;
-    }
-
-    public void setPasantes(List<JugadorPartida> pasantes) {
-        this.pasantes = pasantes;
-    }
-
-    public ApuestaMano getApuesta() {
-        return apuesta;
-    }
-
-    public void setApuesta(ApuestaMano apuesta) {
-        this.apuesta = apuesta;
-    }
+   
     
-    
-    public abstract void apostar(JugadorPartida jugador,int monto) throws ManoException;
-    public abstract void pasar(JugadorPartida jugador) throws ManoException;
+    public abstract void recibirApuesta(JugadorPartida jugador,int monto, Mano mano) throws ManoException;
+    public abstract void recibirPasar(JugadorPartida jugador, Mano mano) throws ManoException;
     
     
     

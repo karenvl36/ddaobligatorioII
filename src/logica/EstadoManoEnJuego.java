@@ -11,19 +11,22 @@ import excepciones.ManoException;
  *
  * @author chiqu
  */
-public class EstadoManoEnJuego extends EstadoMano {
+public class EstadoManoEnJuego implements EstadoMano {
 
-    @Override
-    public void apostar(JugadorPartida jugador, int monto) throws ManoException {
+   
+    public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws ManoException {
+        //validar que tenga saldo suficiente
         ApuestaMano apuestaMano = new ApuestaMano(jugador, monto);
-        apuesta = apuestaMano;
-        pasantes.clear();
+        ApuestaMano apuesta = new ApuestaMano(jugador, monto);
+        mano.setApuesta(apuesta);
+        
+        mano.vaciarListaPasantes();
 
     }
 
-    @Override
-    public void pasar(JugadorPartida jugador) throws ManoException {
-        pasantes.add(jugador);
+  
+    public void recibirPasar(JugadorPartida jugador, Mano mano) throws ManoException {
+        mano.agregarPasante(jugador);
     }
 
 }

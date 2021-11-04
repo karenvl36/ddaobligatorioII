@@ -88,13 +88,13 @@ public class JugadorPartida {
         
     }
     
-    public void restarSaldo(int apuesta){
+    private void restarSaldo(int apuesta){
         sumarApuestaPartida(apuesta);
         this.jugador.restarSaldo(apuesta);
     
     }
     
-    public void sumarApuestaPartida(int apuesta){
+    private void sumarApuestaPartida(int apuesta){
         apuestaPartida += apuesta;
     }
     
@@ -105,6 +105,18 @@ public class JugadorPartida {
     
     public boolean rechazarApuesta(int apuesta){
         return false;
+    }
+    
+    public boolean realizarApuesta(int apuesta){
+        if(saldoSuficiente(apuesta)){
+        
+            sumarApuestaPartida(apuesta);
+            jugador.restarSaldo(apuesta);
+            return true;
+        }
+        return false;
+        
+        //TODO: throw Exception que le llega del método anterior
     }
 
 
