@@ -84,7 +84,7 @@ private JugadorPartida jugadorP;
        
           @Override
     public void notificar(Observable source, Object event) {
-        if(event == Observador.Evento.JUGADOR_AGREGADO){
+        if(event == Observador.Evento.JUGADOR_AGREGADO || event == Observador.Evento.JUGADOR_ELIMINADO){
             cambiarTitulo();
         }
     }

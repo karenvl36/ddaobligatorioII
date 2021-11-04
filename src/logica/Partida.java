@@ -15,7 +15,7 @@ import observador.Observador;
  *
  * @author chiqu
  */
-public class Partida extends Observable {
+public class Partida extends Observable implements Observador {
 
     private Date fechaInicio;
     private List<Mano> manos;
@@ -137,11 +137,18 @@ public class Partida extends Observable {
         Mano mano = new Mano();
         manoActual = mano;
         agregar(mano);
-        asignarJugadoresAMano();
+        if(asignarJugadoresAMano_Prueba()){ //TODO: Revisar esto
+        
+            mano.subscribir(this);
+            //iniciarMano?
+        }//else finalizarPartida???
+        
 
     }
 
     private void asignarJugadoresAMano() {
+      
+        
         for (JugadorPartida j : jugadores) {
 
             if (saldoSuficiente(j)) {
@@ -149,15 +156,44 @@ public class Partida extends Observable {
 
             } else {
                 retirarJugador(j);
+               
+                
                 //TODO: throw la exception de saldo Insuficiente
             }
         }
 
     }
+    
+     private boolean asignarJugadoresAMano_Prueba() {
+        boolean noHayJugadores = false;
+        int i=0;
+        while(i<jugadores.size() && !noHayJugadores){
+            
+            if (saldoSuficiente(jugadores.get(i))) {
+                manoActual.agregar(jugadores.get(i), getApuestaBase());
+
+            } else {
+                retirarJugador(jugadores.get(i));
+                noHayJugadores = jugadoresInsuficientes();
+                
+                //TODO: throw la exception de saldo Insuficiente
+            }
+            i++;
+            
+            
+        
+        }
+        
+        return noHayJugadores;
+
+    }
 
     public void retirarJugador(JugadorPartida j) {
         jugadores.remove(j);
-        this.notificar(Observador.Evento.JUGADOR_AGREGADO);
+        if(manoActual != null){
+            manoActual.eliminar(j);
+        }
+        this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
 
     }
 
@@ -167,6 +203,37 @@ public class Partida extends Observable {
             iniciar();
         }
 
+    }
+    
+    public boolean jugadoresInsuficientes(){
+            return jugadores.size() >= 1;
+
+    }
+    
+    public void continuarNuevaMano(){
+        
+        if(!jugadoresInsuficientes()){
+        
+            int pozoAnterior = manoActual.getPozo();            
+            nuevaMano();
+            manoActual.sumarPozo(pozoAnterior);
+
+        }else{
+        
+            //Finalizar partida??
+        }
+       
+    }
+
+    //TODO: Preguntar si hay una mejor forma de hacer esto.
+    //TODO: Preguntar si la sigueinte mano tiene que iniciar automáticamente sin dar tiempo a salir del juuego antes de descontarle la luz
+    @Override
+    public void notificar(Observable source, Object event) {
+        if(event == Observador.Evento.MANO_FINALIZADA){
+          manoActual.desubscribir(this);
+        }
+        
+        
     }
 
 }

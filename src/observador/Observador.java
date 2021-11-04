@@ -8,7 +8,11 @@ package observador;
 public interface Observador {
     
     public enum Evento {
-        JUGADOR_AGREGADO
+        JUGADOR_AGREGADO,
+        JUGADOR_ELIMINADO,
+        MANO_FINALIZADA,
+        APUESTA_PEDIDA;
+        
     }
  
     public void notificar(Observable source, Object event);

@@ -6,6 +6,7 @@
 package logica;
 
 import excepciones.ManoException;
+import observador.Observador;
 
 /**
  *
@@ -35,11 +36,15 @@ public class EstadoManoEnJuego implements EstadoMano {
 
     @Override
     public void finalizarMano(Mano mano) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //Todos pasaron, por lo que hay que pasar la apuesta de la mano a la próxma partida. 
-        //How? Idk Cómo se entera la partida que la mano ya terminó? Observable?
+        mano.notificar(Observador.Evento.MANO_FINALIZADA);
+
         //TODO: Método de finalizar mano pasada
        
+    }
+
+    @Override
+    public void recibirMatchApuesta(JugadorPartida jugador, Mano mano) throws ManoException {
+        throw new ManoException("No hay apuestas que matchear");
     }
 
 }
