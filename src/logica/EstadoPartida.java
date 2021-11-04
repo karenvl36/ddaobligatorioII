@@ -7,16 +7,12 @@ package logica;
 
 /**
  *
- * @author Karen
+ * @author chiqu
  */
-public class EstadoManoJugador {
+public abstract class EstadoPartida {
+    private String estado;
     
-    public enum Estado{
-        PASO,
-        APOSTO,
-        NO_JUGO,
-        FOLD;
-        
-    }
+    public abstract JugadorPartida agregar();
+           
     
 }

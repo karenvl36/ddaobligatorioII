@@ -22,6 +22,7 @@ public class Partida extends Observable {
     private List<JugadorPartida> jugadores = new ArrayList();
     private Settings settings;
     private Mano manoActual;
+    private EstadoPartida estado;
 
     public Partida() {
         settings = Settings.getInstancia();
@@ -35,11 +36,12 @@ public class Partida extends Observable {
         this.fechaInicio = new Date();
     }
 
-    public Partida agregar(JugadorPartida player) {
-        if (faltanJugadores() != 0 && !jugadorYaEnPartida(player) && saldoSuficiente(player)) {
-            this.jugadores.add(player);
+    public JugadorPartida agregar(UsuarioJugador usuarioJ) {
+         JugadorPartida jp = new JugadorPartida(usuarioJ);
+        if (faltanJugadores() != 0 && !jugadorYaEnPartida(jp) && saldoSuficiente(jp)) {
+            this.jugadores.add(jp);
             this.notificar(Observador.Evento.JUGADOR_AGREGADO);
-            return comprobarInicio();
+            return jp;
             //TODO: throw la exception que venga de jugadorYaEnPartida?
             //TODO: throw exception de saldo insuficiente
         }
