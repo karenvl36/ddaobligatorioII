@@ -14,11 +14,18 @@ public class Carta {
     private int numero;
     private Palo palo;
     private String imagen;
+    private String nombre;
+
+    @Override
+    public String toString() {
+        return "Carta{" + "numero=" + numero + ", palo=" + palo + ", imagen=" + imagen + ", nombre=" + nombre + '}';
+    }
 
     public Carta(int numero, Palo palo, String imagen) {
         this.numero = numero;
         this.palo = palo;
         this.imagen = imagen;
+     
     }
 
     public int getNumero() {

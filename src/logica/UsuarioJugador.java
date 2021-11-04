@@ -32,6 +32,10 @@ public class UsuarioJugador extends UsuarioGenerico{
         this.setSaldo(saldo - apuesta);
         
     }
+
+    public void sumarSaldo(int valor) {
+       this.setSaldo(saldo + valor);
+    }
     
     
 }

@@ -44,6 +44,16 @@ public class DatosPrueba {
         su.agregar(aurelio);
         //Definiendo Partida
         
+        //int numero, Palo palo, String imagen, String nombre
+        for(int p= 1; p<=4; p++){
+            for(int n=2; n<=13; n++){
+                
+                Carta c = new Carta(n, new Palo(p), n + "_"+p); 
+                 System.out.println(c);
+                
+            }
+        
+        }
         
     }
     

@@ -9,10 +9,10 @@ package logica;
  *
  * @author chiqu
  */
-public abstract class EstadoPartida {
-    private String estado;
+public interface  EstadoPartida {
+   
     
-    public abstract JugadorPartida agregar();
+    public abstract JugadorPartida agregar(UsuarioJugador jugador, Partida p);
            
     
 }

@@ -9,11 +9,15 @@ package logica;
  *
  * @author chiqu
  */
-public class EstadoPartidaFinalizada extends EstadoPartida {
+public class EstadoPartidaFinalizada implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar() {
+    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Exception: Esta partida está fnalizada
     }
+
+  
+   
     
 }

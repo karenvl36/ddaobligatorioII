@@ -21,7 +21,7 @@ public class ApuestaMano {
         setValor(valor);
     }
 
-    public int getApuestaMano() {
+    public int getValor() {
         return valor;
     }
 

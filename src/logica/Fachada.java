@@ -33,8 +33,8 @@ public class Fachada {
     }
     
     
-    public void unirJugadorPartida(UsuarioJugador j){
-         sp.unirJugadorPartida(j);
+    public JugadorPartida unirJugadorPartida(UsuarioJugador j){
+         return sp.unirJugadorPartida(j);
     }
     
     public Partida getPartidaSinIniciar(){
