@@ -7,12 +7,14 @@ package logica;
 
 import excepciones.ManoException;
 import java.util.List;
+import observador.Observable;
+import observador.Observador;
 
 /**
  *
  * @author chiqu
  */
-public class Mano {
+public class Mano extends Observable {
 
     private List<JugadorPartida> jugadoresActivos;
     private List<JugadorPartida> pasantes;
@@ -99,6 +101,8 @@ public class Mano {
             //TODO: Throw Exception que le llega del método anterior
         }
     }
+    
+     
 
     public void iniciarMano() {
 
@@ -112,9 +116,10 @@ public class Mano {
     }
 
     public void eliminar(JugadorPartida j) {
-
+        
+        this.pasantes.remove(j);
         this.jugadoresActivos.remove(j);
-
+       
     }
 
     public void sumarPozo(int apuesta) {
@@ -125,9 +130,18 @@ public class Mano {
 
 
     public void recibirApuesta(JugadorPartida unApostante, int monto) throws ManoException {
-        estado.recibirApuesta(unApostante, monto, this);
-        estado = new EstadoManoApostada();
-        pedirApuestas();
+        try{
+        
+            estado.recibirApuesta(unApostante, monto, this);
+            estado = new EstadoManoApostada();
+            pedirApuestas();
+        }catch(ManoException m){
+        
+                throw m;
+        }
+        
+        
+        
     }
     
     public void recibirPasar(JugadorPartida pasante) throws ManoException{
@@ -139,7 +153,8 @@ public class Mano {
     private void pedirApuestas() {
         for (JugadorPartida jp : jugadoresActivos) {
             if (!jp.equals(this.apuesta.getJugador())) {
-                //TODO: Notificar a los otros jugadores para que elijan match o no
+               jp.notificar(Observador.Evento.APUESTA_PEDIDA);//TODO: Notificar a los otros jugadores para que elijan match o no
+   
             }
         }
     }
@@ -147,9 +162,10 @@ public class Mano {
     private void recibirMatchApuesta(JugadorPartida j) throws ManoException{
         if(j.realizarApuesta(apuesta.getValor())){ //pasamos el valor de la apuesta en juego
             sumarPozo(apuesta.getValor());
-        
+            comprobarFinalizacion();
         }
         throw new ManoException("No tiene saldo suficiente para realizar esta apuesta.");
+        
     }
 
     //TODO: tip para hacerlo private y poder acceder desde Estado
@@ -184,6 +200,7 @@ public class Mano {
     public void declararGanador(JugadorPartida jugador) {
         setGanador(jugador);
         jugador.recibirGanancia(pozo);
+        this.setPozo(0);
     }
 }
 

@@ -5,11 +5,14 @@
  */
 package logica;
 
+import excepciones.JugadorException;
+import observador.Observable;
+
 /**
  *
  * @author chiqu
  */
-public class JugadorPartida {
+public class JugadorPartida extends Observable {
 
     private Partida partida;
     private UsuarioJugador jugador;
@@ -83,10 +86,10 @@ public class JugadorPartida {
     
     
     
-    public boolean saldoSuficiente(int valorAApostar){
+    public boolean saldoSuficiente(int valorAApostar) {
+    
         return valorAApostar <= jugador.getSaldo();
-        
-       //TODO: throw exception "saldo insuficiente"
+     
         
     }
     
