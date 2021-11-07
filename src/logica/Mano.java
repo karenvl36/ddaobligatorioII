@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.JugadorException;
 import excepciones.ManoException;
 import java.util.List;
 import observador.Observable;
@@ -92,14 +93,13 @@ public class Mano extends Observable {
     
     
 
-    public void agregar(JugadorPartida j, int luz) {
-        if (j.realizarApuesta(luz)) {
-
+    public void agregar(JugadorPartida j, int luz) throws JugadorException{
+            j.realizarApuesta(luz); //Si falla retorna una exception
             this.jugadoresActivos.add(j);  
             sumarPozo(luz);
             iniciarMano();
-            //TODO: Throw Exception que le llega del método anterior
-        }
+
+        
     }
     
      
@@ -129,21 +129,14 @@ public class Mano extends Observable {
     }
 
 
-    public void recibirApuesta(JugadorPartida unApostante, int monto) throws ManoException {
-        try{
+    public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
+       
         
             estado.recibirApuesta(unApostante, monto, this);
             estado = new EstadoManoApostada();
             pedirApuestas();
        
-        }catch(ManoException m){
-        
-                throw m;
-              
-        }
-        
-        
-        
+   
     }
     
     public void recibirPasar(JugadorPartida pasante) throws ManoException{
@@ -161,14 +154,13 @@ public class Mano extends Observable {
         }
     }
     
-    private void recibirMatchApuesta(JugadorPartida j) throws ManoException{
-        if(j.realizarApuesta(apuesta.getValor())){ //pasamos el valor de la apuesta en juego
-            sumarPozo(apuesta.getValor());
-            comprobarFinalizacion();
-        }
-        throw new ManoException("No tiene saldo suficiente para realizar esta apuesta.");
-        
-    }
+//    private void recibirMatchApuesta(JugadorPartida j) throws JugadorException{
+//        j.realizarApuesta(apuesta.getValor()); //pasamos el valor de la apuesta en juego
+//            sumarPozo(apuesta.getValor());
+//            comprobarFinalizacion();
+//    
+//        
+//    }
 
     //TODO: tip para hacerlo private y poder acceder desde Estado
     public void agregarPasante(JugadorPartida j) {

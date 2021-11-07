@@ -5,6 +5,9 @@
  */
 package logica;
 
+import excepciones.JugadorException;
+import excepciones.PartidaException;
+
 /**
  *
  * @author chiqu
@@ -33,7 +36,7 @@ public class Fachada {
     }
     
     
-    public JugadorPartida unirJugadorPartida(UsuarioJugador j){
+    public JugadorPartida unirJugadorPartida(UsuarioJugador j) throws PartidaException{
          return sp.unirJugadorPartida(j);
     }
     

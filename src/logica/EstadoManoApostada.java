@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.JugadorException;
 import excepciones.ManoException;
 import observador.Observador;
 
@@ -16,14 +17,14 @@ import observador.Observador;
 public class EstadoManoApostada implements EstadoMano {
 
     @Override
-    public void recibirApuesta(JugadorPartida jugador,int monto, Mano mano) throws ManoException{
+    public void recibirApuesta(JugadorPartida jugador,int monto, Mano mano) throws JugadorException{
      
-            throw new ManoException("No puedes apostar si alguien ya apostó");
+            throw new JugadorException("No puedes apostar si alguien ya apostó");
        
     }
 
     @Override
-    public void recibirPasar(JugadorPartida jugador, Mano mano) throws ManoException {
+    public void recibirPasar(JugadorPartida jugador, Mano mano) {
         mano.eliminar(jugador);
         
     }
@@ -42,13 +43,12 @@ public class EstadoManoApostada implements EstadoMano {
     }
 
     @Override
-    public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws ManoException {
+    public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
           
-        if(j.realizarApuesta(mano.getApuesta().getValor())){ //pasamos el valor de la apuesta en juego
+        j.realizarApuesta(mano.getApuesta().getValor());//pasamos el valor de la apuesta en juego
             mano.sumarPozo(mano.getApuesta().getValor());
             mano.comprobarFinalizacion();
-        }
-        throw new ManoException("No tiene saldo suficiente para realizar esta apuesta.");
+        
         
   
 
