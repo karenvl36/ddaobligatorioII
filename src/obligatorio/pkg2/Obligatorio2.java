@@ -5,7 +5,7 @@
  */
 package obligatorio.pkg2;
 
-import interfaz.MenuPrincipal;
+import interfaz.vistas.MenuPrincipal;
 import logica.DatosPrueba;
 
 /**

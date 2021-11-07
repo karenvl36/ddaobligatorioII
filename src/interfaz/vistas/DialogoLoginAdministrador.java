@@ -3,23 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package interfaz.vistas;
 
-import logica.Fachada;
+
+import interfaz.vistas.VistaLoginGeneral;
+import logica.Partida;
+import logica.UsuarioAdministrador;
 import logica.UsuarioGenerico;
-import logica.UsuarioJugador;
 
 /**
  *
  * @author chiqu
  */
-public class DialogoLoginJugador extends VistaLoginGeneral {
+public class DialogoLoginAdministrador extends VistaLoginGeneral {
+
+  
 
     /**
-     * Creates new form DialogoLoginJugador
+     * Creates new form DialogoLoginUsuario
      */
-    public DialogoLoginJugador(java.awt.Frame parent, boolean modal) {
-       
+    public DialogoLoginAdministrador(java.awt.Frame parent, boolean modal) {
+
         initComponents();
     }
 
@@ -49,21 +53,31 @@ public class DialogoLoginJugador extends VistaLoginGeneral {
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    protected UsuarioGenerico logIn(String name, String passwd) {
-        return Fachada.getInstancia().logInJugador(name, passwd);
+    public void logIn(String name, String passwd) {
+        this.controladorLogin.logInAdministrador(name, passwd);
+    
+
     }
-
-
+   //TODO: Q RECIBA UNA PARTIDA COMO PARAMETRO ESTÁ MAL. VER COMO SE HACE CORRECTAMENTE
+    @Override 
+    public void abrirFrame(Partida unaPartida,UsuarioGenerico usuario) {
+        new VistaAdministrador((UsuarioAdministrador) usuario).setVisible(true);
+    }
 
     @Override
-    protected void abrirFrame(UsuarioGenerico usuario) {
-        new VistaJugadorLobby((UsuarioJugador) usuario).setVisible(true);
+    public void abrirDialogo(UsuarioGenerico userGenerico) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+//    @Override
+//    public UsuarioGenerico metodoAuxiliar(UsuarioGenerico userG) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     /**
      * @param args the command line arguments
      */
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

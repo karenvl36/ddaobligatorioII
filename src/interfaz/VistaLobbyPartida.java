@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
-
-import excepciones.PartidaException;
+package interfaz;
 
 /**
  *
  * @author chiqu
  */
-public interface  EstadoPartida {
-   
+public interface VistaLobbyPartida {
     
-    public abstract JugadorPartida agregar(UsuarioJugador jugador, Partida p) throws PartidaException;
-           
+   
+    public void mostrarJugadoresFaltantes(int cantJugadoresFaltantes);
     
 }

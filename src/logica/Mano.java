@@ -135,9 +135,11 @@ public class Mano extends Observable {
             estado.recibirApuesta(unApostante, monto, this);
             estado = new EstadoManoApostada();
             pedirApuestas();
+       
         }catch(ManoException m){
         
                 throw m;
+              
         }
         
         

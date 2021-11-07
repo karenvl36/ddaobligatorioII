@@ -5,7 +5,7 @@
  */
 package logica;
 
-import excepciones.JugadorException;
+
 import observador.Observable;
 
 /**
@@ -14,7 +14,7 @@ import observador.Observable;
  */
 public class JugadorPartida extends Observable {
 
-    private Partida partida;
+   
     private UsuarioJugador jugador;
     private int saldoInicial;
     private int gananciaPartida;
@@ -23,14 +23,6 @@ public class JugadorPartida extends Observable {
 
     public JugadorPartida(UsuarioJugador j) {
         this.jugador = j;
-    }
-
-    public Partida getPartida() {
-        return partida;
-    }
-
-    public void setPartida(Partida partida) {
-        this.partida = partida;
     }
 
     public UsuarioJugador getJugador() {

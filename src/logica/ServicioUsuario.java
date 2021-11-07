@@ -18,8 +18,7 @@ public class ServicioUsuario {
     public List<UsuarioAdministrador> administradores;
     public List<UsuarioJugador> jugadores;
     public static ServicioUsuario instancia;
-    public List<Sesion> sesionesAdmin;
-    public List<Sesion> sesionesJugadores;
+
 
     public static ServicioUsuario getInstancia() {
 
@@ -33,8 +32,7 @@ public class ServicioUsuario {
         this.usuarios = new ArrayList<>();
         this.administradores = new ArrayList<>();
         this.jugadores = new ArrayList<>();
-        this.sesionesAdmin = new ArrayList<>();
-        this.sesionesJugadores = new ArrayList<>();
+   
     }
 
     // Agregar y Eliminar

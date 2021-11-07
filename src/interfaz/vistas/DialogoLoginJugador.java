@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package interfaz.vistas;
 
+import interfaz.vistas.VistaLoginGeneral;
+import interfaz.vistas.VistaJugadorLobby;
 import logica.Fachada;
-import logica.Sesion;
-import logica.UsuarioAdministrador;
+import logica.Partida;
 import logica.UsuarioGenerico;
+import logica.UsuarioJugador;
 
 /**
  *
  * @author chiqu
  */
-public class DialogoLoginAdministrador extends VistaLoginGeneral {
-
-    private Sesion estaSesion;
+public class DialogoLoginJugador extends VistaLoginGeneral {
 
     /**
-     * Creates new form DialogoLoginUsuario
+     * Creates new form DialogoLoginJugador
      */
-    public DialogoLoginAdministrador(java.awt.Frame parent, boolean modal) {
-
+    public DialogoLoginJugador(java.awt.Frame parent, boolean modal) {
+       
         initComponents();
     }
 
@@ -52,21 +52,31 @@ public class DialogoLoginAdministrador extends VistaLoginGeneral {
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    protected UsuarioGenerico logIn(String name, String passwd) {
-        return Fachada.getInstancia().logInAdmin(name, passwd);
-    
-
+    public void logIn(String name, String passwd) {
+         this.controladorLogin.logInJugador(name, passwd);
     }
 
+
+
     @Override
-    protected void abrirFrame(UsuarioGenerico usuario) {
-        new VistaAdministrador((UsuarioAdministrador) usuario).setVisible(true);
+    public void abrirDialogo(UsuarioGenerico userGenerico) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+//
+//    @Override
+//    public UsuarioGenerico metodoAuxiliar(UsuarioGenerico userG) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+    @Override
+    public void abrirFrame(Partida partida, UsuarioGenerico usuario) {
+           new VistaJugadorLobby(partida,(UsuarioJugador) usuario).setVisible(true);
     }
 
     /**
      * @param args the command line arguments
      */
-
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

@@ -3,23 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package interfaz.vistas;
 
+import interfaz.LoginVista;
+import interfaz.controladores.ControladorLogin;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import logica.Partida;
 import logica.UsuarioGenerico;
 
 /**
  *
  * @author chiqu
  */
-public abstract class VistaLoginGeneral extends javax.swing.JFrame {
+public abstract class VistaLoginGeneral extends javax.swing.JFrame implements LoginVista{
 
     /**
      * Creates new form LoginGeneral
      */
+    
+    ControladorLogin controladorLogin;
+    
     public VistaLoginGeneral() {
         initComponents();
+        this.controladorLogin = new ControladorLogin(this);
     }
 
     /**
@@ -149,16 +156,20 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame {
     private javax.swing.JTextField txtNickName;
     // End of variables declaration//GEN-END:variables
 
-    private void ingresar() {
+    public void ingresar() {
         String nick = txtNickName.getText();
         String pass = txtContraseña.getText();
-        UsuarioGenerico u = logIn(nick, pass);
-        if (u == null) {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta");
-        } else {
-            abrirFrame(u);
-            this.dispose();
-        }
+      
+//        if (u == null) {
+//            mostrarError();
+//        } else {
+//            abrirFrame(u);
+//            this.dispose();
+//        }
+    }
+    
+    public void mostrarError(String error){
+        JOptionPane.showMessageDialog(this, error);
     }
     
     public void keyPressed(KeyEvent e) {
@@ -167,8 +178,8 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame {
         }
     }
 
-    protected abstract UsuarioGenerico logIn(String name, String passwd);
+    public abstract void logIn(String name, String passwd);
 
-    protected abstract void abrirFrame(UsuarioGenerico usuario);
+    public abstract void abrirFrame(Partida partida,UsuarioGenerico usuario);
 
 }
