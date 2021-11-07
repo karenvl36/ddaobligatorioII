@@ -24,7 +24,7 @@ public class EstadoPartidaSinIniciar implements EstadoPartida {
         if (p.faltanJugadores() != 0) {
             p.jugadorYaEnPartida(jp);
             p.saldoSuficiente(jp);
-            p.guardarJugadorEnLista(jp);
+            p.guardarEnLista(jp);
             p.notificar(Observador.Evento.JUGADOR_AGREGADO);
             return jp;
         }

@@ -30,19 +30,6 @@ public class EstadoManoApostada implements EstadoMano {
     }
 
     @Override
-    public void finalizarMano(Mano mano) {
-        JugadorPartida ganador = null;
-        if(mano.getJugadoresActivos().size() == 1){
-            ganador = mano.getApuesta().getJugador();
-        }else{
-             //TODO; Revisar ganador
-
-        }
-         mano.declararGanador(ganador);
-         mano.notificar(Observador.Evento.MANO_FINALIZADA);
-    }
-
-    @Override
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
           
         j.realizarApuesta(mano.getApuesta().getValor());//pasamos el valor de la apuesta en juego
@@ -53,5 +40,22 @@ public class EstadoManoApostada implements EstadoMano {
   
 
     }
+    
+    
+    @Override
+   public JugadorPartida finalizarMano(Mano mano) {
+        JugadorPartida ganador = null;
+        if(mano.getJugadoresActivos().size() == 1){
+            ganador = mano.getApuesta().getJugador();
+        }else{
+             //TODO; Revisar ganador
+
+        }
+         mano.declararGanador(ganador);
+         mano.notificar(Observador.Evento.MANO_FINALIZADA);
+         
+         return ganador;
+    }
+
     
 }
