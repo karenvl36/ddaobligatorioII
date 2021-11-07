@@ -119,7 +119,6 @@ public class JugadorPartida extends Observable {
         saldoSuficiente(apuesta);
         restarSaldo(apuesta);
 
-        //TODO: throw Exception que le llega del método anterior
     }
 
 

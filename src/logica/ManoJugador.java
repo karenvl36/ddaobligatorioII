@@ -16,6 +16,7 @@ public class ManoJugador {
     ArrayList<Carta> cartas;
     Figura figura;
 
+    // <editor-fold defaultstate="collapsed" desc="Getters-Setters">
     public int getApuestaTurno() {
         return apuestaTurno;
     }
@@ -41,7 +42,7 @@ public class ManoJugador {
     }
 
 
-    
+    // </editor-fold>
     
     
 }

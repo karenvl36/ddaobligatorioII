@@ -13,7 +13,7 @@ import observador.Observador;
  *
  * @author chiqu
  */
-public class EstadoManoEnJuego implements EstadoMano {
+public class EstadoManoSinApuestas implements EstadoMano {
 
    @Override
     public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException {
@@ -34,10 +34,10 @@ public class EstadoManoEnJuego implements EstadoMano {
     }
 
     @Override
-    public void finalizarMano(Mano mano) {
+    public JugadorPartida finalizarMano(Mano mano) {
         mano.notificar(Observador.Evento.MANO_FINALIZADA);
-
-        //TODO: Método de finalizar mano pasada
+        return null;
+        //TODO: Si lo llama partida, no neceista notificar.
        
     }
 

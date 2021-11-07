@@ -19,7 +19,7 @@ public interface EstadoMano {
     
     public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException;
     public abstract void recibirPasar(JugadorPartida jugador, Mano mano);
-    public abstract void finalizarMano(Mano mano);
+    public JugadorPartida finalizarMano(Mano mano);
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException;
     
     
