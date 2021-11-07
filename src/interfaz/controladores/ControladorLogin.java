@@ -25,14 +25,16 @@ public class ControladorLogin {
     
     public void ingresar(String nick, String password) {
         
-      
-        loginVista.logIn(nick,password);
-      
-        if (u == null) {
-            loginVista.mostrarError("El usuario es incorrecto");
-        } else {
-            loginVista.abrirDialogo(u);
-        }
+
+        
+//      
+//        loginVista.logIn(nick,password);
+//      
+//        if (u == null) {
+//            loginVista.mostrarError("El usuario es incorrecto");
+//        } else {
+//            loginVista.abrirDialogo(u);
+//        }
     }
 
     public void logInJugador(String nick, String pass) {

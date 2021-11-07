@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.JugadorException;
 import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,35 +39,46 @@ public class Partida extends Observable implements Observador {
         this.fechaInicio = new Date();
     }
 
-    public JugadorPartida agregar(UsuarioJugador usuarioJ) {
-       // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
-         JugadorPartida jp = new JugadorPartida(usuarioJ);
-        if (faltanJugadores() != 0 && !jugadorYaEnPartida(jp) && saldoSuficiente(jp)) {
-            this.jugadores.add(jp);
-            this.notificar(Observador.Evento.JUGADOR_AGREGADO);
-            return jp;
-            //TODO: throw la exception que venga de jugadorYaEnPartida?
-            //TODO: throw exception de saldo insuficiente
-        }
-        return null;
+//    public JugadorPartida agregar(UsuarioJugador usuarioJ) throws PartidaException{
+//       // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
+//         JugadorPartida jp = new JugadorPartida(usuarioJ);
+//        if (faltanJugadores() != 0 && !jugadorYaEnPartida(jp) && saldoSuficiente(jp)) {
+//            this.jugadores.add(jp);
+//            this.notificar(Observador.Evento.JUGADOR_AGREGADO);
+//            return jp;
+//            //TODO: throw la exception que venga de jugadorYaEnPartida?
+//            //TODO: throw exception de saldo insuficiente
+//        }
+//        return null;
+//    }
+    
+    //Agregar con Exceptions    
+    public JugadorPartida agregar(UsuarioJugador usuarioJ) throws JugadorException, PartidaException {
+       return estado.agregar(usuarioJ, this);
+        
+        //TODO: throw la exception que venga de jugadorYaEnPartida?
+        //TODO: throw exception de saldo insuficiente
+
     }
 
     public void guardarJugadorEnLista(JugadorPartida player){
         this.jugadores.add(player);
     }
     
-    public boolean jugadorYaEnPartida(JugadorPartida player) throws PartidaException {
+    public void jugadorYaEnPartida(JugadorPartida player) throws PartidaException {
 
           for(JugadorPartida j: jugadores){
-              if(j.getJugador().equals(player.getJugador())) return true;
+              if(!j.getJugador().equals(player.getJugador())){
+                  throw new PartidaException("Ya se encuenta en espera en esta Partida.");
+              }
           }  
-          
-          return false;
+//          
+//          return false;
+            
     }
 
-    public boolean saldoSuficiente(JugadorPartida player) {
-         return player.saldoSuficiente(this.settings.getApuestaBase());
-//        return player.saldoSuficiente(300); //cambie esto para probar porque settings tira null exception
+    public void saldoSuficiente(JugadorPartida player) throws JugadorException {
+         player.saldoSuficiente(this.settings.getApuestaBase());
         //TODO: throw exception
     }
 
@@ -151,47 +163,52 @@ public class Partida extends Observable implements Observador {
 
     }
 
-    private void asignarJugadoresAMano() {
-      
-        
-        for (JugadorPartida j : jugadores) {
+    private void asignarJugadoresAMano() throws JugadorException {
 
-            if (saldoSuficiente(j)) {
+        for (JugadorPartida j : jugadores) {
+            try{
+
+                saldoSuficiente(j);
                 manoActual.agregar(j, getApuestaBase());
 
-            } else {
-                retirarJugador(j);
-               
-                
-                //TODO: throw la exception de saldo Insuficiente
+            }catch(JugadorException jp){
+                    retirarJugador(j);
+                    throw jp;
             }
-        }
 
+            //TODO: throw la exception de saldo Insuficiente
+        
     }
-    
-     private boolean asignarJugadoresAMano_Prueba() {
-        boolean noHayJugadores = false;
-        int i=0;
-        while(i<jugadores.size() && !noHayJugadores){
-            
-            if (saldoSuficiente(jugadores.get(i))) {
-                manoActual.agregar(jugadores.get(i), getApuestaBase());
 
-            } else {
+}
+    
+    private boolean asignarJugadoresAMano_Prueba() {
+        boolean noHayJugadores = false;
+        int i = 0;
+        while (i < jugadores.size() && !noHayJugadores) {
+            try {
+                saldoSuficiente(jugadores.get(i));
+                manoActual.agregar(jugadores.get(i), getApuestaBase());
+                i++;
+
+            } catch (JugadorException ex) {
                 retirarJugador(jugadores.get(i));
                 noHayJugadores = jugadoresInsuficientes();
-                
-                //TODO: throw la exception de saldo Insuficiente
-            }
-            i++;
-            
-            
-        
-        }
-        
-        return noHayJugadores;
+                throw ex;
 
-    }
+            } finally {
+                return noHayJugadores;
+
+            }
+
+            //TODO: throw la exception de saldo Insuficiente
+        }
+        return noHayJugadores;
+   }
+
+  
+
+
 
     public void retirarJugador(JugadorPartida j) {
         jugadores.remove(j);

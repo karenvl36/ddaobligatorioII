@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ServicioPartida {
         return this.partidaAIniciar;
     }
 
-    public JugadorPartida unirJugadorPartida(UsuarioJugador j) {
+    public JugadorPartida unirJugadorPartida(UsuarioJugador j) throws PartidaException {
         JugadorPartida jugadorRetorno = null;
         if (partidaAIniciar != null) {
             jugadorRetorno = partidaAIniciar.agregar(j);
