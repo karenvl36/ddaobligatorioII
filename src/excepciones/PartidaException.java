@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
-
-import excepciones.PartidaException;
+package excepciones;
 
 /**
  *
  * @author chiqu
  */
-public interface  EstadoPartida {
-   
+public class PartidaException extends Exception{
     
-    public abstract JugadorPartida agregar(UsuarioJugador jugador, Partida p) throws PartidaException ;
-           
+    
+      public PartidaException(String message){
+        super(message);
+    }
     
 }

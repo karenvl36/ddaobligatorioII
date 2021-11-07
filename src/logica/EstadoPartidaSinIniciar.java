@@ -5,7 +5,8 @@
  */
 package logica;
 
-import observador.Observador;
+import excepciones.PartidaException;
+
 
 /**
  *
@@ -14,7 +15,7 @@ import observador.Observador;
 public class EstadoPartidaSinIniciar implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) {
+    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) throws PartidaException  {
 //        JugadorPartida jp = new JugadorPartida(jugador);
 //        if (p.faltanJugadores() != 0 && !p.jugadorYaEnPartida(jp) && p.saldoSuficiente(jp)) {
 //            p.jugadores.add(jp);

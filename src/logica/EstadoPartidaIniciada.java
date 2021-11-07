@@ -5,6 +5,8 @@
  */
 package logica;
 
+import excepciones.PartidaException;
+
 /**
  *
  * @author chiqu
@@ -12,8 +14,8 @@ package logica;
 public class EstadoPartidaIniciada implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) throws PartidaException {
+        throw new PartidaException("La partida ya está iniciada");
         //Exception: no puede ingresar a una partida ya iniciada
     }
 

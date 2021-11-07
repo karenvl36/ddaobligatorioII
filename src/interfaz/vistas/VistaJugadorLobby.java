@@ -1,32 +1,27 @@
 
-package interfaz;
+package interfaz.vistas;
 
-import logica.Fachada;
+import interfaz.VistaLobbyPartida;
+import interfaz.controladores.ControladorPartida;
 import logica.JugadorPartida;
 import logica.Partida;
 import logica.UsuarioJugador;
-import observador.Observable;
-import observador.Observador;
 
 
 
 
-public class VistaJugadorLobby extends javax.swing.JFrame implements Observador {
+public class VistaJugadorLobby extends javax.swing.JFrame implements VistaLobbyPartida {
 
 private Partida estaPartidaNoIniciada;
 private UsuarioJugador jugador;
 private JugadorPartida jugadorP;
-
-    public VistaJugadorLobby(UsuarioJugador jugador) {
-        this.estaPartidaNoIniciada = Fachada.getInstancia().getPartidaSinIniciar();
-        this.jugador=jugador;
-        
-        estaPartidaNoIniciada.subscribir(this);
-        initFrame();
+private ControladorPartida cp;
+    public VistaJugadorLobby(Partida partidaLobby,UsuarioJugador jugador) {
         initComponents();
-        
-        
-        
+        this.estaPartidaNoIniciada = partidaLobby;
+        this.jugador=jugador;
+        //(VistaPartida view, VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player)
+        cp = new ControladorPartida(null,this,estaPartidaNoIniciada,jugadorP);
     }
 
 
@@ -66,8 +61,8 @@ private JugadorPartida jugadorP;
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       estaPartidaNoIniciada.desubscribir(this);
-       estaPartidaNoIniciada.retirarJugador(jugadorP);
+       cp.salir();
+       this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
    
@@ -77,21 +72,17 @@ private JugadorPartida jugadorP;
     private javax.swing.JLabel labelEsperandoJugadores;
     // End of variables declaration//GEN-END:variables
 
-       private void initFrame() {
-        jugadorP = Fachada.getInstancia().unirJugadorPartida(this.jugador); //Une jugador al lobby.
-        
-    }
-       
-          @Override
-    public void notificar(Observable source, Object event) {
-        if(event == Observador.Evento.JUGADOR_AGREGADO || event == Observador.Evento.JUGADOR_ELIMINADO){
-            cambiarTitulo();
-        }
+
+    
+    @Override
+    public void mostrarJugadoresFaltantes(int cantJugadoresFaltantes) {
+        labelEsperandoJugadores.setText("Faltan: " + cantJugadoresFaltantes);
+        this.setTitle("Esperando jugadores, faltan: " + cantJugadoresFaltantes);
     }
 
-    private void cambiarTitulo() {
-        //labelEsperandoJugadores.setText();
-        this.setTitle("Esperando jugadores, faltan: " + this.estaPartidaNoIniciada.faltanJugadores());
-    }
+ 
+
+
+
   
 }

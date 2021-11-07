@@ -72,7 +72,7 @@ public class Partida extends Observable implements Observador {
     public Partida comprobarInicio() {
         if (faltanJugadores() == 0) {
             iniciar();
-            
+            this.estado = new EstadoPartidaIniciada();
             return this;
         }
 
