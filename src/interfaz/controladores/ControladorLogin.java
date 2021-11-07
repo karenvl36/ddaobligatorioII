@@ -25,14 +25,14 @@ public class ControladorLogin {
     
     public void ingresar(String nick, String password) {
         
-        // Preguntar como se haria con polimorfismo
-//        loginVista.logIn(nick,password);
-//        loginVista.metodoAuxiliar(u);
-//        if (u == null) {
-//            loginVista.mostrarError("El usuario es incorrecto");
-//        } else {
-//            loginVista.abrirDialogo(u);
-//        }
+      
+        loginVista.logIn(nick,password);
+      
+        if (u == null) {
+            loginVista.mostrarError("El usuario es incorrecto");
+        } else {
+            loginVista.abrirDialogo(u);
+        }
     }
 
     public void logInJugador(String nick, String pass) {
@@ -41,7 +41,7 @@ public class ControladorLogin {
 
     public void logInAdministrador(String nick, String pass) {
         UsuarioAdministrador admin = (UsuarioAdministrador) Fachada.getInstancia().logInJugador(nick, pass);
-      //  loginVista.metodoAuxiliar(admin);
+ 
        
     }
     

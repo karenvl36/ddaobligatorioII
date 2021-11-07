@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +51,11 @@ public class Partida extends Observable implements Observador {
         return null;
     }
 
-    private boolean jugadorYaEnPartida(JugadorPartida player) {
+    public void guardarJugadorEnLista(JugadorPartida player){
+        this.jugadores.add(player);
+    }
+    
+    public boolean jugadorYaEnPartida(JugadorPartida player) throws PartidaException {
 
           for(JugadorPartida j: jugadores){
               if(j.getJugador().equals(player.getJugador())) return true;
@@ -59,7 +64,7 @@ public class Partida extends Observable implements Observador {
           return false;
     }
 
-    private boolean saldoSuficiente(JugadorPartida player) {
+    public boolean saldoSuficiente(JugadorPartida player) {
          return player.saldoSuficiente(this.settings.getApuestaBase());
 //        return player.saldoSuficiente(300); //cambie esto para probar porque settings tira null exception
         //TODO: throw exception
@@ -79,7 +84,7 @@ public class Partida extends Observable implements Observador {
         return null;
     }
 
-    public int faltanJugadores() {
+    public int faltanJugadores()  {
 
         return getCantMaximaJugadores() - cantidadJugadores();
     }
