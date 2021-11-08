@@ -60,6 +60,7 @@ public class ServicioPartida {
             if (jugadorRetorno != null && partidaAIniciar.comprobarInicio() != null) {
                     agregar(partidaAIniciar);
                     crearPartida();
+                   // throw new PartidaException("Wohoo la partida inicia");
 
             }
         }

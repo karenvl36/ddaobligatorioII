@@ -26,7 +26,7 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
     
     public VistaLoginGeneral() {
         initComponents();
-        this.controladorLogin = new ControladorLogin(this);
+      //  this.controladorLogin = new ControladorLogin(this);
     }
 
     /**
@@ -156,9 +156,11 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
     private javax.swing.JTextField txtNickName;
     // End of variables declaration//GEN-END:variables
 
+     @Override
     public void ingresar() {
         String nick = txtNickName.getText();
         String pass = txtContraseña.getText();
+        controladorLogin.ingresar(nick, pass);
       
 //        if (u == null) {
 //            mostrarError();
@@ -168,6 +170,7 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
 //        }
     }
     
+    @Override
     public void mostrarError(String error){
         JOptionPane.showMessageDialog(this, error);
     }
@@ -177,8 +180,9 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
             ingresar();
         }
     }
-
-    public abstract void logIn(String name, String passwd);
+    
+ 
+   // public abstract void logIn(String name, String passwd);
 
     public abstract void abrirFrame(Partida partida,UsuarioGenerico usuario);
 

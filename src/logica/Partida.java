@@ -63,11 +63,11 @@ public class Partida extends Observable implements Observador {
         return estado.agregar(usuarioJ, this);
     }
 
-    public Partida comprobarInicio() throws JugadorException {
-        if (faltanJugadores() == 0) {
-            iniciar();
-            this.estado = new EstadoPartidaIniciada();
-            return this;
+    public Partida comprobarInicio() throws JugadorException, PartidaException {
+        if (faltanJugadores() == 0) {   
+           iniciar();
+           this.estado = new EstadoPartidaIniciada();
+          return this;
         }
 
         return null;
@@ -156,7 +156,7 @@ public class Partida extends Observable implements Observador {
     public void jugadorYaEnPartida(JugadorPartida player) throws JugadorException {
 
         for (JugadorPartida j : jugadores) {
-            if (!j.getJugador().equals(player.getJugador())) {
+            if (j.getJugador().equals(player.getJugador())) {
                 throw new JugadorException("Ya se encuenta en espera en esta Partida.");
             }
         }
@@ -218,11 +218,16 @@ public class Partida extends Observable implements Observador {
 
    
     public void retirarJugador(JugadorPartida j) {
-        jugadores.remove(j);
-        if (manoActual != null) {
-            manoActual.eliminar(j);
+        if (jugadores.remove(j)) {
+            if (manoActual != null) {
+                manoActual.eliminar(j);
+            }
+            this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
+
+        }else{
+        
+           System.out.println("Nop");
         }
-        this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
 
     }
 
