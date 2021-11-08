@@ -41,8 +41,8 @@ public class ControladorPartida implements Observador {
     }
 
     public void salir() {
-        estaPartida.desubscribir(this);
         retirarJugador(this.player);
+        estaPartida.desubscribir(this); 
     }
 
     public void retirarJugador(JugadorPartida jp) {
