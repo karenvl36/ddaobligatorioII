@@ -23,7 +23,7 @@ private ControladorPartida cp;
         jugadorP = jugador;
         
         //(VistaPartida view, VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player)
-        cp = new ControladorPartida(null,this,estaPartidaNoIniciada,jugadorP);
+        cp = new ControladorPartida(this,estaPartidaNoIniciada,jugadorP);
     }
 
 
@@ -78,8 +78,18 @@ private ControladorPartida cp;
     
     @Override
     public void mostrarJugadoresFaltantes(int cantJugadoresFaltantes) {
-        labelEsperandoJugadores.setText("Faltan: " + cantJugadoresFaltantes);
+        labelEsperandoJugadores.setText(jugadorP.getJugador().getNick() + "Faltan: " + cantJugadoresFaltantes);
         this.setTitle("Esperando jugadores, faltan: " + cantJugadoresFaltantes);
+    }
+
+
+    @Override
+    public void abrirFrame(Partida p, JugadorPartida jp) {
+   
+        VistaMano vm = new VistaMano(p, jp);
+        vm.setVisible(true); 
+      //  this.dispose();
+       
     }
 
  

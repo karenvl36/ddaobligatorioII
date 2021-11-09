@@ -14,7 +14,7 @@ import excepciones.PartidaException;
 public class EstadoPartidaIniciada implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) throws PartidaException {
+    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException {
         throw new PartidaException("La partida ya está iniciada");
         //Exception: no puede ingresar a una partida ya iniciada
     }

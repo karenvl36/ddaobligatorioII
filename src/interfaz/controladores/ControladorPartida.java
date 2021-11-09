@@ -6,12 +6,13 @@
 package interfaz.controladores;
 
 import interfaz.VistaLobbyPartida;
-import interfaz.VistaPartida;
 import logica.Fachada;
 import logica.JugadorPartida;
 import logica.Partida;
 import observador.Observable;
 import observador.Observador;
+import interfaz.IVistaMano;
+import interfaz.vistas.VistaJugadorLobby;
 
 /**
  *
@@ -20,12 +21,12 @@ import observador.Observador;
 public class ControladorPartida implements Observador {
 
     private Partida estaPartida;
-    private VistaPartida vistaPartida;
+    private IVistaMano vistaMano;
     private VistaLobbyPartida vistaLobby;
     private JugadorPartida player;
 
-    public ControladorPartida(VistaPartida view, VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player) {
-        this.vistaPartida = view;
+    public ControladorPartida(VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player) {
+   
         this.estaPartida = unaPartida;
         this.player = player;
         this.vistaLobby = lobbyView;
@@ -33,11 +34,27 @@ public class ControladorPartida implements Observador {
         vistaLobby.mostrarJugadoresFaltantes(estaPartida.faltanJugadores());
 
     }
+    
+    public ControladorPartida(IVistaMano vistaMano, Partida unaPartida, JugadorPartida player){
+        this.vistaMano = vistaMano;
+        this.estaPartida = unaPartida;
+        this.player = player;
+        estaPartida.subscribir(this);
+    
+    }
 
     public void notificar(Observable source, Object event) {
+        
+        if (event == Observador.Evento.PARTIDA_INICIADA) {
+            //desuscribir? 
+            abrirFramePartida();
+        }
         if (event == Observador.Evento.JUGADOR_AGREGADO || event == Observador.Evento.JUGADOR_ELIMINADO) {
             this.vistaLobby.mostrarJugadoresFaltantes(estaPartida.faltanJugadores());
+
         }
+        
+
     }
 
     public void salir() {
@@ -52,5 +69,15 @@ public class ControladorPartida implements Observador {
     public void mostrarJugadoresFaltantes() {
         vistaLobby.mostrarJugadoresFaltantes(0);
     }
+    
+    public void abrirFramePartida(){  
+        vistaLobby.abrirFrame(estaPartida, player);
+    }
+
+    public void desuscribir() {
+       estaPartida.desubscribir(this);
+    }
+    
+    
 
 }
