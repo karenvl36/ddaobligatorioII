@@ -13,6 +13,12 @@ import java.util.List;
  */
 public class FiguraPar extends Figura {
 
+    public FiguraPar() {
+        this.setDescripcion("Par");
+        this.setPuntaje(5);
+    }
+
+    
     @Override
     public boolean esFigura(List<Carta> cartasEvaluar) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -23,9 +29,6 @@ public class FiguraPar extends Figura {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public int compareTo(Figura o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
     
 }

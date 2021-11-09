@@ -18,15 +18,13 @@ public class Carta {
     private Palo palo;
     private String imagen;
     private String nombre;
-  //  public Map<Integer,String> map = new HashMap();
+ 
     @Override
     public String toString() {
         return "Carta{" + "numero=" + numero + ", palo=" + palo + ", imagen=" + imagen + ", nombre=" + nombre + '}';
     }
     
-    /*Map<Integer, String> map = new HashMap<>();
-map.put(1, "Foo");
-map.put(2, "Bar");*/
+
 
     public Carta(int numero, Palo palo, String imagen) {
         this.numero = numero;

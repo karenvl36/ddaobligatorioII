@@ -33,7 +33,8 @@ public class CtrLoginJugador extends ControladorLogin {
     @Override
     protected void abrirFrame(UsuarioGenerico u) {   
         try{
-            Partida p = Fachada.getInstancia().getPartidaSinIniciar();
+            Partida p = Fachada.getInstancia().getPartidaSinIniciar();  
+            //JugadorPartida jp = new JugadorPartida(u);
             JugadorPartida jp = Fachada.getInstancia().unirJugadorPartida((UsuarioJugador)u);      
             loginVista.abrirFrame(p, u, jp);
             

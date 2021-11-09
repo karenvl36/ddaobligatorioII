@@ -13,9 +13,31 @@ import java.util.List;
  */
 public class FiguraColor extends Figura{
 
+    public FiguraColor() {
+        this.setDescripcion("Color");
+        this.setPuntaje(30);
+    }
+    
+    
+    
+
     @Override
     public boolean esFigura(List<Carta> cartasEvaluar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        for (int i = 0; i < cartasEvaluar.size(); i++) {
+            for (int j = 1; j < cartasEvaluar.size(); j++) {
+                if (!cartasEvaluar.get(i).getPalo().equals(cartasEvaluar.get(j).getPalo())) {
+
+                    return false;
+                }
+            }
+            this.setCartas(cartasEvaluar);
+            return true;
+           
+        }
+
+        return true;
+
     }
 
     @Override
@@ -23,9 +45,6 @@ public class FiguraColor extends Figura{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public int compareTo(Figura o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
     
 }
