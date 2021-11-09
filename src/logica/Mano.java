@@ -7,6 +7,7 @@ package logica;
 
 import excepciones.JugadorException;
 import excepciones.ManoException;
+import java.util.ArrayList;
 import java.util.List;
 import observador.Observable;
 import observador.Observador;
@@ -18,7 +19,7 @@ import observador.Observador;
 public class Mano extends Observable {
 
     private List<JugadorPartida> jugadoresActivos;
-    private List<JugadorPartida> pasantes;
+    private List<JugadorPartida> pasantes = new ArrayList<JugadorPartida>();
     private Mazo mazo;
     private int pozo;
     private ApuestaMano apuesta;   
@@ -34,6 +35,7 @@ public class Mano extends Observable {
     
     public Mano() {
         estado = new EstadoManoSinApuestas();
+        this.jugadoresActivos = new ArrayList<JugadorPartida>();
         this.mazo = new Mazo();
     }
     

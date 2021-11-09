@@ -17,13 +17,57 @@ public abstract class Figura implements Comparable<Figura>{
     private Palo palo;
     private Carta highCard;
     private List<Carta> cartas;
+    private int puntaje;
     
     
     public abstract boolean esFigura(List<Carta> cartasEvaluar);
     public abstract int desempatar(Figura f); 
 
     @Override
-    public abstract int compareTo(Figura o);
+    public int compareTo(Figura o){
+    
+        return 0;
+    };
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Palo getPalo() {
+        return palo;
+    }
+
+    public void setPalo(Palo palo) {
+        this.palo = palo;
+    }
+
+    public Carta getHighCard() {
+        return highCard;
+    }
+
+    public void setHighCard(Carta highCard) {
+        this.highCard = highCard;
+    }
+
+    public List<Carta> getCartas() {
+        return cartas;
+    }
+
+    public void setCartas(List<Carta> cartas) {
+        this.cartas = cartas;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
     
            
     

@@ -9,8 +9,8 @@ package interfaz;
  *
  * @author chiqu
  */
-public interface VistaPartida {
-    
+public interface IVistaMano {
+        
    
     
 }

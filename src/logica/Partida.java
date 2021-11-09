@@ -30,6 +30,7 @@ public class Partida extends Observable implements Observador {
     public Partida() {
         settings = Settings.getInstancia();
         estado = new EstadoPartidaSinIniciar();
+        manos = new ArrayList<Mano>();
     }
 
     
@@ -59,14 +60,18 @@ public class Partida extends Observable implements Observador {
            
 
     // <editor-fold defaultstate="collapsed" desc="Iniciación de Partida">
-    public JugadorPartida agregar(UsuarioJugador usuarioJ) throws JugadorException, PartidaException {
-        return estado.agregar(usuarioJ, this);
+    public Partida agregar(JugadorPartida jp) throws JugadorException, PartidaException {
+        if(estado.agregar(jp, this) != null){
+        
+            return comprobarInicio();
+        }
+        return null;
     }
 
     public Partida comprobarInicio() throws JugadorException, PartidaException {
         if (faltanJugadores() == 0) {   
            iniciar();
-           this.estado = new EstadoPartidaIniciada();
+           this.estado = new EstadoPartidaIniciada();        
           return this;
         }
 
@@ -78,9 +83,9 @@ public class Partida extends Observable implements Observador {
     }
 
     public void iniciar() throws JugadorException { //Tira la excepción si un jugador a unirse a la nueva mano no tiene saldo
-        estado = new EstadoPartidaIniciada();
         this.setFecha(new Date());
         guardarSaldoInicialJugadores();
+        this.notificar(Observador.Evento.PARTIDA_INICIADA);
         nuevaMano();
     }
 
@@ -103,10 +108,10 @@ public class Partida extends Observable implements Observador {
         agregar(mano);
         asignarJugadoresAMano();
 
-        manoActual.subscribir(this);
+      //  manoActual.subscribir(this);
         if (manoActual.iniciar()) {
-
-            //TODO: notificar que inició, para que la vista muestre las cargas y los botones de mano
+            //this.notificar(Observador.Evento.MANO_COMENZADA);
+             //this.notificar(Observador.Evento.PARTIDA_INICIADA);
         } else {
 
             finalizarMano();

@@ -16,17 +16,17 @@ import observador.Observador;
 public class EstadoPartidaSinIniciar implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar(UsuarioJugador usuarioJ, Partida p) throws PartidaException, JugadorException {
+    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException {
 
       // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
-        JugadorPartida jp = new JugadorPartida(usuarioJ);
+      //  JugadorPartida jp = new JugadorPartida(usuarioJ);
 
         if (p.faltanJugadores() != 0) {
             p.jugadorYaEnPartida(jp);
             p.saldoSuficiente(jp);
             p.guardarEnLista(jp);
             p.notificar(Observador.Evento.JUGADOR_AGREGADO);
-            return jp;
+            return p;
         }
         return null;
     }

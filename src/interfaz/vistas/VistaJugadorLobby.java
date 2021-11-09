@@ -3,6 +3,7 @@ package interfaz.vistas;
 
 import interfaz.VistaLobbyPartida;
 import interfaz.controladores.ControladorPartida;
+import interfaz.controladores.ControladorPartidaLobby;
 import logica.JugadorPartida;
 import logica.Partida;
 import logica.UsuarioJugador;
@@ -14,8 +15,8 @@ public class VistaJugadorLobby extends javax.swing.JFrame implements VistaLobbyP
 
 private Partida estaPartidaNoIniciada;
 private JugadorPartida jugadorP;
-private ControladorPartida cp;
-
+//private ControladorPartida cp;
+private ControladorPartidaLobby cp;
 
     public VistaJugadorLobby(Partida partidaLobby,JugadorPartida jugador) {
         initComponents();
@@ -23,7 +24,8 @@ private ControladorPartida cp;
         jugadorP = jugador;
         
         //(VistaPartida view, VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player)
-        cp = new ControladorPartida(null,this,estaPartidaNoIniciada,jugadorP);
+       // cp = new ControladorPartida(this,estaPartidaNoIniciada,jugadorP);
+        cp = new ControladorPartidaLobby(this,estaPartidaNoIniciada,jugadorP);
     }
 
 
@@ -78,8 +80,18 @@ private ControladorPartida cp;
     
     @Override
     public void mostrarJugadoresFaltantes(int cantJugadoresFaltantes) {
-        labelEsperandoJugadores.setText("Faltan: " + cantJugadoresFaltantes);
+        labelEsperandoJugadores.setText(jugadorP.getJugador().getNick() + "Faltan: " + cantJugadoresFaltantes);
         this.setTitle("Esperando jugadores, faltan: " + cantJugadoresFaltantes);
+    }
+
+
+    @Override
+    public void abrirFrame(Partida p, JugadorPartida jp) {
+   
+        VistaMano vm = new VistaMano(p, jp);
+        vm.setVisible(true); 
+         this.dispose();
+       
     }
 
  

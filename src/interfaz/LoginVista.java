@@ -19,6 +19,7 @@ public interface LoginVista {
     public void ingresar();
     public void mostrarError(String error);
     public void abrirFrame(Partida partida, UsuarioGenerico userGenerico, JugadorPartida jp);
+    public void abrirFramePartida(Partida p, JugadorPartida jp);
    // public void logIn(String nick,String pw);
    // public UsuarioGenerico metodoAuxiliar(UsuarioGenerico userG);
     

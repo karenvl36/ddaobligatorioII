@@ -53,18 +53,17 @@ public class ServicioPartida {
         return this.partidaAIniciar;
     }
 
-    public JugadorPartida unirJugadorPartida(UsuarioJugador j) throws PartidaException, JugadorException {
-        JugadorPartida jugadorRetorno = null;
-        if (partidaAIniciar != null) {
-            jugadorRetorno = partidaAIniciar.agregar(j);
-            if (jugadorRetorno != null && partidaAIniciar.comprobarInicio() != null) {
-                    agregar(partidaAIniciar);
+    public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException {
+      //  JugadorPartida jugadorRetorno = null;
+        Partida partida = partidaAIniciar;
+        if (partida != null) {
+           
+            if (partida.agregar(j) != null) {
+                    agregar(partida);
                     crearPartida();
-                   // throw new PartidaException("Wohoo la partida inicia");
-
             }
         }
-        return jugadorRetorno;
+        return partida;
 
     }
 

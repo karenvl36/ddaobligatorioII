@@ -12,18 +12,18 @@ import java.util.ArrayList;
  * @author Karen
  */
 public class ManoJugador {
-    int apuestaTurno;
+   // int apuestaTurno;
     ArrayList<Carta> cartas;
     Figura figura;
 
     // <editor-fold defaultstate="collapsed" desc="Getters-Setters">
-    public int getApuestaTurno() {
-        return apuestaTurno;
-    }
-
-    public void setApuestaTurno(int apuestaTurno) {
-        this.apuestaTurno = apuestaTurno;
-    }
+//    public int getApuestaTurno() {
+//        return apuestaTurno;
+//    }
+//
+//    public void setApuestaTurno(int apuestaTurno) {
+//        this.apuestaTurno = apuestaTurno;
+//    }
 
     public ArrayList<Carta> getCartas() {
         return cartas;
@@ -44,5 +44,21 @@ public class ManoJugador {
 
     // </editor-fold>
     
+    public void evaluar(){
+        Figura color = new FiguraColor();
+        Figura par = new FiguraPar();
+        Figura pierna = new FiguraPierna();
+        
+        if(color.esFigura(cartas)){
+            this.figura = color;
+     
+        }else if (pierna.esFigura(cartas)){
+            this.figura = pierna;
+        
+        }else if(par.esFigura(cartas)){
+            this.figura = par;
+        }
+    
+    }
     
 }

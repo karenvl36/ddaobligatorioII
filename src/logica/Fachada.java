@@ -36,7 +36,7 @@ public class Fachada {
     }
     
     
-    public JugadorPartida unirJugadorPartida(UsuarioJugador j) throws PartidaException, JugadorException{
+    public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException{
          return sp.unirJugadorPartida(j);
     }
     
