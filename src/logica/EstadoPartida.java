@@ -15,7 +15,7 @@ import excepciones.PartidaException;
 public interface  EstadoPartida {
    
     
-    public JugadorPartida agregar(UsuarioJugador usuarioJ, Partida p) throws PartidaException, JugadorException;
+    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException;
            
     
 }

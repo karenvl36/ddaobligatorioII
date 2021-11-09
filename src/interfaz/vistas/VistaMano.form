@@ -63,6 +63,8 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="test" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
@@ -74,7 +76,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="test" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       <Component id="lblFigura" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -98,9 +103,9 @@
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       <Component id="txtMontoApsotar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnApostar" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnPasar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPasar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="carta2" min="-2" max="-2" attributes="0"/>
@@ -299,6 +304,11 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Jugadores activos:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="test">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="TEst"/>
       </Properties>
     </Component>
   </SubComponents>
