@@ -61,8 +61,11 @@ public class Partida extends Observable implements Observador {
 
     // <editor-fold defaultstate="collapsed" desc="Iniciación de Partida">
     public Partida agregar(JugadorPartida jp) throws JugadorException, PartidaException {
-        estado.agregar(jp, this);
-        return comprobarInicio();
+        if(estado.agregar(jp, this) != null){
+        
+            return comprobarInicio();
+        }
+        return null;
     }
 
     public Partida comprobarInicio() throws JugadorException, PartidaException {
@@ -108,7 +111,7 @@ public class Partida extends Observable implements Observador {
       //  manoActual.subscribir(this);
         if (manoActual.iniciar()) {
             //this.notificar(Observador.Evento.MANO_COMENZADA);
-             this.notificar(Observador.Evento.PARTIDA_INICIADA);
+             //this.notificar(Observador.Evento.PARTIDA_INICIADA);
         } else {
 
             finalizarMano();

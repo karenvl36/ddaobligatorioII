@@ -35,8 +35,12 @@ public class CtrLoginJugador extends ControladorLogin {
         try{
           
             JugadorPartida jp = new JugadorPartida((UsuarioJugador)u);
-            Partida p = Fachada.getInstancia().unirJugadorPartida(jp);      
-            loginVista.abrirFrame(p, u, jp);
+            Partida p = Fachada.getInstancia().unirJugadorPartida(jp);        
+            if(p.faltanJugadores() == 0){
+               loginVista.abrirFramePartida(p, jp);
+            }else{
+               loginVista.abrirFrame(p, u, jp); //Este abre el lobby
+            }
             
         }catch(PartidaException pe ){
         

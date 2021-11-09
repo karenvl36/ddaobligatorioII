@@ -74,6 +74,11 @@ public class DialogoLoginAdministrador extends VistaLoginGeneral {
        new VistaAdministrador((UsuarioAdministrador) usuario).setVisible(true);
         this.dispose();
     }
+
+    @Override
+    public void abrirFramePartida(Partida p, JugadorPartida jp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 

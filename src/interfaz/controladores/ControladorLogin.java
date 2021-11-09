@@ -32,9 +32,7 @@ public abstract class ControladorLogin {
             loginVista.mostrarError("El usuario es incorrecto");
         } else {
             this.abrirFrame(u);
-       //     Partida nueva = new Partida();
-       
-         
+ 
         }
     }
 

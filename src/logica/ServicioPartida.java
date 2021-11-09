@@ -61,8 +61,6 @@ public class ServicioPartida {
             if (partida.agregar(j) != null) {
                     agregar(partida);
                     crearPartida();
-                   // throw new PartidaException("Wohoo la partida inicia");
-
             }
         }
         return partida;
