@@ -49,6 +49,7 @@ public class DatosPrueba {
             for(int n=2; n<=13; n++){
                 
                 Carta c = new Carta(n, new Palo(p), n + "_"+p); 
+          
                  System.out.println(c);
                 
             }

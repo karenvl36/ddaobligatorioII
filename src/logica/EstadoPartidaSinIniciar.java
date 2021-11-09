@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.JugadorException;
 import excepciones.PartidaException;
 import observador.Observador;
 
@@ -15,16 +16,17 @@ import observador.Observador;
 public class EstadoPartidaSinIniciar implements EstadoPartida {
 
     @Override
-    public JugadorPartida agregar(UsuarioJugador jugador, Partida p) throws PartidaException {
+    public JugadorPartida agregar(UsuarioJugador usuarioJ, Partida p) throws PartidaException, JugadorException {
 
-        JugadorPartida jp = new JugadorPartida(jugador);
-        if (p.faltanJugadores() != 0 && !p.jugadorYaEnPartida(jp) && p.saldoSuficiente(jp)) {
-            p.guardarJugadorEnLista(jp);
+      // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
+        JugadorPartida jp = new JugadorPartida(usuarioJ);
+
+        if (p.faltanJugadores() != 0) {
+            p.jugadorYaEnPartida(jp);
+            p.saldoSuficiente(jp);
+            p.guardarEnLista(jp);
             p.notificar(Observador.Evento.JUGADOR_AGREGADO);
             return jp;
-
-            //TODO: throw la exception que venga de jugadorYaEnPartida?
-            //TODO: throw exception de saldo insuficiente
         }
         return null;
     }

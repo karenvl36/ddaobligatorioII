@@ -5,12 +5,26 @@
  */
 package logica;
 
+import java.util.List;
+
 /**
  *
  * @author chiqu
  */
-public abstract class Figura {
+public abstract class Figura implements Comparable<Figura>{
     
-    public String palo;
+    private String descripcion;
+    private Palo palo;
+    private Carta highCard;
+    private List<Carta> cartas;
+    
+    
+    public abstract boolean esFigura(List<Carta> cartasEvaluar);
+    public abstract int desempatar(Figura f); 
+
+    @Override
+    public abstract int compareTo(Figura o);
+    
+           
     
 }

@@ -13,13 +13,15 @@ import logica.UsuarioJugador;
 public class VistaJugadorLobby extends javax.swing.JFrame implements VistaLobbyPartida {
 
 private Partida estaPartidaNoIniciada;
-private UsuarioJugador jugador;
 private JugadorPartida jugadorP;
 private ControladorPartida cp;
-    public VistaJugadorLobby(Partida partidaLobby,UsuarioJugador jugador) {
+
+
+    public VistaJugadorLobby(Partida partidaLobby,JugadorPartida jugador) {
         initComponents();
         this.estaPartidaNoIniciada = partidaLobby;
-        this.jugador=jugador;
+        jugadorP = jugador;
+        
         //(VistaPartida view, VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player)
         cp = new ControladorPartida(null,this,estaPartidaNoIniciada,jugadorP);
     }

@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.JugadorException;
 import excepciones.ManoException;
 import java.util.List;
 import observador.Observable;
@@ -24,17 +25,20 @@ public class Mano extends Observable {
     private JugadorPartida ganador;
     private EstadoMano estado;
 
-    public Mano(List<JugadorPartida> players, Mazo mazo, int pozo) {
-        this.jugadoresActivos = players;
-        this.mazo = mazo;
-        this.pozo = pozo;
-    }
-
+//    public Mano(List<JugadorPartida> players, Mazo mazo, int pozo) {
+//        estado = new EstadoManoSinApuestas();
+//        this.jugadoresActivos = players;
+//        this.mazo = mazo;
+//        this.pozo = pozo;
+//    }
+    
     public Mano() {
-        estado = new EstadoManoEnJuego();
+        estado = new EstadoManoSinApuestas();
         this.mazo = new Mazo();
     }
-
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="Getter-Setters">
     public Mazo getMazo() {
         return mazo;
     }
@@ -54,7 +58,8 @@ public class Mano extends Observable {
     public void setApuesta(ApuestaMano apuesta) {
         this.apuesta = apuesta;
     }
-    public ApuestaMano getApuesta(){
+
+    public ApuestaMano getApuesta() {
         return this.apuesta;
     }
 
@@ -65,7 +70,7 @@ public class Mano extends Observable {
     public void setJugadoresActivos(List<JugadorPartida> jugadoresActivos) {
         this.jugadoresActivos = jugadoresActivos;
     }
-    
+
     public List<JugadorPartida> getPasantes() {
         return pasantes;
     }
@@ -89,37 +94,42 @@ public class Mano extends Observable {
     public void setEstado(EstadoMano estado) {
         this.estado = estado;
     }
+    // </editor-fold>
+
+ 
+
+   
     
     
 
-    public void agregar(JugadorPartida j, int luz) {
-        if (j.realizarApuesta(luz)) {
-
-            this.jugadoresActivos.add(j);  
-            sumarPozo(luz);
-            iniciarMano();
-            //TODO: Throw Exception que le llega del método anterior
-        }
-    }
-    
-     
-
-    public void iniciarMano() {
-
-        mazo.barajar();
-        for (JugadorPartida j : jugadoresActivos) {
-            ManoJugador mj = new ManoJugador();
-            mj.setCartas(mazo.repartir());
-            j.setManoJugador(mj);
-        }
+    // <editor-fold defaultstate="collapsed" desc="IniciarMano">
+    public void agregar(JugadorPartida j, int luz) throws JugadorException {
+        j.realizarApuesta(luz); //Si falla retorna una exception
+        this.jugadoresActivos.add(j);
+        sumarPozo(luz);
 
     }
+
+    public boolean iniciar() {
+        if (!jugadoresInsuficientes()) {
+            mazo.barajar();
+            for (JugadorPartida j : jugadoresActivos) {
+                ManoJugador mj = new ManoJugador();
+                mj.setCartas(mazo.repartir());
+                j.setManoJugador(mj);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    //TODO: Falta algo que le avise a la vista para que muestre las cartas al jugador
 
     public void eliminar(JugadorPartida j) {
-        
+
         this.pasantes.remove(j);
         this.jugadoresActivos.remove(j);
-       
+
     }
 
     public void sumarPozo(int apuesta) {
@@ -127,47 +137,30 @@ public class Mano extends Observable {
         this.setPozo(pozo + apuesta);
 
     }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="JugarMano">
+    public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
 
+        estado.recibirApuesta(unApostante, monto, this);
+        estado = new EstadoManoApostada();
+        pedirApuestas();
 
-    public void recibirApuesta(JugadorPartida unApostante, int monto) throws ManoException {
-        try{
-        
-            estado.recibirApuesta(unApostante, monto, this);
-            estado = new EstadoManoApostada();
-            pedirApuestas();
-       
-        }catch(ManoException m){
-        
-                throw m;
-              
-        }
-        
-        
-        
     }
-    
-    public void recibirPasar(JugadorPartida pasante) throws ManoException{
-    
+
+    public void recibirPasar(JugadorPartida pasante) throws ManoException {
+
         estado.recibirPasar(pasante, this);
-        comprobarFinalizacion();
+        comprobarFinalizacion(); //TODO: Esto lo hace partida para saber que terminó??
     }
 
     private void pedirApuestas() {
         for (JugadorPartida jp : jugadoresActivos) {
             if (!jp.equals(this.apuesta.getJugador())) {
-               jp.notificar(Observador.Evento.APUESTA_PEDIDA);//TODO: Notificar a los otros jugadores para que elijan match o no
-   
+                jp.notificar(Observador.Evento.APUESTA_PEDIDA);//TODO: Notificar a los otros jugadores para que elijan match o no
+
             }
         }
-    }
-    
-    private void recibirMatchApuesta(JugadorPartida j) throws ManoException{
-        if(j.realizarApuesta(apuesta.getValor())){ //pasamos el valor de la apuesta en juego
-            sumarPozo(apuesta.getValor());
-            comprobarFinalizacion();
-        }
-        throw new ManoException("No tiene saldo suficiente para realizar esta apuesta.");
-        
     }
 
     //TODO: tip para hacerlo private y poder acceder desde Estado
@@ -175,28 +168,40 @@ public class Mano extends Observable {
 
         pasantes.add(j);
     }
-
-
-
-    public void finalizarMano() {
-        estado.finalizarMano(this);
-        
-
-       // if(pasantes.size() == jugadoresActivos.size()) //no hay ganador y se pasa el pozo a la próxima mano. 
-       //   if(jugadoresActivos.size() == 1 )   es el ganador
-       //if(jugadoresACtivos.size() > 1 buscar ganador
-    }
-
-   
+    
     public void vaciarListaPasantes() {
         pasantes.clear();
     }
 
+    // </editor-fold>
+
+   
+ 
+    // <editor-fold defaultstate="collapsed" desc="FinalizarMano">
+    public JugadorPartida finalizarMano() {
+        return estado.finalizarMano(this);
+
+        // if(pasantes.size() == jugadoresActivos.size()) //no hay ganador y se pasa el pozo a la próxima mano. 
+        //   if(jugadoresActivos.size() == 1 )   es el ganador
+        //if(jugadoresACtivos.size() > 1 buscar ganador
+    }
+
+    
+    //TODO: Definir quién es responsable de esta parte: Mano o Partida?
     public void comprobarFinalizacion() {
-       if( pasantes.size() == jugadoresActivos.size() || jugadoresActivos.size() <= 1){
-       
-           finalizarMano();
-       }
+        if (pasantes.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
+
+            finalizarMano();
+        }
+    }
+    
+     public boolean manoFinalizada() {
+        if (pasantes.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
+
+            return true;
+        }
+        
+        return false;
     }
 
     public void declararGanador(JugadorPartida jugador) {
@@ -204,6 +209,29 @@ public class Mano extends Observable {
         jugador.recibirGanancia(pozo);
         this.setPozo(0);
     }
+    
+    public boolean jugadoresInsuficientes(){
+    
+        return jugadoresActivos.size() <= 1;
+    }
+    // </editor-fold>
+
+
+
+   
+
+
+      
+//    private void recibirMatchApuesta(JugadorPartida j) throws JugadorException{
+//        j.realizarApuesta(apuesta.getValor()); //pasamos el valor de la apuesta en juego
+//            sumarPozo(apuesta.getValor());
+//            comprobarFinalizacion();
+//    
+//        
+//    }
+
+
+
 }
 
 

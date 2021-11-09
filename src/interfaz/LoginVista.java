@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import logica.JugadorPartida;
+import logica.Partida;
 import logica.UsuarioGenerico;
 
 /**
@@ -16,8 +18,8 @@ public interface LoginVista {
     
     public void ingresar();
     public void mostrarError(String error);
-    public void abrirDialogo(UsuarioGenerico userGenerico);
-    public void logIn(String nick,String pw);
+    public void abrirFrame(Partida partida, UsuarioGenerico userGenerico, JugadorPartida jp);
+   // public void logIn(String nick,String pw);
    // public UsuarioGenerico metodoAuxiliar(UsuarioGenerico userG);
     
 }

@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.JugadorException;
 import excepciones.ManoException;
 
 
@@ -16,10 +17,10 @@ public interface EstadoMano {
     
    
     
-    public abstract void recibirApuesta(JugadorPartida jugador,int monto, Mano mano) throws ManoException;
-    public abstract void recibirPasar(JugadorPartida jugador, Mano mano) throws ManoException;
-    public abstract void finalizarMano(Mano mano);
-    public abstract void recibirMatchApuesta(JugadorPartida jugador, Mano mano) throws ManoException;
+    public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException;
+    public abstract void recibirPasar(JugadorPartida jugador, Mano mano);
+    public JugadorPartida finalizarMano(Mano mano);
+    public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException;
     
     
     

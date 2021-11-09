@@ -6,6 +6,7 @@
 package logica;
 
 
+import excepciones.JugadorException;
 import observador.Observable;
 
 /**
@@ -78,9 +79,12 @@ public class JugadorPartida extends Observable {
     
     
     
-    public boolean saldoSuficiente(int valorAApostar) {
+    public void saldoSuficiente(int valorAApostar) throws JugadorException {
     
-        return valorAApostar <= jugador.getSaldo();
+        if(!(valorAApostar <= jugador.getSaldo())){
+            throw new JugadorException("Su saldo es insuficiente.");
+        
+        }
      
         
     }
@@ -111,15 +115,10 @@ public class JugadorPartida extends Observable {
         
     }
     
-    public boolean realizarApuesta(int apuesta){
-        if(saldoSuficiente(apuesta)){
-       
-            restarSaldo(apuesta);
-            return true;
-        }
-        return false;
-        
-        //TODO: throw Exception que le llega del método anterior
+    public void realizarApuesta(int apuesta) throws JugadorException {
+        saldoSuficiente(apuesta);
+        restarSaldo(apuesta);
+
     }
 
 
