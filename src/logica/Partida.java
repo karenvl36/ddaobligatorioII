@@ -30,6 +30,7 @@ public class Partida extends Observable implements Observador {
     public Partida() {
         settings = Settings.getInstancia();
         estado = new EstadoPartidaSinIniciar();
+        manos = new ArrayList<Mano>();
     }
 
     
