@@ -22,8 +22,12 @@ public abstract class Observable {
 
     public void notificar(Object event) {
        // subscriptores.stream().forEach(observer -> {observer.notificar(this, event);});
-        for(Observador s: subscriptores){
-            s.notificar(this, event);
-        }
+//        for(Observador s: subscriptores){
+//            s.notificar(this, event);
+//        }
+
+            for(int i=0; i<subscriptores.size(); i++){
+                subscriptores.get(i).notificar(this, event);
+            }
     }
 }

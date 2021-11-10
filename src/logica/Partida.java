@@ -97,8 +97,8 @@ public class Partida extends Observable implements Observador {
     public void iniciar() throws JugadorException { //Tira la excepción si un jugador a unirse a la nueva mano no tiene saldo
         this.setFecha(new Date());
         guardarSaldoInicialJugadores();
-        this.notificar(Observador.Evento.PARTIDA_INICIADA);
         nuevaMano();
+        this.notificar(Observador.Evento.PARTIDA_INICIADA);
     }
 
     private void guardarSaldoInicialJugadores() {
@@ -116,6 +116,7 @@ public class Partida extends Observable implements Observador {
     private void nuevaMano() throws JugadorException {
 
         Mano mano = new Mano();
+       System.out.println("Llegó acá");
         manoActual = mano;
         agregar(mano);
         asignarJugadoresAMano();
@@ -185,14 +186,14 @@ public class Partida extends Observable implements Observador {
         player.saldoSuficiente(this.settings.getApuestaBase());
     }
 
-    private boolean verificarCantJugadores() {
-        return (getCantMaximaJugadores() - jugadores.size()) >= 1;
-
-    }
     
     public boolean jugadoresInsuficientes() {
         return jugadores.size() >= 1;
 
+    }
+    
+    public boolean ultimoJugadorEnUnirse(){
+        return faltanJugadores() == 0;
     }
 // </editor-fold>
 
@@ -218,6 +219,11 @@ public class Partida extends Observable implements Observador {
          JugadorPartida ganador = manoActual.finalizarMano();
          siguienteMano(ganador);
         
+    }
+    
+    public List<JugadorPartida> jugadoresManoActual(){
+    
+        return manoActual.getJugadoresActivos();
     }
 
     

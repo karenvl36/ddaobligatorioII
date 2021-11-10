@@ -7,6 +7,7 @@ package logica;
 
 
 import excepciones.JugadorException;
+import java.util.ArrayList;
 import observador.Observable;
 
 /**
@@ -119,6 +120,10 @@ public class JugadorPartida extends Observable {
         saldoSuficiente(apuesta);
         restarSaldo(apuesta);
 
+    }
+    
+    public ArrayList<Carta> getCartasManoJugador(){
+        return manoJugador.getCartas();
     }
 
 
