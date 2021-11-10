@@ -26,11 +26,12 @@ public class Carta implements Comparable {
     
 
 
-    public Carta(int numero, Palo palo, String imagen) {
+    public Carta(int numero, Palo palo, String imagen, String desc) {
         this.numero = numero;
         this.palo = palo;
         this.imagen = imagen;
-     
+        this.nombre = desc;
+        cambiarDesc();
     }
    
 
@@ -56,6 +57,33 @@ public class Carta implements Comparable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    
+    
+    private void cambiarDesc(){
+       switch (numero) {
+            case 14:
+                nombre = "As";
+                break;
+            case 13:
+                nombre = "K";
+                break;
+            case 12:
+                nombre = "Q";
+                break;
+            case 4:
+                nombre = "J";
+                break;
+        }
     }
 
     @Override

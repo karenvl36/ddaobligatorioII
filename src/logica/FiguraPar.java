@@ -7,6 +7,7 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class FiguraPar extends Figura {
 
     
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar) {
+    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
         ArrayList<Carta> temp = new ArrayList<>(cartasEvaluar);
         Collections.sort(temp);
         for(int i= 0; i<temp.size(); i++){
@@ -44,6 +45,9 @@ public class FiguraPar extends Figura {
     public int desempatar(Figura f) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
+
 
  
     

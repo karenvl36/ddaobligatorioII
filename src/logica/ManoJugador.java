@@ -6,6 +6,9 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  *
@@ -21,6 +24,28 @@ public class ManoJugador {
         evaluar();
     }
     
+//    public void hacerElMapa(){
+//    
+//        HashMap<Integer,Integer> mapa = new HashMap<Integer, Integer>();
+//        for(Carta c: cartas){
+//            if (mapa.containsKey(c.getNumero())){
+//               Integer remainder = mapa.get(c.getNumero());
+//               mapa.put(c.getNumero(), remainder +1);
+//            }
+//            else {
+//                mapa.put(c.getNumero(), 1);
+//            }
+//        }
+//        for(int key: mapa.keySet()){
+//            System.out.print(key);
+//            System.out.print(":");
+//            System.out.print(mapa.get(key));
+//            System.out.println("-----");
+//             
+//        }
+//    
+//    }
+   
     
     
 
@@ -52,27 +77,31 @@ public class ManoJugador {
 
     // </editor-fold>
     
-    public void evaluar(){
+    public void evaluar() {
         Figura color = new FiguraColor();
         Figura par = new FiguraPar();
         Figura pierna = new FiguraPierna();
         Figura highCard = new FiguraHighCard();
-        
-        if(color.esFigura(cartas)){
+       
+
+        if (color.esFigura(cartas, null)) {
             this.figura = color;
-     
-//        }else if (pierna.esFigura(cartas)){
-//            this.figura = pierna; //TODO: Agregar evaluacion de Pierna
-        
-        }else if(par.esFigura(cartas)){
+
+        } else if (par.esFigura(cartas, null)) {
+            
             this.figura = par;
-        }else if(highCard.esFigura(cartas)){
+            
+            pierna.setCartas(par.getCartas());
+            
+            if (pierna.esFigura(cartas, par.getCartas().get(0))) {
+                this.figura = pierna;
+            }
+            
+        } else if (highCard.esFigura(cartas, null)) {
             this.figura = highCard;
         }
-    
+
     }
-    
-    
-    //TODO: la mano tiene que definir qué figura tiene apenas se arma, para poder mostrar al jugador
-    
+
+   
 }
