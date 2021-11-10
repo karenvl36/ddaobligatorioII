@@ -38,7 +38,7 @@ public class EstadoManoSinApuestas implements EstadoMano {
     public JugadorPartida finalizarMano(Mano mano) {
         mano.notificar(Observador.Evento.MANO_FINALIZADA);
         return null;
-        //TODO: Si lo llama partida, no neceista notificar.
+        //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto
        
     }
 

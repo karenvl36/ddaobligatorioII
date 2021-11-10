@@ -15,14 +15,14 @@ import logica.Partida;
  */
 public interface IVistaMano {
         
-    public void mostrarCartas(String c1, String c2, String c3, String c4, String c5);
+    public void mostrarCartas(String c1, String c2, String c3, String c4, String c5, String Figura, String cartas);
     public void mostrarJugadoresActivos(List<String> jugadores);
     public void abrirDialogoApuesta(Partida p, JugadorPartida jp);
     public void pasar();
-    public void salirMano();
     public void init(String text);
     public void mostrarApuestaActiva(String jugador, int valor);
     public void pedirApuesta(String jugador, int valor);
+    public void mostrarError(String error);
    
     
 }

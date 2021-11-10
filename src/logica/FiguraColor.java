@@ -27,7 +27,8 @@ public class FiguraColor extends Figura{
         for (int i = 0; i < cartasEvaluar.size(); i++) {
             for (int j = 1; j < cartasEvaluar.size(); j++) {
                 if (!cartasEvaluar.get(i).getPalo().equals(cartasEvaluar.get(j).getPalo())) {
-
+                    this.setCartas(cartasEvaluar);
+                    this.setPalo(cartasEvaluar.get(i).getPalo());
                     return false;
                 }
             }
@@ -45,6 +46,12 @@ public class FiguraColor extends Figura{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getDescripcionCartas(){
+        return  "de " + getPalo().getDescripcion();
+         
+        
+    }
 
     
 }

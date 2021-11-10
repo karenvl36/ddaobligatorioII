@@ -5,6 +5,7 @@
  */
 package logica;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public abstract class Figura implements Comparable<Figura>{
     private String descripcion;
     private Palo palo;
     private Carta highCard;
-    private List<Carta> cartas;
+    private List<Carta> cartas = new ArrayList<Carta>();
     private int puntaje;
     
     
@@ -67,6 +68,20 @@ public abstract class Figura implements Comparable<Figura>{
 
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
+    }
+    
+    public void agregar(Carta c){
+        this.cartas.add(c);
+    }
+    
+    public String getDescripcionCartas(){
+        String ret = "";
+         for(Carta c: cartas){
+            ret += c.getNumero() + " de " + c.getPalo().getDescripcion() + " - ";
+        }
+         
+         return ret;
+        
     }
     
            
