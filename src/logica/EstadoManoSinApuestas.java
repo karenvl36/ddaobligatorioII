@@ -22,6 +22,7 @@ public class EstadoManoSinApuestas implements EstadoMano {
             mano.setApuesta(apuesta);
             mano.sumarPozo(monto);
             mano.vaciarListaPasantes();
+           
 
        
 

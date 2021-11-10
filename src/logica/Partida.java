@@ -63,6 +63,10 @@ public class Partida extends Observable implements Observador {
     public void setEstado(EstadoPartida estado) {
         this.estado = estado;
     }
+
+    public Mano getManoActual() {
+        return manoActual;
+    }
     
     
     
@@ -203,7 +207,8 @@ public class Partida extends Observable implements Observador {
     
      public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
          manoActual.recibirApuesta(unApostante, monto);
-         //TODO: Notifica partida?
+         notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
+       
          
     }
 
@@ -226,6 +231,9 @@ public class Partida extends Observable implements Observador {
         return manoActual.getJugadoresActivos();
     }
 
+    public ApuestaMano getApuestaActiva(){
+        return manoActual.getApuesta();        
+    }
     
 
     // </editor-fold>

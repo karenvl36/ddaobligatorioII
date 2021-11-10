@@ -5,6 +5,9 @@
  */
 package interfaz.vistas;
 
+import interfaz.IDialogoApuesta;
+import interfaz.controladores.ControladorPartida;
+import javax.swing.JOptionPane;
 import logica.JugadorPartida;
 import logica.Partida;
 
@@ -12,16 +15,18 @@ import logica.Partida;
  *
  * @author Karen
  */
-public class DialogoApostar extends javax.swing.JDialog {
+public class DialogoApostar extends javax.swing.JDialog implements IDialogoApuesta {
 
-    /**
-     * Creates new form DialogoApostar
-     */
+
     
+    ControladorPartida cp;
 
-    public DialogoApostar(java.awt.Frame parent, boolean modal, Partida p, JugadorPartida jp) {
+    public DialogoApostar(java.awt.Frame parent, boolean modal, ControladorPartida controlador) {
         super(parent, modal);
         initComponents();
+        cp = controlador;
+        
+        controlador.setDiApuesta(this);
 
         
     }
@@ -44,10 +49,13 @@ public class DialogoApostar extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnAceptar.setText("Apostar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
-
-        txtValorApuesta.setText("jTextField1");
 
         jLabel1.setText("Valor de la apuesta");
 
@@ -71,7 +79,7 @@ public class DialogoApostar extends javax.swing.JDialog {
                 .addGap(141, 141, 141)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtValorApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,6 +101,10 @@ public class DialogoApostar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        recibirApuesta();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -105,4 +117,28 @@ public class DialogoApostar extends javax.swing.JDialog {
     private javax.swing.JLabel txtSaldoActual;
     private javax.swing.JTextField txtValorApuesta;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarSaldo(int saldo) {
+       txtSaldoActual.setText("Saldo actual: " + saldo);
+    }
+
+    @Override
+    public void recibirApuesta() {
+        
+            //try catch para comprobar que sea un numero
+          int apuesta = Integer.parseInt(txtValorApuesta.getText());
+          cp.realizarApuesta(apuesta);
+         
+    }
+
+    @Override
+    public void mostrarError(String error) {
+        JOptionPane.showMessageDialog(this, error);
+    }
+
+    @Override
+    public void cerrarDialogo() {
+        this.dispose();
+    }
 }

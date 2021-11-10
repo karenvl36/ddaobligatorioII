@@ -21,6 +21,8 @@ public interface IVistaMano {
     public void pasar();
     public void salirMano();
     public void init(String text);
+    public void mostrarApuestaActiva(String jugador, int valor);
+    public void pedirApuesta(String jugador, int valor);
    
     
 }
