@@ -22,18 +22,9 @@ public class ControladorPartida implements Observador {
 
     private Partida estaPartida;
     private IVistaMano vistaMano;
-    private VistaLobbyPartida vistaLobby;
     private JugadorPartida player;
 
-    public ControladorPartida(VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player) {
-   
-        this.estaPartida = unaPartida;
-        this.player = player;
-        this.vistaLobby = lobbyView;
-        estaPartida.subscribir(this);
-        vistaLobby.mostrarJugadoresFaltantes(estaPartida.faltanJugadores());
 
-    }
     
     public ControladorPartida(IVistaMano vistaMano, Partida unaPartida, JugadorPartida player){
         this.vistaMano = vistaMano;
@@ -45,16 +36,8 @@ public class ControladorPartida implements Observador {
 
     public void notificar(Observable source, Object event) {
         
-        if (event == Observador.Evento.PARTIDA_INICIADA) {
-            estaPartida.desubscribir(this);
-            abrirFramePartida();         
-        }
-        if (event == Observador.Evento.JUGADOR_AGREGADO || event == Observador.Evento.JUGADOR_ELIMINADO) {
-            
-            if(vistaLobby!= null) this.vistaLobby.mostrarJugadoresFaltantes(estaPartida.faltanJugadores());
+   
 
-        }
-        
 
     }
 
@@ -71,12 +54,7 @@ public class ControladorPartida implements Observador {
 //        vistaLobby.mostrarJugadoresFaltantes(0);
 //    }
 //    
-    public void abrirFramePartida(){  
-       
-            vistaLobby.abrirFrame(estaPartida, player);
-   
-        
-    }
+  
 
     public void desuscribir() {
        estaPartida.desubscribir(this);
