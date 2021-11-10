@@ -56,6 +56,18 @@ public class Partida extends Observable implements Observador {
         this.fechaInicio = date;
     }
 
+    public EstadoPartida getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPartida estado) {
+        this.estado = estado;
+    }
+    
+    
+    
+    
+
     // </editor-fold>
            
 
@@ -69,7 +81,7 @@ public class Partida extends Observable implements Observador {
     }
 
     public Partida comprobarInicio() throws JugadorException, PartidaException {
-        if (faltanJugadores() == 0) {   
+        if (faltanJugadores() == 0) {        
            iniciar();
            this.estado = new EstadoPartidaIniciada();        
           return this;
@@ -110,7 +122,8 @@ public class Partida extends Observable implements Observador {
 
       //  manoActual.subscribir(this);
         if (manoActual.iniciar()) {
-            //this.notificar(Observador.Evento.MANO_COMENZADA);
+            
+            this.notificar(Observador.Evento.MANO_COMENZADA);
              //this.notificar(Observador.Evento.PARTIDA_INICIADA);
         } else {
 
@@ -212,16 +225,7 @@ public class Partida extends Observable implements Observador {
     // </editor-fold>
 
 
-
-
-
-
-
-
-
-
-
-   
+    // <editor-fold defaultstate="collapsed" desc="Finalizar">
     public void retirarJugador(JugadorPartida j) {
         if (jugadores.remove(j)) {
             if (manoActual != null) {
@@ -246,6 +250,7 @@ public class Partida extends Observable implements Observador {
             if(ganadorAnterior == null){
                 pozoAnterior = manoActual.getPozo(); 
             }
+            espera(5000); //TODO: Probar
             nuevaMano();
             manoActual.sumarPozo(pozoAnterior);
 
@@ -255,6 +260,15 @@ public class Partida extends Observable implements Observador {
         }
 
     }
+ // </editor-fold>
+
+
+
+
+
+
+   
+
 
   
     //TODO: Preguntar si la sigueinte mano tiene que iniciar automáticamente sin dar tiempo a salir del juuego antes de descontarle la luz
@@ -264,6 +278,12 @@ public class Partida extends Observable implements Observador {
             manoActual.desubscribir(this);
         }
 
+    }
+    
+        private static void espera(int i) {
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException ex) {}
     }
 
 }
@@ -306,3 +326,5 @@ public class Partida extends Observable implements Observador {
 //        }
 //        return noHayJugadores;
 //    }
+
+

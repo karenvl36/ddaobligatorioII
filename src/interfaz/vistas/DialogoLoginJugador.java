@@ -73,14 +73,13 @@ public class DialogoLoginJugador extends VistaLoginGeneral {
     @Override
     public void abrirFrame(Partida partida, UsuarioGenerico usuario, JugadorPartida jp) {
         new VistaJugadorLobby(partida, jp).setVisible(true);
+        
          this.dispose();
     }
     
       public void abrirFramePartida(Partida p, JugadorPartida jp) {
-   
-        VistaMano vm = new VistaMano(p, jp);
-        vm.setVisible(true); 
-        this.dispose();
+         new VistaMano(p, jp).setVisible(true);
+         this.dispose();
        
     }
 

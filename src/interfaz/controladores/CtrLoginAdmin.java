@@ -8,6 +8,7 @@ package interfaz.controladores;
 import interfaz.LoginVista;
 import logica.Fachada;
 import logica.UsuarioGenerico;
+import observador.Observable;
 
 /**
  *
@@ -29,5 +30,7 @@ public class CtrLoginAdmin extends ControladorLogin {
     protected void abrirFrame(UsuarioGenerico u) {
           loginVista.abrirFrame(null, u, null);
     }
+
+
     
 }

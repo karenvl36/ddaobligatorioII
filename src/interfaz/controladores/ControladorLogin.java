@@ -11,12 +11,13 @@ import logica.UsuarioAdministrador;
 import logica.UsuarioGenerico;
 
 import logica.UsuarioJugador;
+import observador.Observador;
 
 /**
  *
  * @author chiqu
  */
-public abstract class ControladorLogin {
+public abstract class ControladorLogin  {
     
     protected LoginVista loginVista;
 
