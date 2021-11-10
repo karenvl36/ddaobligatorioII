@@ -22,16 +22,14 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
      */
     
     ControladorPartida cp;
-    String rootPath = "/cartas/";
+    
     
     public VistaMano(Partida p, JugadorPartida jp) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         cp = new ControladorPartida(this, p, jp);
-        test.setText(p.getFecha().toString());
-       // mostrarCartas("1_1.gif");
-        
-       
+  
     }
 
     @SuppressWarnings("unchecked")
@@ -47,12 +45,12 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         jPanel1 = new javax.swing.JPanel();
         lblFigura = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        test = new javax.swing.JLabel();
         carta1 = new javax.swing.JLabel();
         carta3 = new javax.swing.JLabel();
         carta4 = new javax.swing.JLabel();
         carta5 = new javax.swing.JLabel();
         carta2 = new javax.swing.JLabel();
+        lbJugador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -89,11 +87,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         );
 
         lblFigura.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        lblFigura.setText("jLabel1");
+        lblFigura.setText("Figura");
 
         jLabel1.setText("Jugadores activos:");
-
-        test.setText("TEst");
 
         carta1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         carta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cartas/Invertida.gif"))); // NOI18N
@@ -111,14 +107,12 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         carta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cartas/Invertida.gif"))); // NOI18N
         carta2.setBorder(null);
 
+        lbJugador.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -136,31 +130,36 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtMontoApsotar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnApostar))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnPasar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(141, 141, 141)
+                                .addComponent(btnPasar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(carta3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(carta4)))
                         .addGap(18, 18, 18)
                         .addComponent(carta5)
-                        .addGap(77, 77, 77))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(test, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addComponent(lbJugador)
+                        .addGap(233, 233, 233)
                         .addComponent(btnSalir)
                         .addGap(51, 51, 51))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152)
+                .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,14 +171,13 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(test)
-                            .addComponent(btnSalir))))
-                .addGap(108, 108, 108)
+                            .addComponent(btnSalir)
+                            .addComponent(lbJugador))))
+                .addGap(26, 26, 26)
+                .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(carta2)
                     .addGroup(layout.createSequentialGroup()
@@ -209,8 +207,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       
-        this.dispose();
+     
+        salirMano();
     }//GEN-LAST:event_formWindowClosed
 
     
@@ -241,8 +239,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList lJugadoresEnPartida;
+    private javax.swing.JLabel lbJugador;
     private javax.swing.JLabel lblFigura;
-    private javax.swing.JLabel test;
     private javax.swing.JTextField txtMontoApsotar;
     // End of variables declaration//GEN-END:variables
 
@@ -271,5 +269,16 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     @Override
     public void pasar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void salirMano() {
+        cp.salir();
+        this.dispose();
+    }
+
+    @Override
+    public void init(String text) {
+       lbJugador.setText(text);
     }
 }
