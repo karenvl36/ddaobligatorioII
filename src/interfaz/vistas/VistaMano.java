@@ -27,9 +27,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public VistaMano(Partida p, JugadorPartida jp) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(this.getParent());
         cp = new ControladorPartida(this, p, jp);
-  
+
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +51,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         carta5 = new javax.swing.JLabel();
         carta2 = new javax.swing.JLabel();
         lbJugador = new javax.swing.JLabel();
+        txtApuestaActual = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -109,6 +110,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
         lbJugador.setText("jLabel2");
 
+        txtApuestaActual.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,11 +151,14 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                         .addGap(15, 15, 15)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 3, Short.MAX_VALUE)
-                        .addComponent(lbJugador)
-                        .addGap(233, 233, 233)
-                        .addComponent(btnSalir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtApuestaActual)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbJugador)
+                                .addGap(233, 233, 233)
+                                .addComponent(btnSalir)))
                         .addGap(51, 51, 51))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -174,7 +180,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSalir)
-                            .addComponent(lbJugador))))
+                            .addComponent(lbJugador))
+                        .addGap(27, 27, 27)
+                        .addComponent(txtApuestaActual)))
                 .addGap(26, 26, 26)
                 .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
@@ -203,7 +211,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
-        // TODO add your handling code here:
+        abrirDialogoApuesta(null, null);
+        
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -241,6 +250,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     private javax.swing.JList lJugadoresEnPartida;
     private javax.swing.JLabel lbJugador;
     private javax.swing.JLabel lblFigura;
+    private javax.swing.JLabel txtApuestaActual;
     private javax.swing.JTextField txtMontoApsotar;
     // End of variables declaration//GEN-END:variables
 
@@ -262,8 +272,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     @Override
     public void abrirDialogoApuesta(Partida p, JugadorPartida jp) {
         
-        DialogoApostar vista = new DialogoApostar(this, false, p, jp);
-        
+      //  DialogoApostar vista = new DialogoApostar(this, false, p, jp);
+        new DialogoApostar(this, false, cp).setVisible(true);
     }
 
     @Override
@@ -280,5 +290,15 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     @Override
     public void init(String text) {
        lbJugador.setText(text);
+    }
+
+    @Override
+    public void mostrarApuestaActiva(String jugador, int valor) {
+        txtApuestaActual.setText("Apuesta por $ " + valor + "realizada por " + jugador);
+    }
+
+    @Override
+    public void pedirApuesta(String jugador, int valor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

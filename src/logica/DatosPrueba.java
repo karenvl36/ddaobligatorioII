@@ -15,7 +15,7 @@ public class DatosPrueba {
  
         Settings settings = Settings.getInstancia(); 
         settings.setApuestaBase(300);
-        settings.setCantMaximaJugadores(4);
+        settings.setCantMaximaJugadores(2);
         
         
         ServicioUsuario su = ServicioUsuario.getInstancia();
@@ -32,7 +32,7 @@ public class DatosPrueba {
         UsuarioJugador diego = new UsuarioJugador("diego", "Diego Chiquiar" , "diego", 99000);
         UsuarioJugador karen = new UsuarioJugador("karen", "Karen Vonrotz" , "karen", 77000);
         UsuarioJugador hernan = new UsuarioJugador("hernan", "Hernan Rodriguez" , "hernan", 6000);
-        UsuarioJugador gonzalo = new UsuarioJugador("gonzalo", "Gonzalo Elias" , "gonzalo", 100);  //Este no deberia nunca poder entrar pq no tiene saldo suf para jugar
+        UsuarioJugador gonzalo = new UsuarioJugador("gonzalo", "Gonzalo Elias" , "gonzalo", 300);  //Este no deberia nunca poder entrar pq no tiene saldo suf para jugar
         UsuarioJugador lucia = new UsuarioJugador("lucia", "Lucia Paola" , "lucia", 22000);
         UsuarioJugador aurelio = new UsuarioJugador("aurelio", "Aurelion Sol" , "aurelio", 033); //Este tampoco deberia poder entrar nunca a la partida
         su.agregar(maria);
@@ -44,17 +44,17 @@ public class DatosPrueba {
         su.agregar(aurelio);
         //Definiendo Partida
         
-        //int numero, Palo palo, String imagen, String nombre
-        for(int p= 1; p<=4; p++){
-            for(int n=2; n<=13; n++){
-                
-                Carta c = new Carta(n, new Palo(p), n + "_"+p); 
-          
-                 System.out.println(c);
-                
-            }
-        
-        }
+//        //int numero, Palo palo, String imagen, String nombre
+//        for(int p= 1; p<=4; p++){
+//            for(int n=2; n<=13; n++){
+//                
+//                Carta c = new Carta(n, new Palo(p), n + "_"+p); 
+//          
+//                 System.out.println(c);
+//                
+//            }
+//        
+//        }
         
     }
     

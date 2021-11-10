@@ -27,7 +27,7 @@ public class ApuestaMano {
     }
 
     public void setValor(int apuestaMano) throws JugadorException {
-            validarApuesta(apuestaMano);
+           // validarApuesta(apuestaMano);
             this.valor = apuestaMano;
        
         
@@ -41,9 +41,13 @@ public class ApuestaMano {
         this.jugador = jugador;
     }
 
-    public void validarApuesta(int valorApuesta) throws JugadorException {
-        this.jugador.saldoSuficiente(valorApuesta);
-        
+//    public void validarApuesta(int valorApuesta) throws JugadorException {
+//        this.jugador.saldoSuficiente(valorApuesta);
+//        
+//    }
+    
+    public String getNickJugador(){
+        return this.jugador.getJugador().getNick();
     }
 
 }

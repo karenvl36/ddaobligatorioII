@@ -159,7 +159,7 @@ public class Mano extends Observable {
     private void pedirApuestas() {
         for (JugadorPartida jp : jugadoresActivos) {
             if (!jp.equals(this.apuesta.getJugador())) {
-                jp.notificar(Observador.Evento.APUESTA_PEDIDA);//TODO: Notificar a los otros jugadores para que elijan match o no
+                jp.notificar(Observador.Evento.APUESTA_RECIBIDA);//TODO: Notificar a los otros jugadores para que elijan match o no
 
             }
         }
