@@ -5,6 +5,7 @@
  */
 package logica;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,15 +22,31 @@ public class FiguraPierna extends Figura {
     
     
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
+       for(Carta c: cartasEvaluar){
+           if(!this.getCartas().contains(c)){
+              
+               if(c.getNumero() == ref.getNumero()){
+                    this.getCartas().add(c);
+                    return true;
+                    
+               }
+               
+           }
+       }
+       
+       return false;
     }
 
+ 
     @Override
     public int desempatar(Figura f) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
+
+    
 
     
 }

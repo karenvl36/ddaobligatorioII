@@ -6,6 +6,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,8 +22,9 @@ public abstract class Figura implements Comparable<Figura>{
     private int puntaje;
     
     
-    public abstract boolean esFigura(List<Carta> cartasEvaluar);
+    public abstract boolean esFigura(List<Carta> cartasEvaluar, Carta ref);
     public abstract int desempatar(Figura f); 
+ 
 
     @Override
     public int compareTo(Figura o){
@@ -77,7 +79,7 @@ public abstract class Figura implements Comparable<Figura>{
     public String getDescripcionCartas(){
         String ret = "";
          for(Carta c: cartas){
-            ret += c.getNumero() + " de " + c.getPalo().getDescripcion() + " - ";
+            ret += c.getNombre() + " de " + c.getPalo().getDescripcion() + " - ";
         }
          
          return ret;

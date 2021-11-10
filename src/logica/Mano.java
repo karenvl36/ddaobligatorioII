@@ -116,15 +116,23 @@ public class Mano extends Observable {
         if (!jugadoresInsuficientes()) {
             mazo.barajar();
             for (JugadorPartida j : jugadoresActivos) {
+              //  ArrayList<Carta> cartas = new ArrayList<Carta>();
+                //For testing
+//                cartas.add(new Carta(14, new Palo(1), 14 + "_"+1+".gif")); 
+//                cartas.add(new Carta(14, new Palo(2), 14 + "_"+2+".gif")); 
+//                cartas.add(new Carta(13, new Palo(3), 13 + "_"+3+".gif")); 
+//                cartas.add(new Carta(2, new Palo(1), 2 + "_"+1+".gif"));
+//                cartas.add(new Carta(4, new Palo(1), 4 + "_"+1+".gif"));
+//                 ManoJugador mj = new ManoJugador(cartas);
                 ManoJugador mj = new ManoJugador(mazo.repartir());
-                //mj.setCartas(mazo.repartir());
+
                 j.setManoJugador(mj);
             }
             return true;
         }
         return false;
     }
-    
+
    
 
     public void eliminar(JugadorPartida j) {

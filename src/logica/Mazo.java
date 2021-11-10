@@ -58,7 +58,7 @@ public class Mazo {
         for(int p= 1; p<=4; p++){
             for(int n=2; n<=14; n++){
                 
-                Carta c = new Carta(n, new Palo(p), n + "_"+p+".gif"); 
+                Carta c = new Carta(n, new Palo(p), n + "_"+p+".gif", ""+n); 
                 this.agregar(c);       
             }
         
