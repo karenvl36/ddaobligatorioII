@@ -16,6 +16,14 @@ public class ManoJugador {
     ArrayList<Carta> cartas;
     Figura figura;
 
+    public ManoJugador(ArrayList<Carta> cartas) {
+        this.cartas = cartas;
+        evaluar();
+    }
+    
+    
+    
+
     // <editor-fold defaultstate="collapsed" desc="Getters-Setters">
 //    public int getApuestaTurno() {
 //        return apuestaTurno;
@@ -48,17 +56,23 @@ public class ManoJugador {
         Figura color = new FiguraColor();
         Figura par = new FiguraPar();
         Figura pierna = new FiguraPierna();
+        Figura highCard = new FiguraHighCard();
         
         if(color.esFigura(cartas)){
             this.figura = color;
      
-        }else if (pierna.esFigura(cartas)){
-            this.figura = pierna;
+//        }else if (pierna.esFigura(cartas)){
+//            this.figura = pierna; //TODO: Agregar evaluacion de Pierna
         
         }else if(par.esFigura(cartas)){
             this.figura = par;
+        }else if(highCard.esFigura(cartas)){
+            this.figura = highCard;
         }
     
     }
+    
+    
+    //TODO: la mano tiene que definir qué figura tiene apenas se arma, para poder mostrar al jugador
     
 }

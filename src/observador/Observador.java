@@ -13,8 +13,11 @@ public interface Observador {
         PARTIDA_INICIADA,
         PARTIDA_FINALIZADA,
         APUESTA_RECIBIDA,
+        APUESTA_PEDIDA,
         MANO_COMENZADA,
+        JUGADOR_PASO,
         MANO_FINALIZADA;
+        
         
        
         

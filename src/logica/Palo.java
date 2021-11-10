@@ -23,6 +23,22 @@ public class Palo {
         return "Palo{" + "valor=" + valor + ", descripcion=" + descripcion + '}';
     }
 
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     private void definirDescripcion() {
         switch (valor) {
             case 1:

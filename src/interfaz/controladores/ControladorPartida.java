@@ -6,15 +6,17 @@
 package interfaz.controladores;
 
 import excepciones.JugadorException;
+import excepciones.ManoException;
+import excepciones.PartidaException;
 import interfaz.IDialogoApuesta;
-import interfaz.VistaLobbyPartida;
+
 import logica.Fachada;
 import logica.JugadorPartida;
 import logica.Partida;
 import observador.Observable;
 import observador.Observador;
 import interfaz.IVistaMano;
-import interfaz.vistas.VistaJugadorLobby;
+
 import java.util.ArrayList;
 import java.util.List;
 import logica.Carta;
@@ -37,6 +39,7 @@ public class ControladorPartida implements Observador {
         this.estaPartida = unaPartida;
         this.player = player;
         estaPartida.subscribir(this);
+        player.subscribir(this);
         init();
         
     }
@@ -73,8 +76,25 @@ public class ControladorPartida implements Observador {
         String c3 = rootPath + cartas.get(2).getImagen();
         String c4 = rootPath + cartas.get(3).getImagen();
         String c5 = rootPath + cartas.get(4).getImagen();
-        vistaMano.mostrarCartas(c1, c2, c3, c4, c5);
+        String figura = player.getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
+        String cartasFigura = player.getManoJugador().getFigura().getDescripcionCartas();
+        
+        
+        
+        vistaMano.mostrarCartas(c1, c2, c3, c4, c5, figura, cartasFigura);
+        
     }
+    
+    
+    private String getFigura(){
+    
+        String figura = player.getManoJugador().getFigura().getDescripcion()  + "</n>"; //TODO: un método más directo?
+        figura += player.getManoJugador().getFigura().getDescripcionCartas();
+        
+        return figura;
+    }
+    
+   
 
     // </editor-fold>
 
@@ -87,6 +107,20 @@ public class ControladorPartida implements Observador {
             
         }catch(JugadorException je){
             diaApuesta.mostrarError(je.getMessage());
+            
+        }
+    
+    }
+    
+    public void pasar(){
+        try{
+            estaPartida.recibirPasar(player);
+        
+        }catch(JugadorException je){
+        
+            vistaMano.mostrarError(je.getMessage());
+        }catch(ManoException pe){
+            vistaMano.mostrarError(pe.getMessage());
             
         }
     
@@ -111,6 +145,7 @@ public class ControladorPartida implements Observador {
 
     public void desuscribir() {
        estaPartida.desubscribir(this);
+       player.desubscribir(this);
     }
     
     
@@ -123,6 +158,7 @@ public class ControladorPartida implements Observador {
             this.mostrarJugadoresEnMano();
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
            mostrarApuestaActiva();
+        
         }
         
 
@@ -138,10 +174,9 @@ public class ControladorPartida implements Observador {
     }
     
     
-    public void test(){
+
     
-        estaPartida.notificar(this);
-    }
+
 
 }
 

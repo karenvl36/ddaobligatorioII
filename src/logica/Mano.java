@@ -116,8 +116,8 @@ public class Mano extends Observable {
         if (!jugadoresInsuficientes()) {
             mazo.barajar();
             for (JugadorPartida j : jugadoresActivos) {
-                ManoJugador mj = new ManoJugador();
-                mj.setCartas(mazo.repartir());
+                ManoJugador mj = new ManoJugador(mazo.repartir());
+                //mj.setCartas(mazo.repartir());
                 j.setManoJugador(mj);
             }
             return true;
@@ -125,7 +125,7 @@ public class Mano extends Observable {
         return false;
     }
     
-    //TODO: Falta algo que le avise a la vista para que muestre las cartas al jugador
+   
 
     public void eliminar(JugadorPartida j) {
 
@@ -153,13 +153,13 @@ public class Mano extends Observable {
     public void recibirPasar(JugadorPartida pasante) throws ManoException {
 
         estado.recibirPasar(pasante, this);
-        comprobarFinalizacion(); //TODO: Esto lo hace partida para saber que terminó??
+        comprobarFinalizacion(); 
     }
 
     private void pedirApuestas() {
         for (JugadorPartida jp : jugadoresActivos) {
             if (!jp.equals(this.apuesta.getJugador())) {
-                jp.notificar(Observador.Evento.APUESTA_RECIBIDA);//TODO: Notificar a los otros jugadores para que elijan match o no
+                jp.notificar(Observador.Evento.APUESTA_PEDIDA);
 
             }
         }

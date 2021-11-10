@@ -336,7 +336,7 @@ public class Partida extends Observable implements Observador {
 //
 //            }
 //
-//            //TODO: throw la exception de saldo Insuficiente
+//            
 //        }
 //        return noHayJugadores;
 //    }
