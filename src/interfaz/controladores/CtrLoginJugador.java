@@ -8,11 +8,14 @@ package interfaz.controladores;
 import excepciones.JugadorException;
 import excepciones.PartidaException;
 import interfaz.LoginVista;
+import logica.EstadoPartidaIniciada;
 import logica.Fachada;
 import logica.JugadorPartida;
 import logica.Partida;
 import logica.UsuarioGenerico;
 import logica.UsuarioJugador;
+import observador.Observable;
+import observador.Observador;
 
 /**
  *
@@ -20,6 +23,9 @@ import logica.UsuarioJugador;
  */
 public class CtrLoginJugador extends ControladorLogin {
     
+    
+    private JugadorPartida jp;
+    private Partida p;
     
      public CtrLoginJugador(LoginVista loginVista) {
           super(loginVista);
@@ -33,14 +39,21 @@ public class CtrLoginJugador extends ControladorLogin {
     @Override
     protected void abrirFrame(UsuarioGenerico u) {   
         try{
-          
+
             JugadorPartida jp = new JugadorPartida((UsuarioJugador)u);
-            Partida p = Fachada.getInstancia().unirJugadorPartida(jp);        
-            if(p.faltanJugadores() == 0){
+             Partida p = Fachada.getInstancia().unirJugadorPartida(jp);
+//             p.subscribir(this);
+//            this.jp = jp;
+//            this.p = p;
+           
+                
+            if(p.faltanJugadores() == 0){ //TODO: Esto está mal porquen no debería preguntar
                loginVista.abrirFramePartida(p, jp);
             }else{
                loginVista.abrirFrame(p, u, jp); //Este abre el lobby
             }
+               
+
             
         }catch(PartidaException pe ){
         
@@ -51,6 +64,8 @@ public class CtrLoginJugador extends ControladorLogin {
         }
        
     }
+
+
     
 
      
