@@ -5,12 +5,20 @@
  */
 package interfaz;
 
+import java.util.List;
+import logica.JugadorPartida;
+import logica.Partida;
+
 /**
  *
  * @author chiqu
  */
 public interface IVistaMano {
         
+    public void mostrarCartas(String c1, String c2, String c3, String c4, String c5);
+    public void mostrarJugadoresActivos(List<String> jugadores);
+   public void abrirDialogoApuesta(Partida p, JugadorPartida jp);
+    public void pasar();
    
     
 }
