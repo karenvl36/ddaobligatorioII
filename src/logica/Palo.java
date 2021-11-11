@@ -5,6 +5,8 @@
  */
 package logica;
 
+import java.util.Objects;
+
 /**
  *
  * @author Karen
@@ -56,6 +58,37 @@ public class Palo {
         }
 
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + this.valor;
+        hash = 29 * hash + Objects.hashCode(this.descripcion);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Palo other = (Palo) obj;
+        if (this.valor != other.valor) {
+            return false;
+        }
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     
 }

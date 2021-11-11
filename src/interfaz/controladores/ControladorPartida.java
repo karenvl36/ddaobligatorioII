@@ -51,10 +51,13 @@ public class ControladorPartida implements Observador {
 
     // <editor-fold defaultstate="collapsed" desc="Iniciar">
     public void init() {
-        mostrarJugadoresEnMano();
-        mostrarCartas();
-        vistaMano.init(player.getJugador().getNick());
-        vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
+         vistaMano.init(player.getJugador().getNick()); 
+        mostrarJugadoresEnMano(); 
+        mostrarCartas(); 
+
+        vistaMano.init(player.getJugador().getNick()); 
+
+        vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores."); 
 
     }
 

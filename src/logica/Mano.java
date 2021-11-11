@@ -194,20 +194,34 @@ public class Mano extends Observable {
  
     // <editor-fold defaultstate="collapsed" desc="FinalizarMano">
     
-    public JugadorPartida revisarGanador(){
-        JugadorPartida ganador = null;
-        ArrayList<ManoJugador> cartasJugadores = new ArrayList();
-        
-        for(JugadorPartida jp: jugadoresActivos){
-            //if(jp.getManoJugador().figura.compareTo(o))
-            cartasJugadores.add(jp.getManoJugador());
-        }
-        ArrayList<ManoJugador> temp = new ArrayList<>(cartasJugadores);
-        Collections.sort(temp);
-        System.out.println(temp.get(0).getFigura().getDescripcionCartas());
-        //TODO: Esto está mal. Tenemso que evaluar por JugadorPartida para saber quién es el dueño del set ganador
-        return ganador;
-    }
+//    public JugadorPartida revisarGanador(){
+//        JugadorPartida ganador = null;
+//        ArrayList<ManoJugador> cartasJugadores = new ArrayList();
+//        
+//        for(JugadorPartida jp: jugadoresActivos){
+//            //if(jp.getManoJugador().figura.compareTo(o))
+//            cartasJugadores.add(jp.getManoJugador());
+//        }
+//        ArrayList<ManoJugador> temp = new ArrayList<>(cartasJugadores);
+//        Collections.sort(temp);
+//        System.out.println(temp.get(0).getFigura().getDescripcionCartas());
+//        //TODO: Esto está mal. Tenemso que evaluar por JugadorPartida para saber quién es el dueño del set ganador
+//        return ganador;
+//    }
+    
+     public JugadorPartida revisarGanador(){ 
+          JugadorPartida ganador = jugadoresActivos.get(0); 
+          for(int i=1; i<jugadoresActivos.size(); i++){ 
+              JugadorPartida jp = jugadoresActivos.get(i); 
+              if(jp.getManoJugador().figura.compareTo(ganador.getManoJugador().figura) < 0){ 
+                  ganador = jp; 
+              }    
+          } 
+           
+          //System.out.println(ganador.getManoJugador().getFigura().getDescripcionCartas()); 
+    
+          return ganador; 
+      } 
     
     
     public JugadorPartida finalizarMano() {
@@ -244,7 +258,33 @@ public class Mano extends Observable {
 
 
 
-   
+   // <editor-fold defaultstate="collapsed" desc="Testing"> 
+   private void cartasParaTestear() { 
+ 
+        ArrayList<Carta> cartas = new ArrayList<Carta>(); 
+        //For testing 
+        cartas.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
+        cartas.add(new Carta(10, new Palo(4), 10 + "_" + 4 + ".gif", "10")); 
+        cartas.add(new Carta(13, new Palo(4), 13 + "_" + 4 + ".gif", "13")); 
+        cartas.add(new Carta(2, new Palo(4), 2 + "_" + 4 + ".gif", "2")); 
+        cartas.add(new Carta(4, new Palo(4), 4 + "_" + 4 + ".gif", "4")); 
+        ManoJugador mj = new ManoJugador(cartas); 
+ 
+        jugadoresActivos.get(0).setManoJugador(mj); 
+         
+         ArrayList<Carta> cartas2 = new ArrayList<Carta>(); 
+    
+        cartas2.add(new Carta(8, new Palo(2), 8 + "_" + 2 + ".gif", "8")); 
+        cartas2.add(new Carta(10, new Palo(2), 10 + "_" + 2 + ".gif", "10")); 
+        cartas2.add(new Carta(13, new Palo(2), 13 + "_" + 2 + ".gif", "13")); 
+        cartas2.add(new Carta(2, new Palo(2), 2 + "_" + 2 + ".gif", "2")); 
+        cartas2.add(new Carta(4, new Palo(2), 4 + "_" + 2 + ".gif", "4")); 
+        ManoJugador mj2 = new ManoJugador(cartas2); 
+ 
+        jugadoresActivos.get(1).setManoJugador(mj2); 
+ 
+    } 
+ // </editor-fold> 
 
 
       
