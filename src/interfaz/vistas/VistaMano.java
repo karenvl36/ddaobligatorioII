@@ -310,6 +310,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         btnPasar.setEnabled(false);
 //        cp.mostrarJugadoresEnMano(); //TODO: Sacar esto
     }
+    
+    
 
   
     public void abandonarPartida() {

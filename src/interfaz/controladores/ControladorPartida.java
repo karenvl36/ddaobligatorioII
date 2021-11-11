@@ -166,12 +166,14 @@ public class ControladorPartida implements Observador {
            mostrarApuestaActiva();
         
         }else if(event == Observador.Evento.MANO_FINALIZADA){
-          vistaMano.mostrarError("Se terminó la mano");
+          //vistaMano.mostrarError("Se terminó la mano");
+            vistaMano.mostrarMensaje("Mano finalizada. Siguiente mano comenzando...");
+            vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
           
         }else if(event == Observador.Evento.MANO_COMENZADA){
         
-            init();
-        }else if(event == Observador.Evento.JUGADOR_PASO || event == Observador.Evento.APUESTA_RECIBIDA){
+                init();
+        }else if(event == Observador.Evento.TURNO_JUGADO){
         
             vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         }
