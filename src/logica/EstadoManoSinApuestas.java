@@ -40,7 +40,7 @@ public class EstadoManoSinApuestas implements EstadoMano {
 
     @Override
     public JugadorPartida finalizarMano(Mano mano) {
-        mano.notificar(Observador.Evento.MANO_FINALIZADA);
+      //  mano.notificar(Observador.Evento.MANO_FINALIZADA);
                  //   mano.revisarGanador(); //Solo para test
         return null;
         //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto

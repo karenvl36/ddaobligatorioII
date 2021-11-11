@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import observador.Observable;
 import observador.Observador;
+import observador.ObservadorFines;
 
 /**
  *
@@ -205,8 +206,8 @@ public class Partida extends Observable implements Observador {
     
      public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
          manoActual.recibirApuesta(unApostante, monto);
-         //notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
-          notificar(Observador.Evento.TURNO_JUGADO);
+         notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
+        //  notificar(Observador.Evento.TURNO_JUGADO);
        
          
     }
@@ -279,7 +280,7 @@ public class Partida extends Observable implements Observador {
             if(ganadorAnterior == null){
                 pozoAnterior = manoActual.getPozo(); 
             }
-            espera(6000); //TODO: Probar
+            espera(5000); //TODO: Probar
             nuevaMano();
             manoActual.sumarPozo(pozoAnterior);
 
