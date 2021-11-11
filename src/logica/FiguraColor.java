@@ -29,11 +29,12 @@ public class FiguraColor extends Figura{
         for (int i = 0; i < cartasEvaluar.size(); i++) {
             for (int j = 1; j < cartasEvaluar.size(); j++) {
                 if (!cartasEvaluar.get(i).getPalo().equals(cartasEvaluar.get(j).getPalo())) {
-                    this.setCartas(cartasEvaluar);
-                    this.setPalo(cartasEvaluar.get(i).getPalo());
+                    
                     return false;
                 }
             }
+           
+            this.setPalo(cartasEvaluar.get(i).getPalo());
             this.setCartas(cartasEvaluar);
             return true;
            
@@ -42,6 +43,9 @@ public class FiguraColor extends Figura{
         return true;
 
     }
+    
+    
+    
 
     @Override
     public int desempatar(Figura f) {
@@ -50,7 +54,7 @@ public class FiguraColor extends Figura{
 
     @Override
     public String getDescripcionCartas(){
-        return  "de " + getPalo().getDescripcion();    
+        return  super.getDescripcion() + " de " + getPalo().getDescripcion();    
     }
 
 

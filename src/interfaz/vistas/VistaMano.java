@@ -319,7 +319,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void init(String text) {
-       lbJugador.setText(text);
+       btnApostar.setEnabled(true);
+        btnPasar.setEnabled(true);
+        lbJugador.setText(text);
     }
 
     @Override

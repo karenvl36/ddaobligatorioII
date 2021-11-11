@@ -70,6 +70,11 @@ public class JugadorPartida extends Observable {
     public int getSaldo(){
         return getJugador().getSaldo();
     }
+    
+    public int getGananciaNeta(){ 
+     
+        return this.gananciaPartida - this.apuestaPartida; 
+    } 
    
     
     public void guardarSaldoInicial(){

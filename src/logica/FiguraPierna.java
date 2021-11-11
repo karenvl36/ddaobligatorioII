@@ -23,19 +23,22 @@ public class FiguraPierna extends Figura {
     
     @Override
     public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
-       for(Carta c: cartasEvaluar){
-           if(!this.getCartas().contains(c)){
-              
-               if(c.getNumero() == ref.getNumero()){
+        if (cartasEvaluar.get(0) == cartasEvaluar.get(1) && cartasEvaluar.get(2) == cartasEvaluar.get(1)) {
+            return true; //Para el caso que la mano tenga un par y una pierna 
+        }
+        for (Carta c : cartasEvaluar) {
+            if (!this.getCartas().contains(c)) {
+
+                if (c.getNumero() == ref.getNumero()) {
                     this.getCartas().add(c);
                     return true;
-                    
-               }
-               
-           }
-       }
-       
-       return false;
+
+                }
+
+            }
+        }
+
+        return false;
     }
 
  
