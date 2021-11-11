@@ -161,13 +161,6 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
         String nick = txtNickName.getText();
         String pass = txtContraseña.getText();
         controladorLogin.ingresar(nick, pass);
-      
-//        if (u == null) {
-//            mostrarError();
-//        } else {
-//            abrirFrame(u);
-//            this.dispose();
-//        }
     }
     
     @Override

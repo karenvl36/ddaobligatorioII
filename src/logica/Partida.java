@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import observador.Observable;
 import observador.Observador;
+import observador.ObservadorFines;
 
 /**
  *
@@ -56,6 +57,22 @@ public class Partida extends Observable implements Observador {
         this.fechaInicio = date;
     }
 
+    public EstadoPartida getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPartida estado) {
+        this.estado = estado;
+    }
+
+    public Mano getManoActual() {
+        return manoActual;
+    }
+    
+    
+    
+    
+
     // </editor-fold>
            
 
@@ -69,7 +86,7 @@ public class Partida extends Observable implements Observador {
     }
 
     public Partida comprobarInicio() throws JugadorException, PartidaException {
-        if (faltanJugadores() == 0) {   
+        if (faltanJugadores() == 0) {        
            iniciar();
            this.estado = new EstadoPartidaIniciada();        
           return this;
@@ -85,8 +102,8 @@ public class Partida extends Observable implements Observador {
     public void iniciar() throws JugadorException { //Tira la excepción si un jugador a unirse a la nueva mano no tiene saldo
         this.setFecha(new Date());
         guardarSaldoInicialJugadores();
-        this.notificar(Observador.Evento.PARTIDA_INICIADA);
         nuevaMano();
+        this.notificar(Observador.Evento.PARTIDA_INICIADA);
     }
 
     private void guardarSaldoInicialJugadores() {
@@ -104,17 +121,19 @@ public class Partida extends Observable implements Observador {
     private void nuevaMano() throws JugadorException {
 
         Mano mano = new Mano();
+       System.out.println("Llegó acá");
         manoActual = mano;
         agregar(mano);
         asignarJugadoresAMano();
 
       //  manoActual.subscribir(this);
         if (manoActual.iniciar()) {
-            //this.notificar(Observador.Evento.MANO_COMENZADA);
+            
+            this.notificar(Observador.Evento.MANO_COMENZADA);
              //this.notificar(Observador.Evento.PARTIDA_INICIADA);
         } else {
 
-            finalizarMano();
+            comprobarFinalizarMano();
         }
 
         //TODO: else finalizarPartida???
@@ -143,8 +162,6 @@ public class Partida extends Observable implements Observador {
 
 
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="Validaciones">
     public int faltanJugadores() {
 
@@ -172,14 +189,14 @@ public class Partida extends Observable implements Observador {
         player.saldoSuficiente(this.settings.getApuestaBase());
     }
 
-    private boolean verificarCantJugadores() {
-        return (getCantMaximaJugadores() - jugadores.size()) >= 1;
+    
+    public boolean jugadoresInsuficientes() {
+        return jugadores.size() <= 1;
 
     }
     
-    public boolean jugadoresInsuficientes() {
-        return jugadores.size() >= 1;
-
+    public boolean ultimoJugadorEnUnirse(){
+        return faltanJugadores() == 0;
     }
 // </editor-fold>
 
@@ -189,50 +206,67 @@ public class Partida extends Observable implements Observador {
     
      public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
          manoActual.recibirApuesta(unApostante, monto);
-         //TODO: Notifica partida?
+         notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
+        //  notificar(Observador.Evento.TURNO_JUGADO);
+       
          
     }
 
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
           manoActual.recibirPasar(pasante);
-          if(manoActual.manoFinalizada()){
-             finalizarMano();
-          }
-
-    }
-
-    public void finalizarMano() throws JugadorException{
-         JugadorPartida ganador = manoActual.finalizarMano();
-         siguienteMano(ganador);
+          notificar(Observador.Evento.TURNO_JUGADO);
+          comprobarFinalizarMano();
         
+
+    }
+    
+    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
+        manoActual.recibirMatchApuesta(jugador);
+        notificar(Observador.Evento.TURNO_JUGADO);
     }
 
+    public void comprobarFinalizarMano() throws JugadorException {
+        if (manoActual.manoFinalizada()) {
+            notificar(Observador.Evento.MANO_FINALIZADA);
+            JugadorPartida ganador = manoActual.finalizarMano(); 
+            siguienteMano(ganador);
+        }
+
+    }
+    
+    public int faltanPasar(){
+       return manoActual.faltanPasar();
+    }
+    
+
+    
+    public List<JugadorPartida> jugadoresManoActual(){
+    
+        return manoActual.getJugadoresActivos();
+    }
+
+    public ApuestaMano getApuestaActiva(){
+        return manoActual.getApuesta();        
+    }
     
 
     // </editor-fold>
 
 
-
-
-
-
-
-
-
-
-
-   
-    public void retirarJugador(JugadorPartida j) {
+    // <editor-fold defaultstate="collapsed" desc="Finalizar">
+    public void retirarJugador(JugadorPartida j){
         if (jugadores.remove(j)) {
             if (manoActual != null) {
                 manoActual.eliminar(j);
+                if(jugadoresInsuficientes()){
+                   // throw new JugadorException("TNo hay más jugadores");
+                   //TODO: FinalizarPartida
+                }
+      
             }
             this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
 
-        }else{
-        
-           System.out.println("Nop");
-        }
+        } 
 
     }
 
@@ -246,6 +280,7 @@ public class Partida extends Observable implements Observador {
             if(ganadorAnterior == null){
                 pozoAnterior = manoActual.getPozo(); 
             }
+            espera(5000); //TODO: Probar
             nuevaMano();
             manoActual.sumarPozo(pozoAnterior);
 
@@ -255,6 +290,15 @@ public class Partida extends Observable implements Observador {
         }
 
     }
+ // </editor-fold>
+
+
+
+
+
+
+   
+
 
   
     //TODO: Preguntar si la sigueinte mano tiene que iniciar automáticamente sin dar tiempo a salir del juuego antes de descontarle la luz
@@ -264,6 +308,12 @@ public class Partida extends Observable implements Observador {
             manoActual.desubscribir(this);
         }
 
+    }
+    
+        private static void espera(int i) {
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException ex) {}
     }
 
 }
@@ -302,7 +352,9 @@ public class Partida extends Observable implements Observador {
 //
 //            }
 //
-//            //TODO: throw la exception de saldo Insuficiente
+//            
 //        }
 //        return noHayJugadores;
 //    }
+
+

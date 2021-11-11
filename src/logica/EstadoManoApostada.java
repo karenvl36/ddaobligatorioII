@@ -24,7 +24,7 @@ public class EstadoManoApostada implements EstadoMano {
     }
 
     @Override
-    public void recibirPasar(JugadorPartida jugador, Mano mano) {
+    public void recibirPasar(JugadorPartida jugador, Mano mano) throws JugadorException {
         mano.eliminar(jugador);
         
     }
@@ -33,11 +33,9 @@ public class EstadoManoApostada implements EstadoMano {
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
           
         j.realizarApuesta(mano.getApuesta().getValor());//pasamos el valor de la apuesta en juego
-            mano.sumarPozo(mano.getApuesta().getValor());
-            mano.comprobarFinalizacion();
-        
-        
-  
+        mano.sumarPozo(mano.getApuesta().getValor());
+        mano.agregarTurnoJugado(j);
+          //  mano.comprobarFinalizacion();
 
     }
     
@@ -48,11 +46,11 @@ public class EstadoManoApostada implements EstadoMano {
         if(mano.getJugadoresActivos().size() == 1){
             ganador = mano.getApuesta().getJugador();
         }else{
-             //TODO; Revisar ganador
+             mano.revisarGanador();
 
         }
          mano.declararGanador(ganador);
-         mano.notificar(Observador.Evento.MANO_FINALIZADA);
+     //    mano.notificar(Observador.Evento.MANO_FINALIZADA);
          
          return ganador;
     }

@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author chiqu
  */
-public class Carta {
+public class Carta implements Comparable<Carta> {
     
     private int numero;
     private Palo palo;
@@ -26,11 +26,12 @@ public class Carta {
     
 
 
-    public Carta(int numero, Palo palo, String imagen) {
+    public Carta(int numero, Palo palo, String imagen, String desc) {
         this.numero = numero;
         this.palo = palo;
         this.imagen = imagen;
-     
+        this.nombre = desc;
+        cambiarDesc();
     }
    
 
@@ -56,6 +57,42 @@ public class Carta {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    
+    
+    private void cambiarDesc(){
+       switch (numero) {
+            case 14:
+                nombre = "As";
+                break;
+            case 13:
+                nombre = "K";
+                break;
+            case 12:
+                nombre = "Q";
+                break;
+            case 11:
+                nombre = "J";
+                break;
+        }
+    }
+
+    @Override
+    public int compareTo(Carta o) {
+        Carta c = (Carta)o;
+       // return (this.numero + this.palo.valor) - (c.numero + c.palo.valor); 
+       return c.numero - this.numero;
+                
+
     }
    
     

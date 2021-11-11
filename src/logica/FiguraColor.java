@@ -5,6 +5,7 @@
  */
 package logica;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,18 +20,21 @@ public class FiguraColor extends Figura{
     }
     
     
-    
+
+
 
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar) {
+    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
 
         for (int i = 0; i < cartasEvaluar.size(); i++) {
             for (int j = 1; j < cartasEvaluar.size(); j++) {
                 if (!cartasEvaluar.get(i).getPalo().equals(cartasEvaluar.get(j).getPalo())) {
-
+                    
                     return false;
                 }
             }
+           
+            this.setPalo(cartasEvaluar.get(i).getPalo());
             this.setCartas(cartasEvaluar);
             return true;
            
@@ -39,12 +43,23 @@ public class FiguraColor extends Figura{
         return true;
 
     }
+    
+    
+    
 
     @Override
     public int desempatar(Figura f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return f.getPalo().getValor() - this.getPalo().getValor();
     }
 
+    @Override
+    public String getDescripcionCartas(){
+        return  super.getDescripcion() + " de " + getPalo().getDescripcion();    
+    }
+
+
+        
+        
 
     
 }

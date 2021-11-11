@@ -56,9 +56,9 @@ public class Mazo {
     private void crearMazo(){
         //int numero, Palo palo, String imagen, String nombre
         for(int p= 1; p<=4; p++){
-            for(int n=2; n<=13; n++){
+            for(int n=2; n<=14; n++){
                 
-                Carta c = new Carta(n, new Palo(p), n + "_"+p); 
+                Carta c = new Carta(n, new Palo(p), n + "_"+p+".gif", ""+n); 
                 this.agregar(c);       
             }
         

@@ -17,7 +17,7 @@ import observador.Observador;
  * @author Karen
  */
 public class ControladorPartidaLobby implements Observador {
-       private Partida estaPartida;
+    private Partida estaPartida;
     private VistaLobbyPartida vistaLobby;
     private JugadorPartida player;
 
@@ -35,8 +35,8 @@ public class ControladorPartidaLobby implements Observador {
     public void notificar(Observable source, Object event) {
         
         if (event == Observador.Evento.PARTIDA_INICIADA) {
-            desuscribir();
-            abrirFramePartida();         
+            abrirFramePartida();   
+            
         }
         if (event == Observador.Evento.JUGADOR_AGREGADO || event == Observador.Evento.JUGADOR_ELIMINADO) {
             
@@ -52,7 +52,7 @@ public class ControladorPartidaLobby implements Observador {
         estaPartida.desubscribir(this); 
     }
 
-    public void retirarJugador(JugadorPartida jp) {
+    public void retirarJugador(JugadorPartida jp)  {
         estaPartida.retirarJugador(jp);
     }
 

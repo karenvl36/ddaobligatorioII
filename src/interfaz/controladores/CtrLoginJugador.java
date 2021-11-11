@@ -14,12 +14,15 @@ import logica.Partida;
 import logica.UsuarioGenerico;
 import logica.UsuarioJugador;
 
+
 /**
  *
  * @author Karen
  */
 public class CtrLoginJugador extends ControladorLogin {
     
+    
+
     
      public CtrLoginJugador(LoginVista loginVista) {
           super(loginVista);
@@ -33,14 +36,16 @@ public class CtrLoginJugador extends ControladorLogin {
     @Override
     protected void abrirFrame(UsuarioGenerico u) {   
         try{
-          
+
             JugadorPartida jp = new JugadorPartida((UsuarioJugador)u);
-            Partida p = Fachada.getInstancia().unirJugadorPartida(jp);        
-            if(p.faltanJugadores() == 0){
+             Partida p = Fachada.getInstancia().unirJugadorPartida(jp);      
+            if(p.ultimoJugadorEnUnirse()){ //TODO: ???
                loginVista.abrirFramePartida(p, jp);
             }else{
                loginVista.abrirFrame(p, u, jp); //Este abre el lobby
             }
+               
+
             
         }catch(PartidaException pe ){
         
@@ -51,6 +56,8 @@ public class CtrLoginJugador extends ControladorLogin {
         }
        
     }
+
+
     
 
      

@@ -11,12 +11,13 @@ import logica.UsuarioAdministrador;
 import logica.UsuarioGenerico;
 
 import logica.UsuarioJugador;
+import observador.Observador;
 
 /**
  *
  * @author chiqu
  */
-public abstract class ControladorLogin {
+public abstract class ControladorLogin  {
     
     protected LoginVista loginVista;
 
@@ -40,7 +41,7 @@ public abstract class ControladorLogin {
         this.loginVista = loginVista;
     }
     
-    //TODO: Averiguar si es válido que haya un retorno que no sea void si el método es para uso itnerno del Controller
+   
     protected abstract UsuarioGenerico logUsuario(String nick, String pass);
     protected abstract void abrirFrame(UsuarioGenerico u);
 

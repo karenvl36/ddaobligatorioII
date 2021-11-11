@@ -10,11 +10,16 @@ public interface Observador {
     public enum Evento {
         JUGADOR_AGREGADO,
         JUGADOR_ELIMINADO,
-        MANO_FINALIZADA,
+        PARTIDA_INICIADA,
+        PARTIDA_FINALIZADA,
+        APUESTA_RECIBIDA,
         APUESTA_PEDIDA,
         MANO_COMENZADA,
-        PARTIDA_FINALIZADA,
-        PARTIDA_INICIADA;
+        TURNO_JUGADO,
+        MANO_FINALIZADA;
+        
+        
+       
         
     }
  
