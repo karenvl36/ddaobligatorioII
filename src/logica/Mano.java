@@ -20,7 +20,7 @@ import observador.Observador;
 public class Mano extends Observable {
 
     private List<JugadorPartida> jugadoresActivos;
-    private List<JugadorPartida> pasantes = new ArrayList<JugadorPartida>();
+    private List<JugadorPartida> jugaronTurno = new ArrayList<JugadorPartida>();
     private Mazo mazo;
     private int pozo;
     private ApuestaMano apuesta;   
@@ -75,11 +75,11 @@ public class Mano extends Observable {
     }
 
     public List<JugadorPartida> getPasantes() {
-        return pasantes;
+        return jugaronTurno;
     }
 
     public void setPasantes(List<JugadorPartida> pasantes) {
-        this.pasantes = pasantes;
+        this.jugaronTurno = pasantes;
     }
 
     public JugadorPartida getGanador() {
@@ -117,18 +117,11 @@ public class Mano extends Observable {
         if (!jugadoresInsuficientes()) {
             mazo.barajar();
             for (JugadorPartida j : jugadoresActivos) {
-              //  ArrayList<Carta> cartas = new ArrayList<Carta>();
-                //For testing
-//                cartas.add(new Carta(14, new Palo(1), 14 + "_"+1+".gif")); 
-//                cartas.add(new Carta(14, new Palo(2), 14 + "_"+2+".gif")); 
-//                cartas.add(new Carta(13, new Palo(3), 13 + "_"+3+".gif")); 
-//                cartas.add(new Carta(2, new Palo(1), 2 + "_"+1+".gif"));
-//                cartas.add(new Carta(4, new Palo(1), 4 + "_"+1+".gif"));
-//                 ManoJugador mj = new ManoJugador(cartas);
                 ManoJugador mj = new ManoJugador(mazo.repartir());
 
                 j.setManoJugador(mj);
             }
+           // cartasParaTestear();
             return true;
         }
         return false;
@@ -138,7 +131,7 @@ public class Mano extends Observable {
 
     public void eliminar(JugadorPartida j) {
 
-        this.pasantes.remove(j);
+        this.jugaronTurno.remove(j);
         this.jugadoresActivos.remove(j);
 
     }
@@ -165,6 +158,11 @@ public class Mano extends Observable {
         //comprobarFinalizacion(); 
     }
     
+    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
+    
+        estado.recibirMatchApuesta(jugador, this);
+    }
+    
     public int faltanPasar(){
         return this.getJugadoresActivos().size() - this.getPasantes().size();
     }
@@ -179,13 +177,14 @@ public class Mano extends Observable {
     }
 
     //TODO: tip para hacerlo private y poder acceder desde Estado
-    public void agregarPasante(JugadorPartida j) {
+    public void agregarTurnoJugado(JugadorPartida j) {
 
-        pasantes.add(j);
+        jugaronTurno.add(j);
+       
     }
     
     public void vaciarListaPasantes() {
-        pasantes.clear();
+        jugaronTurno.clear();
     }
 
     // </editor-fold>
@@ -218,7 +217,7 @@ public class Mano extends Observable {
               }    
           } 
            
-          //System.out.println(ganador.getManoJugador().getFigura().getDescripcionCartas()); 
+          System.out.println(ganador.getManoJugador().getFigura().getDescripcionCartas()); 
     
           return ganador; 
       } 
@@ -236,7 +235,7 @@ public class Mano extends Observable {
 
     
      public boolean manoFinalizada() {
-        if (pasantes.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
+        if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
 
             return true;
         }

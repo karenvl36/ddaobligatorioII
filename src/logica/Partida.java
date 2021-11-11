@@ -161,8 +161,6 @@ public class Partida extends Observable implements Observador {
 
 
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="Validaciones">
     public int faltanJugadores() {
 
@@ -207,23 +205,29 @@ public class Partida extends Observable implements Observador {
     
      public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
          manoActual.recibirApuesta(unApostante, monto);
-         notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
+         //notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
+          notificar(Observador.Evento.TURNO_JUGADO);
        
          
     }
 
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
           manoActual.recibirPasar(pasante);
-          notificar(Observador.Evento.JUGADOR_PASO);
+          notificar(Observador.Evento.TURNO_JUGADO);
           comprobarFinalizarMano();
         
 
     }
+    
+    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
+        manoActual.recibirMatchApuesta(jugador);
+        notificar(Observador.Evento.TURNO_JUGADO);
+    }
 
     public void comprobarFinalizarMano() throws JugadorException {
         if (manoActual.manoFinalizada()) {
-            JugadorPartida ganador = manoActual.finalizarMano();
             notificar(Observador.Evento.MANO_FINALIZADA);
+            JugadorPartida ganador = manoActual.finalizarMano(); 
             siguienteMano(ganador);
         }
 
@@ -275,7 +279,7 @@ public class Partida extends Observable implements Observador {
             if(ganadorAnterior == null){
                 pozoAnterior = manoActual.getPozo(); 
             }
-            espera(5000); //TODO: Probar
+            espera(6000); //TODO: Probar
             nuevaMano();
             manoActual.sumarPozo(pozoAnterior);
 

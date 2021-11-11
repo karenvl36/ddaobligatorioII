@@ -33,11 +33,9 @@ public class EstadoManoApostada implements EstadoMano {
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
           
         j.realizarApuesta(mano.getApuesta().getValor());//pasamos el valor de la apuesta en juego
-            mano.sumarPozo(mano.getApuesta().getValor());
+        mano.sumarPozo(mano.getApuesta().getValor());
+        mano.agregarTurnoJugado(j);
           //  mano.comprobarFinalizacion();
-        
-        
-  
 
     }
     

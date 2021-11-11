@@ -15,7 +15,7 @@ public interface Observador {
         APUESTA_RECIBIDA,
         APUESTA_PEDIDA,
         MANO_COMENZADA,
-        JUGADOR_PASO,
+        TURNO_JUGADO,
         MANO_FINALIZADA;
         
         
