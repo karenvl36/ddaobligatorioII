@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author chiqu
  */
-public class Carta implements Comparable {
+public class Carta implements Comparable<Carta> {
     
     private int numero;
     private Palo palo;
@@ -80,14 +80,14 @@ public class Carta implements Comparable {
             case 12:
                 nombre = "Q";
                 break;
-            case 4:
+            case 11:
                 nombre = "J";
                 break;
         }
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Carta o) {
         Carta c = (Carta)o;
        // return (this.numero + this.palo.valor) - (c.numero + c.palo.valor); 
        return c.numero - this.numero;

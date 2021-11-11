@@ -132,7 +132,7 @@ public class Partida extends Observable implements Observador {
              //this.notificar(Observador.Evento.PARTIDA_INICIADA);
         } else {
 
-            finalizarMano();
+            comprobarFinalizarMano();
         }
 
         //TODO: else finalizarPartida???
@@ -192,7 +192,7 @@ public class Partida extends Observable implements Observador {
 
     
     public boolean jugadoresInsuficientes() {
-        return jugadores.size() >= 1;
+        return jugadores.size() <= 1;
 
     }
     
@@ -214,17 +214,26 @@ public class Partida extends Observable implements Observador {
 
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
           manoActual.recibirPasar(pasante);
-          if(manoActual.manoFinalizada()){
-             finalizarMano();
-          }
-
-    }
-
-    public void finalizarMano() throws JugadorException{
-         JugadorPartida ganador = manoActual.finalizarMano();
-         siguienteMano(ganador);
+          notificar(Observador.Evento.JUGADOR_PASO);
+          comprobarFinalizarMano();
         
+
     }
+
+    public void comprobarFinalizarMano() throws JugadorException {
+        if (manoActual.manoFinalizada()) {
+            JugadorPartida ganador = manoActual.finalizarMano();
+            notificar(Observador.Evento.MANO_FINALIZADA);
+            siguienteMano(ganador);
+        }
+
+    }
+    
+    public int faltanPasar(){
+       return manoActual.faltanPasar();
+    }
+    
+
     
     public List<JugadorPartida> jugadoresManoActual(){
     
@@ -240,17 +249,19 @@ public class Partida extends Observable implements Observador {
 
 
     // <editor-fold defaultstate="collapsed" desc="Finalizar">
-    public void retirarJugador(JugadorPartida j) {
+    public void retirarJugador(JugadorPartida j){
         if (jugadores.remove(j)) {
             if (manoActual != null) {
                 manoActual.eliminar(j);
+                if(jugadoresInsuficientes()){
+                   // throw new JugadorException("TNo hay más jugadores");
+                   //TODO: FinalizarPartida
+                }
+      
             }
             this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
 
-        }else{
-        
-           System.out.println("Nop");
-        }
+        } 
 
     }
 

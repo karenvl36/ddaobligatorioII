@@ -54,6 +54,7 @@ public class ControladorPartida implements Observador {
         mostrarJugadoresEnMano();
         mostrarCartas();
         vistaMano.init(player.getJugador().getNick());
+        vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
 
     }
 
@@ -137,7 +138,9 @@ public class ControladorPartida implements Observador {
     }
 
     private void retirarJugador(JugadorPartida jp) {
-        estaPartida.retirarJugador(jp);
+       
+            estaPartida.retirarJugador(jp);
+       
     }
 
 
@@ -159,6 +162,15 @@ public class ControladorPartida implements Observador {
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
            mostrarApuestaActiva();
         
+        }else if(event == Observador.Evento.MANO_FINALIZADA){
+          vistaMano.mostrarError("Se terminó la mano");
+          
+        }else if(event == Observador.Evento.MANO_COMENZADA){
+        
+            init();
+        }else if(event == Observador.Evento.JUGADOR_PASO || event == Observador.Evento.APUESTA_RECIBIDA){
+        
+            vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         }
         
 

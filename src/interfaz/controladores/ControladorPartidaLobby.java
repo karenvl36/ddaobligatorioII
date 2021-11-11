@@ -52,7 +52,7 @@ public class ControladorPartidaLobby implements Observador {
         estaPartida.desubscribir(this); 
     }
 
-    public void retirarJugador(JugadorPartida jp) {
+    public void retirarJugador(JugadorPartida jp)  {
         estaPartida.retirarJugador(jp);
     }
 

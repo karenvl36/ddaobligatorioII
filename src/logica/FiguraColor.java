@@ -45,7 +45,7 @@ public class FiguraColor extends Figura{
 
     @Override
     public int desempatar(Figura f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return f.getPalo().getValor() - this.getPalo().getValor();
     }
 
     @Override

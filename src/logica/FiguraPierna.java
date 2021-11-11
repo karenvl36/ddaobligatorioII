@@ -41,7 +41,7 @@ public class FiguraPierna extends Figura {
  
     @Override
     public int desempatar(Figura f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          return  f.getCartas().get(0).getNumero() - this.getCartas().get(0).getNumero();
     }
 
 

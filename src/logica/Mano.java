@@ -8,6 +8,7 @@ package logica;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import observador.Observable;
 import observador.Observador;
@@ -158,10 +159,14 @@ public class Mano extends Observable {
 
     }
 
-    public void recibirPasar(JugadorPartida pasante) throws ManoException {
+    public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
 
         estado.recibirPasar(pasante, this);
-        comprobarFinalizacion(); 
+        //comprobarFinalizacion(); 
+    }
+    
+    public int faltanPasar(){
+        return this.getJugadoresActivos().size() - this.getPasantes().size();
     }
 
     private void pedirApuestas() {
@@ -188,6 +193,23 @@ public class Mano extends Observable {
    
  
     // <editor-fold defaultstate="collapsed" desc="FinalizarMano">
+    
+    public JugadorPartida revisarGanador(){
+        JugadorPartida ganador = null;
+        ArrayList<ManoJugador> cartasJugadores = new ArrayList();
+        
+        for(JugadorPartida jp: jugadoresActivos){
+            //if(jp.getManoJugador().figura.compareTo(o))
+            cartasJugadores.add(jp.getManoJugador());
+        }
+        ArrayList<ManoJugador> temp = new ArrayList<>(cartasJugadores);
+        Collections.sort(temp);
+        System.out.println(temp.get(0).getFigura().getDescripcionCartas());
+        //TODO: Esto está mal. Tenemso que evaluar por JugadorPartida para saber quién es el dueño del set ganador
+        return ganador;
+    }
+    
+    
     public JugadorPartida finalizarMano() {
         return estado.finalizarMano(this);
 
@@ -197,13 +219,7 @@ public class Mano extends Observable {
     }
 
     
-    //TODO: Definir quién es responsable de esta parte: Mano o Partida?
-    public void comprobarFinalizacion() {
-        if (pasantes.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
 
-            finalizarMano();
-        }
-    }
     
      public boolean manoFinalizada() {
         if (pasantes.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
