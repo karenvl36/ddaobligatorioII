@@ -28,9 +28,13 @@ public abstract class Figura implements Comparable<Figura>{
 
     @Override
     public int compareTo(Figura o){
-    
-        return 0;
-    };
+        int resultado =  o.puntaje - this.puntaje;
+        if(resultado == 0){
+            return this.desempatar(o);
+        }
+
+        return resultado;
+    }
 
     public String getDescripcion() {
         return descripcion;

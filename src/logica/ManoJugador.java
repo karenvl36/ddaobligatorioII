@@ -14,12 +14,12 @@ import java.util.Map;
  *
  * @author Karen
  */
-public class ManoJugador {
+public class ManoJugador implements Comparable<ManoJugador> {
    // int apuestaTurno;
     ArrayList<Carta> cartas;
     Figura figura;
 
-    public ManoJugador(ArrayList<Carta> cartas) {
+    public ManoJugador(ArrayList<Carta> cartas)  {
         this.cartas = cartas;
         evaluar();
     }
@@ -71,7 +71,9 @@ public class ManoJugador {
     }
 
     public void setFigura(Figura figura) {
-        this.figura = figura;
+
+
+            this.figura = figura;
     }
 
 
@@ -101,6 +103,11 @@ public class ManoJugador {
             this.figura = highCard;
         }
 
+    }
+    
+    @Override
+    public int compareTo(ManoJugador o) {
+        return figura.compareTo(o.figura);
     }
 
    

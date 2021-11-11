@@ -29,14 +29,18 @@ public class EstadoManoSinApuestas implements EstadoMano {
     }
 
   @Override
-    public void recibirPasar(JugadorPartida jugador, Mano mano) {
-        mano.agregarPasante(jugador);
+    public void recibirPasar(JugadorPartida jugador, Mano mano) throws JugadorException {
+        if(mano.getPasantes().contains(jugador)){
+            throw new JugadorException("Ya pasó esta mano"); 
+        }
+            mano.agregarPasante(jugador);
      
     }
 
     @Override
     public JugadorPartida finalizarMano(Mano mano) {
         mano.notificar(Observador.Evento.MANO_FINALIZADA);
+                     //mano.revisarGanador(); Solo para test
         return null;
         //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto
        
