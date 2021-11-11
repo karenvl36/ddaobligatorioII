@@ -42,7 +42,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         lJugadoresEnPartida = new javax.swing.JList();
         btnApostar = new javax.swing.JButton();
         btnPasar = new javax.swing.JButton();
-        txtMontoApsotar = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
         lblFigura = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -80,8 +79,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                 btnPasarActionPerformed(evt);
             }
         });
-
-        txtMontoApsotar.setText("Inserte monto");
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -136,10 +133,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                                 .addGap(19, 19, 19)
                                 .addComponent(carta1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtMontoApsotar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnApostar))))))
+                                .addGap(150, 150, 150)
+                                .addComponent(btnApostar)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -214,9 +209,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                                     .addComponent(carta5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(carta1))
                             .addComponent(carta3))
-                        .addGap(31, 31, 31)
-                        .addComponent(txtMontoApsotar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnPasar)
                             .addComponent(btnApostar))))
@@ -274,7 +267,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     private javax.swing.JLabel lblGanador;
     private javax.swing.JLabel lblMensajes;
     private javax.swing.JLabel txtApuestaActual;
-    private javax.swing.JTextField txtMontoApsotar;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -336,7 +328,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void pedirApuesta(String jugador, int valor) {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
       
       
     }
@@ -356,4 +348,13 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public void mostrarMensaje(String mensaje) {
         lblMensajes.setText(mensaje);
     }
+    
+    
+    @Override
+      public void mostrarGanador(String mensaje) {
+        lblGanador.setText(mensaje);
+    }
+      
+      
+ 
 }

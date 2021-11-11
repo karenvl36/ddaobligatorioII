@@ -20,6 +20,7 @@ import interfaz.IVistaMano;
 import java.util.ArrayList;
 import java.util.List;
 import logica.Carta;
+import observador.ObservadorFines;
 
 /**
  *
@@ -43,6 +44,17 @@ public class ControladorPartida implements Observador {
         init();
         
     }
+    
+    /*
+    Problemas:
+    -El evento de MANO_FINALIZADa no muestra sus acciones antes de uqe le evento MANO_COMENZADA las pase por arriba
+    -Uno de los observables reaccciona distisnto cuando termina la partida
+    -Falta pedir match apuesta
+    -Falta mostrar ganador solo en caso de que la mano finalice con apostante
+    -Probar hacer una vista Partida generica que muestre ganador etc y una vistaMano cada vez que se inicie una neuva mano. 
+    
+    
+    */
 
     public void setDiApuesta(IDialogoApuesta diApuesta) {
         this.diaApuesta = diApuesta;
@@ -58,6 +70,7 @@ public class ControladorPartida implements Observador {
         vistaMano.init(player.getJugador().getNick()); 
 
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores."); 
+      
 
     }
 
@@ -164,15 +177,18 @@ public class ControladorPartida implements Observador {
             this.mostrarJugadoresEnMano();
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
            mostrarApuestaActiva();
+          
+           vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         
         }else if(event == Observador.Evento.MANO_FINALIZADA){
-          //vistaMano.mostrarError("Se terminó la mano");
-            vistaMano.mostrarMensaje("Mano finalizada. Siguiente mano comenzando...");
-            vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
-          
+            vistaMano.mostrarError("Se terminó la mano");
+            //vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
+           // vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
+          // espera(5000);
         }else if(event == Observador.Evento.MANO_COMENZADA){
-        
-                init();
+              //TODO: Ver como hacer que no sustituya el mensaje de nuva mano. Un frame partida con frame mano?
+              init();
+              
         }else if(event == Observador.Evento.TURNO_JUGADO){
         
             vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
@@ -187,13 +203,18 @@ public class ControladorPartida implements Observador {
         String jugador = estaPartida.getApuestaActiva().getNickJugador();
         int valorApuesta = estaPartida.getApuestaActiva().getValor();
         vistaMano.mostrarApuestaActiva(jugador, valorApuesta);
+        vistaMano.pedirApuesta(jugador, valorApuesta);
         
     }
     
     
 
     
-
+     private static void espera(int i) {
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException ex) {}
+    }
 
 }
 

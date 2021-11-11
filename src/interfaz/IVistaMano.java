@@ -25,6 +25,8 @@ public interface IVistaMano {
     public void pedirApuesta(String jugador, int valor);
     public void mostrarError(String error);
     public void mostrarMensaje(String mensaje);
+    public void mostrarGanador(String mensaje);
+
    
     
 }
