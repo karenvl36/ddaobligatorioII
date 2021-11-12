@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import observador.Observable;
 import observador.Observador;
-import observador.ObservadorFines;
+
 
 /**
  *
@@ -39,10 +39,7 @@ public class Partida extends Observable {
     public String toString() {
         return "Partida{" + "fechaInicio=" + fechaInicio + '}';
     }
-    
-    
 
-    
     // <editor-fold defaultstate="collapsed" desc=" Getter-Setter ">
     public Date getFecha() {
         return this.fechaInicio;
@@ -76,30 +73,24 @@ public class Partida extends Observable {
     public Mano getManoActual() {
         return manoActual;
     }
-    
-    
-    
-    
 
     // </editor-fold>
-           
-
+    
+    
     // <editor-fold defaultstate="collapsed" desc="Iniciación de Partida">
     public Partida agregar(JugadorPartida jp) throws JugadorException, PartidaException {
-        if(estado.agregar(jp, this) != null){
-            
+        if (estado.agregar(jp, this) != null) {
+
             return comprobarInicio();
         }
         return null;
     }
-    
-    
 
     public Partida comprobarInicio() throws JugadorException, PartidaException {
-        if (faltanJugadores() == 0) {        
-           iniciar();
-           this.estado = new EstadoPartidaIniciada();        
-          return this;
+        if (faltanJugadores() == 0) {
+            iniciar();
+            this.estado = new EstadoPartidaIniciada();
+            return this;
         }
 
         return null;
@@ -107,15 +98,15 @@ public class Partida extends Observable {
 
     public void guardarEnLista(JugadorPartida player) {
         this.jugadores.add(player);
-    }
+    } //Para que el estado pueda agregar
 
     public void iniciar() throws JugadorException { //Tira la excepción si un jugador a unirse a la nueva mano no tiene saldo
         this.setFecha(new Date());
         guardarSaldoInicialJugadores();
-       
+
         nuevaMano();
-         this.notificar(Observador.Evento.PARTIDA_INICIADA);
-        
+        this.notificar(Observador.Evento.PARTIDA_INICIADA);
+
     }
 
     private void guardarSaldoInicialJugadores() {
@@ -126,54 +117,26 @@ public class Partida extends Observable {
 
     }
 
-    private void agregar(Mano m){
+    private void agregar(Mano m) {
         manos.add(m);
     }
 
     private void nuevaMano() {
-
-        //Mano mano = new Mano();
-      //  manoActual = mano;
         agregar(manoActual);
-      //   asignarJugadoresAMano();
+        if (this.jugadores.size() == this.manoActual.getJugadoresActivos().size()) {
+            manoActual.iniciar();
 
-      //  manoActual.subscribir(this);
-     
-      if(this.jugadores.size() == this.manoActual.getJugadoresActivos().size()){
-          manoActual.iniciar();
-          
-      }else{
-         // comprobarFinalizarMano();
-          
-      }
+        } else {
+            // comprobarFinalizarMano();
+
+        }
 
         //TODO: else finalizarPartida???
-
-    }
-
-    //TODO: Ver si este método se puede borrar
-    private void asignarJugadoresAMano() throws JugadorException {
-
-            for (JugadorPartida j : jugadores) {
-                try {
-                    manoActual.agregar(j, getApuestaBase());
-
-
-                } catch (JugadorException jp) {
-                    retirarJugador(j);
-                     j.notificar(Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE);
-                }finally{
-                   continue;
-                } 
-            } 
     }
 
 
 
 // </editor-fold>
-
-
-
     // <editor-fold defaultstate="collapsed" desc="Validaciones">
     public int faltanJugadores() {
 
@@ -201,159 +164,114 @@ public class Partida extends Observable {
         player.saldoSuficiente(this.settings.getApuestaBase());
     }
 
-    
     public boolean jugadoresInsuficientes() {
         return jugadores.size() <= 1;
 
     }
-    
-    public boolean ultimoJugadorEnUnirse(){
+
+    public boolean ultimoJugadorEnUnirse() {
         return faltanJugadores() == 0;
     }
 // </editor-fold>
 
-
-
     // <editor-fold defaultstate="collapsed" desc="Delega a Mano">
-    
-     public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
-         manoActual.recibirApuesta(unApostante, monto);
-         //TODO: Ver si esto va acá o donde para notificar solo a los no
+    public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
+        manoActual.recibirApuesta(unApostante, monto);
+        //TODO: Ver si esto va acá o donde para notificar solo a los no
         //  notificar(Observador.Evento.TURNO_JUGADO);
-     
+
     }
 
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
-          manoActual.recibirPasar(pasante);
-          comprobarFinalizarMano();
-    }
-    
-    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException {
-
-        manoActual.recibirMatchApuesta(jugador);
+        manoActual.recibirPasar(pasante);
         comprobarFinalizarMano();
-
     }
 
-    public void comprobarFinalizarMano() {
-        if (manoActual.manoFinalizada()) {    
-           //siguienteMano();
+    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException {
+        try{
+        
+            manoActual.recibirMatchApuesta(jugador);
+        }catch(JugadorException je){
+            
+            throw je;
+            
+        }finally{
+        
+               comprobarFinalizarMano();
+
+        }
+        
+     
+    }
+
+    public void comprobarFinalizarMano() throws JugadorException {
+        if (manoActual.manoFinalizada()) {
+            retirarJugadoresSaldoInsuficiente();
+            siguienteMano();
         }
 
     }
     
-    public int faltanPasar(){
-       return manoActual.faltanPasar();
-    }
-    
 
-    
-    public List<JugadorPartida> jugadoresManoActual(){
-    
+
+    public int faltanPasar() {
+        return manoActual.faltanPasar();
+    }
+
+    public List<JugadorPartida> jugadoresManoActual() {
+
         return manoActual.getJugadoresActivos();
     }
 
-    public ApuestaMano getApuestaActiva(){
-        return manoActual.getApuesta();        
+    public ApuestaMano getApuestaActiva() {
+        return manoActual.getApuesta();
     }
-    
 
     // </editor-fold>
-
-
     // <editor-fold defaultstate="collapsed" desc="Finalizar">
-    public void retirarJugador(JugadorPartida j){
+    public void retirarJugador(JugadorPartida j) {
         if (jugadores.remove(j)) {
             if (manoActual != null) {
                 manoActual.eliminar(j);
-                if(jugadoresInsuficientes()){
-                   // throw new JugadorException("TNo hay más jugadores");
-                   //TODO: FinalizarPartida
+                if (jugadoresInsuficientes()) {
+                    // throw new JugadorException("TNo hay más jugadores");
+                    //TODO: FinalizarPartida
                 }
-      
+
             }
-            
-           
-        } 
+
+        }
 
     }
 
- 
-    public void siguienteMano () {
+    public void siguienteMano() {
+        if (jugadoresInsuficientes()) {
+            //FinalizarPartida
+            manoActual.notificar(Observador.Evento.PARTIDA_FINALIZADA); // Ver si vale la pena suscribir a Partida solo para este evento
+        }
         int pozoAnterior = 0;
         JugadorPartida ganadorAnterior = manoActual.getGanador();
-        if (!jugadoresInsuficientes()) {
-  
-            if(ganadorAnterior == null){
-                pozoAnterior = manoActual.getPozo(); 
-            }
-            
-            nuevaMano();
-            manoActual.sumarPozo(pozoAnterior);
-
-        } else {
-
-            //Finalizar partida??
+        if (ganadorAnterior == null) {
+            pozoAnterior = manoActual.getPozo();
         }
-        
-              
+        nuevaMano();
+        manoActual.sumarPozo(pozoAnterior);
     }
-    
 
 
 
-
-
-
-
-
-
-   
-
-
-  
-    //TODO: Preguntar si la sigueinte mano tiene que iniciar automáticamente sin dar tiempo a salir del juuego antes de descontarle la luz
-
-
+    private void retirarJugadoresSaldoInsuficiente() throws JugadorException {
+       for(JugadorPartida j: this.jugadores){
+           try{
+               saldoSuficiente(j);
+           }catch(JugadorException je){
+               retirarJugador(j);
+               j.notificar(j);
+               continue;
+           }
+       }
+    }
 }
 
-
-
-//    public JugadorPartida agregar(UsuarioJugador usuarioJ) throws PartidaException{
-//       // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
-//         JugadorPartida jp = new JugadorPartida(usuarioJ);
-//        if (faltanJugadores() != 0 && !jugadorYaEnPartida(jp) && saldoSuficiente(jp)) {
-//            this.jugadores.add(jp);
-//            this.notificar(Observador.Evento.JUGADOR_AGREGADO);
-//            return jp;
-//        }
-//        return null;
-//    }
-    //Agregar con Exceptions    
-
-
-//    private boolean asignarJugadoresAMano_Prueba() {
-//        boolean noHayJugadores = false;
-//        int i = 0;
-//        while (i < jugadores.size() && !noHayJugadores) {
-//            try {
-//                saldoSuficiente(jugadores.get(i));
-//                manoActual.agregar(jugadores.get(i), getApuestaBase());
-//                i++;
-//
-//            } catch (JugadorException ex) {
-//                retirarJugador(jugadores.get(i));
-//                noHayJugadores = jugadoresInsuficientes();
-//                throw ex;
-//
-//            } finally {
-//                return noHayJugadores;
-//
-//            }
-//
-//            
-//        }
-//        return noHayJugadores;
-//    }
 
 

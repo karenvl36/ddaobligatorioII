@@ -122,8 +122,7 @@ public class JugadorPartida extends Observable {
     }
     
     public void realizarApuesta(int apuesta) throws JugadorException {
-       
-        
+   
         saldoSuficiente(apuesta);
         restarSaldo(apuesta);
 
