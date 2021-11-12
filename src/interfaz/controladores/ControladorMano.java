@@ -52,16 +52,7 @@ public class ControladorMano implements Observador {
         
     }
     
-    /*
-    Problemas:
-    -El evento de MANO_FINALIZADa no muestra sus acciones antes de uqe le evento MANO_COMENZADA las pase por arriba
-    -Uno de los observables reaccciona distisnto cuando termina la partida
-    -Falta pedir match apuesta
-    -Falta mostrar ganador solo en caso de que la mano finalice con apostante
-    -Probar hacer una vista Partida generica que muestre ganador etc y una vistaMano cada vez que se inicie una neuva mano. 
-    
-    
-    */
+ 
 
     public void setDiApuesta(IDialogoApuesta diApuesta) {
         this.diaApuesta = diApuesta;
@@ -70,7 +61,7 @@ public class ControladorMano implements Observador {
 
     // <editor-fold defaultstate="collapsed" desc="Iniciar">
     public void init() {
-       vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo()); 
+        vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo()); 
         mostrarJugadoresEnMano(); 
         mostrarCartas(); 
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores."); 
@@ -175,7 +166,9 @@ public class ControladorMano implements Observador {
 
     public void salir() {
         retirarJugador(this.player);
-        estaPartida.desubscribir(this); 
+       // estaPartida.desubscribir(this); 
+        manoActual.desubscribir(this);
+        vistaMano.cerrarVentana();
     }
 
     private void retirarJugador(JugadorPartida jp) {
@@ -205,7 +198,8 @@ public class ControladorMano implements Observador {
              vistaMano.actualizarPozo("$" + manoActual.getPozo());
         }else if(event == Observador.Evento. GANADOR_DECLARADO){
             
-            vistaMano.mostrarGanador("Ganador: " + this.manoActual.getGanador().getJugador().getNick());
+           // vistaMano.mostrarGanador("Ganador: " + this.manoActual.getGanador().getJugador().getNick());
+            mostrarGanador();
             //TODO: Agregar dialogo o panel ganador que muestre el ganador, la figura y pregunte si se quiere unir a la próxima 
             
         }else if(event == Observador.Evento.MANO_COMENZADA){
@@ -218,7 +212,7 @@ public class ControladorMano implements Observador {
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
             
         }else if(event == Observador.Evento.MANO_FINALIZADA){
-        
+             vistaMano.ofrecerSiguienteMano("No hay ganador en esta mano.", "", "", "");
              vistaMano.mostrarMensaje("Mano finalizada");
         }
         
@@ -234,7 +228,7 @@ public class ControladorMano implements Observador {
         
     }
     
-    public void comenzarSiguienteMano(){
+    public void unirAProximaMano(){
 //        try{
 //            //estaPartida.siguienteMano(estaPartida.getManoActual().getGanador());
 //            init();
@@ -253,6 +247,14 @@ public class ControladorMano implements Observador {
         try {
             Thread.sleep(i);
         } catch (InterruptedException ex) {}
+    }
+
+    private void mostrarGanador() {
+        String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
+        String cartasFigura =  manoActual.getGanador().getManoJugador().getFigura().getDescripcionCartas();
+        String ganador = manoActual.getGanador().getJugador().getNick();
+        String saldo = "$" + player.getJugador().getSaldo();
+        vistaMano.mostrarGanador(ganador, figura, cartasFigura, saldo);
     }
      
      

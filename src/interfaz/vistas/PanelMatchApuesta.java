@@ -6,6 +6,8 @@
 package interfaz.vistas;
 
 import interfaz.controladores.ControladorMano;
+import java.awt.Window;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -22,6 +24,7 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
         initComponents();
         cm = cp;
         init(valor, apostante, playerActual);
+        
         
     }
 
@@ -42,6 +45,16 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
         lblJugador = new javax.swing.JLabel();
         lblDeJugador = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+
+        addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                formAncestorRemoved(evt);
+            }
+        });
 
         btnMatch.setText("Match");
         btnMatch.addActionListener(new java.awt.event.ActionListener() {
@@ -121,17 +134,26 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatchActionPerformed
+        
         matchApuesta();
+        cerrarPanel();
     }//GEN-LAST:event_btnMatchActionPerformed
 
     private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
-       fold();
+        cerrarPanel();
+     //   fold();
     }//GEN-LAST:event_btnFoldActionPerformed
+
+    private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
+        fold();
+    }//GEN-LAST:event_formAncestorRemoved
 
     public void init(int valor, String jugador, String playerActual){
         this.lblDeJugador.setText(playerActual); //Para identificar de quien es la ventana
         lblValorApuesta.setText("$" + valor);
         lblJugador.setText(jugador);
+        Window win = SwingUtilities.getWindowAncestor(this);
+        
         
     }
     
@@ -139,16 +161,23 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     public void matchApuesta(){
     
         cm.matchApuesta();
-        this.setVisible(false);
+
     }
     
     
     public void fold(){
     
         cm.fold();
-       
+    
+    }
+    
+    public void cerrarPanel(){
+          Window win = SwingUtilities.getWindowAncestor(this);
+         win.dispose();
     }
 
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFold;
     private javax.swing.JButton btnMatch;

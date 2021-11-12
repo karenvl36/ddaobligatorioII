@@ -7,6 +7,8 @@ package interfaz.vistas;
 
 import interfaz.IVistaMano;
 import interfaz.controladores.ControladorMano;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.util.List;
 
@@ -27,7 +29,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
      */
     
     ControladorMano cp;
-    JFrame framePanel;
+    JFrame framePanelApuesta;
+    JFrame framePanelGanador;
 
     
     public VistaMano(Partida p, JugadorPartida jp) {
@@ -36,8 +39,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         setLocationRelativeTo(this.getParent());
 
         cp = new ControladorMano(this, p, jp);
-        framePanel = new JFrame();
-  
+        framePanelApuesta = new JFrame();
+        framePanelGanador = new JFrame();
 
     }
 
@@ -57,7 +60,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         carta4 = new javax.swing.JLabel();
         carta5 = new javax.swing.JLabel();
         carta2 = new javax.swing.JLabel();
-        lbJugador = new javax.swing.JLabel();
         txtApuestaActual = new javax.swing.JLabel();
         lblCartasFigura = new javax.swing.JLabel();
         lblGanador = new javax.swing.JLabel();
@@ -118,8 +120,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         carta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cartas/Invertida.gif"))); // NOI18N
         carta2.setBorder(null);
 
-        lbJugador.setText("Nombre Player ");
-
         lblCartasFigura.setText("cartasFigura");
 
         lblGanador.setText("Ganador");
@@ -133,63 +133,52 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(150, 150, 150)
-                                .addComponent(btnApostar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(carta2)
-                                .addGap(18, 18, 18)
-                                .addComponent(carta1)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCartasFigura)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(carta3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(carta4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(carta5)))
-                        .addGap(74, 74, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(122, 122, 122)
-                                        .addComponent(btnPasar))
-                                    .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbJugador)
-                                            .addComponent(txtApuestaActual))
-                                        .addGap(214, 214, 214))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSalir)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCartasFigura))
+                .addGap(392, 392, 392))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(150, 150, 150)
+                                        .addComponent(btnApostar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(carta2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(carta1)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(carta3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(carta4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(carta5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(134, 134, 134)
+                                .addComponent(txtApuestaActual))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(164, 164, 164)
+                                .addComponent(btnPasar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(134, 134, 134)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSalir)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(289, 289, 289)
                         .addComponent(lblMensajes))
@@ -201,29 +190,31 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSalir)
-                            .addComponent(lbJugador))
-                        .addGap(27, 27, 27)
-                        .addComponent(txtApuestaActual)
-                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFigura))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCartasFigura))
+                                .addGap(23, 23, 23)
+                                .addComponent(btnSalir)
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addComponent(txtApuestaActual))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(63, 63, 63))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(63, 63, 63)
+                        .addComponent(lblFigura)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCartasFigura)
+                        .addGap(53, 53, 53)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(carta2)
                     .addGroup(layout.createSequentialGroup()
@@ -288,7 +279,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList lJugadoresEnPartida;
-    private javax.swing.JLabel lbJugador;
     private javax.swing.JLabel lblCartasFigura;
     private javax.swing.JLabel lblFigura;
     private javax.swing.JLabel lblGanador;
@@ -336,14 +326,15 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
   
     public void abandonarPartida() {
         cp.salir();
-        this.dispose();
+      
     }
 
     @Override
     public void init(String nombreJugador, String pozo) {
         btnApostar.setEnabled(true);
         btnPasar.setEnabled(true);
-        lbJugador.setText(nombreJugador);
+        this.setTitle(nombreJugador);
+       // lbJugador.setText(nombreJugador);
         actualizarPozo(pozo);
     }
 
@@ -358,11 +349,13 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     @Override
     public void pedirApuesta(String apostante, int valor, String playerActual) {
         PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual);
-        framePanel.add(panel);
-        framePanel.pack();
-        framePanel.setVisible(true);
+        framePanelApuesta.add(panel);
+        framePanelApuesta.pack();
+        framePanelApuesta.setVisible(true);
 
     }
+    
+
     
 
     @Override
@@ -382,10 +375,14 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     
     
     @Override
-      public void mostrarGanador(String mensaje) {
-        cerrarPanel();
-        lblGanador.setText(mensaje);
+      public void mostrarGanador(String nombreGanador, String figura, String cartas, String saldo) {
+       // cerrarPanel();
+  
+        lblGanador.setText(nombreGanador);
+        ofrecerSiguienteMano(nombreGanador, figura, cartas, saldo);
     }
+    
+      
 
     @Override
     public void cerrarVentana() {
@@ -401,15 +398,26 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     
     
     public void cerrarPanel(){
-            framePanel.removeAll();
-            framePanel.setVisible(false);  
+           // framePanel.removeAll();
+            //framePanel.setVisible(false);  
     }
 
     @Override
     public void actualizarPozo(String pozo) {
           lblPozo.setText(pozo);
     }
+
+    @Override
+    public void ofrecerSiguienteMano(String ganador, String figura, String cartas, String saldo) {
+         PanelGanador panel = new PanelGanador(cp, ganador, figura, cartas, saldo);
+        framePanelGanador.add(panel);
+        framePanelGanador.pack();
+        framePanelGanador.setVisible(true); 
+        
+    }
     
+    
+  
 
       
  
