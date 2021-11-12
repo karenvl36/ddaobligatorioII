@@ -7,12 +7,12 @@ package interfaz.vistas;
 
 import interfaz.IVistaMano;
 import interfaz.controladores.ControladorPartida;
-import java.awt.Color;
+
 import java.util.List;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import logica.JugadorPartida;
 import logica.Partida;
 
@@ -35,7 +35,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this.getParent());
         cp = new ControladorPartida(this, p, jp);
-
+    
 
 
        
@@ -367,7 +367,14 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
       public void mostrarGanador(String mensaje) {
         lblGanador.setText(mensaje);
     }
-      
+
+    @Override
+    public void cerrarVentana() {
+        this.dispose();
+    }
+    
+    
+
       
  
 }

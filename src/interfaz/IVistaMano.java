@@ -26,6 +26,7 @@ public interface IVistaMano {
     public void mostrarError(String error);
     public void mostrarMensaje(String mensaje);
     public void mostrarGanador(String mensaje);
+    public void cerrarVentana();
 
    
     

@@ -7,10 +7,10 @@ package interfaz.controladores;
 
 import excepciones.JugadorException;
 import excepciones.ManoException;
-import excepciones.PartidaException;
+
 import interfaz.IDialogoApuesta;
 
-import logica.Fachada;
+
 import logica.JugadorPartida;
 import logica.Partida;
 import observador.Observable;
@@ -19,8 +19,9 @@ import interfaz.IVistaMano;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logica.Carta;
-import observador.ObservadorFines;
+
 
 /**
  *
@@ -32,6 +33,7 @@ public class ControladorPartida implements Observador {
     private IVistaMano vistaMano;
     private JugadorPartida player;
     private IDialogoApuesta diaApuesta;
+
 
 
     
@@ -135,7 +137,7 @@ public class ControladorPartida implements Observador {
             estaPartida.recibirPasar(player);
         
         }catch(JugadorException je){
-        
+     
             vistaMano.mostrarError(je.getMessage());
         }catch(ManoException pe){
             vistaMano.mostrarError(pe.getMessage());
@@ -179,15 +181,16 @@ public class ControladorPartida implements Observador {
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
              mostrarApuestaActiva();
           
-     
           // vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         
         }else if(event == Observador.Evento.MANO_FINALIZADA){
-          //  vistaMano.mostrarError("Se terminó la mano");
-         
-            //vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
-           // vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
-          // espera(5000);
+            
+           // vistaMano.mostrarError("Se terminó la mano");    
+            vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
+            //vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
+             //espera(2000);
+           
+            comenzarSiguienteMano();
         }else if(event == Observador.Evento.MANO_COMENZADA){
               //TODO: Ver como hacer que no sustituya el mensaje de nuva mano. Un frame partida con frame mano?
               init();
@@ -198,6 +201,10 @@ public class ControladorPartida implements Observador {
         }else if(event == Observador.Evento.APUESTA_PEDIDA){
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
             
+        }else if(event == Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE){
+            vistaMano.mostrarError("Su saldo es insuficiente para continuar.");
+            vistaMano.cerrarVentana();
+            this.desuscribir();
         }
         
 
@@ -212,6 +219,18 @@ public class ControladorPartida implements Observador {
         
     }
     
+    public void comenzarSiguienteMano(){
+        try{
+            estaPartida.siguienteMano(estaPartida.getManoActual().getGanador());
+            init();
+        
+        }catch(JugadorException je){
+          
+            vistaMano.mostrarError(je.getMessage());
+        }
+    
+    }
+    
     
 
     
@@ -220,6 +239,11 @@ public class ControladorPartida implements Observador {
             Thread.sleep(i);
         } catch (InterruptedException ex) {}
     }
+     
+     
+     
+     
+
 
 }
 

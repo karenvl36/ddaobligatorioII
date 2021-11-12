@@ -17,6 +17,7 @@ public class Obligatorio2 {
   
     public static void main(String[] args) {
       DatosPrueba.cargar();
+      //DatosPrueba.test();
       MenuPrincipal mp = new MenuPrincipal();
       mp.setVisible(true);
     }
