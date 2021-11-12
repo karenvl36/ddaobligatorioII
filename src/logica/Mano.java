@@ -168,6 +168,7 @@ public class Mano extends Observable {
     
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
     
+        
         estado.recibirMatchApuesta(jugador, this);
         notificar(Observador.Evento.TURNO_JUGADO);
     }
@@ -245,8 +246,8 @@ public class Mano extends Observable {
     
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
-            notificar(Observador.Evento.MANO_FINALIZADA);
             finalizarMano();
+            notificar(Observador.Evento.MANO_FINALIZADA);
             return true;
         }
         

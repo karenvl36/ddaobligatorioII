@@ -31,11 +31,16 @@ public class EstadoManoApostada implements EstadoMano {
 
     @Override
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
-          
-        j.realizarApuesta(mano.getApuesta().getValor());//pasamos el valor de la apuesta en juego
-        mano.sumarPozo(mano.getApuesta().getValor());
-        mano.agregarTurnoJugado(j);
-          //  mano.comprobarFinalizacion();
+        try {
+
+            j.realizarApuesta(mano.getApuesta().getValor());//pasamos el valor de la apuesta en juego
+            mano.sumarPozo(mano.getApuesta().getValor());
+            mano.agregarTurnoJugado(j);
+
+        } catch (JugadorException jp) {
+            mano.eliminar(j);
+            // j.notificar(Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE);
+        }
 
     }
     
@@ -46,8 +51,7 @@ public class EstadoManoApostada implements EstadoMano {
         if(mano.getJugadoresActivos().size() == 1){
             ganador = mano.getApuesta().getJugador();
         }else{
-             mano.revisarGanador();
-
+             ganador = mano.revisarGanador();
         }
          mano.declararGanador(ganador);
         // mano.notificar(Observador.Evento.MANO_FINALIZADA);

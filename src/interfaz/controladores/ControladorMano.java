@@ -202,19 +202,12 @@ public class ControladorMano implements Observador {
             this.mostrarJugadoresEnMano();
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
              mostrarApuestaActiva();
-          
-          // vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
-        
-        }else if(event == Observador.Evento.MANO_FINALIZADA){
-             //   vistaMano.cerrarVentana();
-          //vistaMano.mostrarError("Se terminó la mano");    
-            vistaMano.mostrarGanador("Mano finalizada. Ganador: " + this.manoActual.getGanador());
-           
-//             //espera(2000);
-//           
-    //           comenzarSiguienteMano();
+      }else if(event == Observador.Evento.MANO_FINALIZADA){
+            
+            vistaMano.mostrarGanador("Mano finalizada. Ganador: " + this.manoActual.getGanador().getJugador().getNick());
+            
         }else if(event == Observador.Evento.MANO_COMENZADA){
-              //TODO: Ver como hacer que no sustituya el mensaje de nuva mano. Un frame partida con frame mano?
+          
               //init();
               
         }else if(event == Observador.Evento.TURNO_JUGADO){
