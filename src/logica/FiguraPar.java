@@ -23,7 +23,7 @@ public class FiguraPar extends Figura {
 
     
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
+    public boolean esFigura(List<Carta> cartasEvaluar) {
         ArrayList<Carta> temp = new ArrayList<>(cartasEvaluar);
         Collections.sort(temp);
         for(int i= 0; i<temp.size(); i++){

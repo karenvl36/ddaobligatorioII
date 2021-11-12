@@ -94,10 +94,9 @@ public class ControladorPartida implements Observador {
         String c4 = rootPath + cartas.get(3).getImagen();
         String c5 = rootPath + cartas.get(4).getImagen();
         String figura = player.getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
-        String cartasFigura = player.getManoJugador().getFigura().getDescripcionCartas();
+        String cartasFigura =  player.getManoJugador().getFigura().getDescripcionCartas();
         
-        
-        
+    
         vistaMano.mostrarCartas(c1, c2, c3, c4, c5, figura, cartasFigura);
         
     }

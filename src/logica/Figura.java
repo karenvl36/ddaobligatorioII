@@ -22,7 +22,7 @@ public abstract class Figura implements Comparable<Figura>{
     private int puntaje;
     
     
-    public abstract boolean esFigura(List<Carta> cartasEvaluar, Carta ref);
+    public abstract boolean esFigura(List<Carta> cartasEvaluar);
     public abstract int desempatar(Figura f); 
  
 

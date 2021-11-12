@@ -13,19 +13,19 @@ import logica.UsuarioJugador;
 
 public class VistaJugadorLobby extends javax.swing.JFrame implements VistaLobbyPartida {
 
-private Partida estaPartidaNoIniciada;
-private JugadorPartida jugadorP;
+//private Partida estaPartidaNoIniciada;
+//private JugadorPartida jugadorP;
 //private ControladorPartida cp;
 private ControladorPartidaLobby cp;
 
     public VistaJugadorLobby(Partida partidaLobby,JugadorPartida jugador) {
         initComponents();
-        this.estaPartidaNoIniciada = partidaLobby;
-        jugadorP = jugador;
+       // this.estaPartidaNoIniciada = partidaLobby;
+     //   jugadorP = jugador;
         
         //(VistaPartida view, VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player)
        // cp = new ControladorPartida(this,estaPartidaNoIniciada,jugadorP);
-        cp = new ControladorPartidaLobby(this,estaPartidaNoIniciada,jugadorP);
+        cp = new ControladorPartidaLobby(this,partidaLobby,jugador);
     }
 
 
@@ -94,7 +94,7 @@ private ControladorPartidaLobby cp;
     
     @Override
     public void mostrarJugadoresFaltantes(int cantJugadoresFaltantes) {
-        labelEsperandoJugadores.setText(jugadorP.getJugador().getNick() + "Faltan: " + cantJugadoresFaltantes);
+        //labelEsperandoJugadores.setText(jugadorP.getJugador().getNick() + "Faltan: " + cantJugadoresFaltantes);
         this.setTitle("Esperando jugadores, faltan: " + cantJugadoresFaltantes);
     }
 
