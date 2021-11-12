@@ -228,23 +228,16 @@ public class Partida extends Observable {
           comprobarFinalizarMano();
     }
     
-    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
-          try {
-                
-                manoActual.recibirMatchApuesta(jugador);
-                
+    public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException {
 
-            } catch (JugadorException jp) {
-                retirarJugador(jugador);
-                 jugador.notificar(Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE);
-            }
-        
-       
+        manoActual.recibirMatchApuesta(jugador);
+        comprobarFinalizarMano();
+
     }
 
     public void comprobarFinalizarMano() {
         if (manoActual.manoFinalizada()) {    
-           siguienteMano();
+           //siguienteMano();
         }
 
     }

@@ -27,22 +27,16 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
      */
     
     ControladorMano cp;
-    JFrame panelApuesta;
+    JFrame framePanel;
 
-    
     
     public VistaMano(Partida p, JugadorPartida jp) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this.getParent());
-     
-      cp = new ControladorMano(this, p, jp);
-    
 
-
-       
-
-        
+        cp = new ControladorMano(this, p, jp);
+        framePanel = new JFrame();
 
     }
 
@@ -341,12 +335,10 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void pedirApuesta(String apostante, int valor, String playerActual) {
-        JFrame window = new JFrame(); 
-        panelApuesta = window;
         PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual);
-        window.add(panel);
-        window.pack();
-        window.setVisible(true);
+        framePanel.add(panel);
+        framePanel.pack();
+        framePanel.setVisible(true);
 
     }
     
@@ -369,6 +361,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     
     @Override
       public void mostrarGanador(String mensaje) {
+        cerrarPanel();
         lblGanador.setText(mensaje);
     }
 
@@ -379,11 +372,15 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void vistaFolded(String cartaReversa, String mensaje) {
-        panelApuesta.removeAll();
-        panelApuesta.setVisible(false);
+        cerrarPanel();
         mostrarCartas(cartaReversa, cartaReversa, cartaReversa, cartaReversa, cartaReversa, mensaje, "");
     }
     
+    
+    public void cerrarPanel(){
+            framePanel.removeAll();
+            framePanel.setVisible(false);  
+    }
     
 
       
