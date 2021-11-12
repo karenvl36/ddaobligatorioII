@@ -7,9 +7,12 @@ package interfaz.vistas;
 
 import interfaz.IVistaMano;
 import interfaz.controladores.ControladorPartida;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import logica.JugadorPartida;
 import logica.Partida;
 
@@ -24,6 +27,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
      */
     
     ControladorPartida cp;
+
     
     
     public VistaMano(Partida p, JugadorPartida jp) {
@@ -31,6 +35,12 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this.getParent());
         cp = new ControladorPartida(this, p, jp);
+
+
+
+       
+
+        
 
     }
 
@@ -167,7 +177,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(264, 264, 264)
                         .addComponent(lblGanador)))
@@ -288,19 +299,19 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void abrirDialogoApuesta(Partida p, JugadorPartida jp) {
-        
-      //  DialogoApostar vista = new DialogoApostar(this, false, p, jp);
         new DialogoApostar(this, false, cp).setVisible(true);
     }
 
     @Override
     public void pasar() {
+        
+      
         cp.pasar();
 
-//        mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif");
+      // mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif");
         btnApostar.setEnabled(false);
         btnPasar.setEnabled(false);
-//        cp.mostrarJugadoresEnMano(); //TODO: Sacar esto
+        cp.mostrarJugadoresEnMano(); //TODO: Sacar esto
     }
     
     
@@ -327,9 +338,11 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }
 
     @Override
-    public void pedirApuesta(String jugador, int valor) {
-   
-      
+    public void pedirApuesta(String apostante, int valor, String playerActual) {
+        JFrame window = new JFrame();
+        window.add(new PanelMatchApuesta(cp, valor, apostante, playerActual));
+        window.pack();
+        window.setVisible(true);
       
     }
     

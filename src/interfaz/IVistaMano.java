@@ -22,7 +22,7 @@ public interface IVistaMano {
     public void fold();
     public void init(String text);
     public void mostrarApuestaActiva(String jugador, int valor);
-    public void pedirApuesta(String jugador, int valor);
+    public void pedirApuesta(String apostante, int valor, String jugador);
     public void mostrarError(String error);
     public void mostrarMensaje(String mensaje);
     public void mostrarGanador(String mensaje);
