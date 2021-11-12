@@ -121,7 +121,7 @@ public class Mano extends Observable {
 
                 j.setManoJugador(mj);
             }
-           // cartasParaTestear();
+          // cartasParaTestear();
             return true;
         }
         return false;
@@ -258,31 +258,57 @@ public class Mano extends Observable {
 
 
    // <editor-fold defaultstate="collapsed" desc="Testing"> 
-   private void cartasParaTestear() { 
- 
-        ArrayList<Carta> cartas = new ArrayList<Carta>(); 
+//   private void cartasParaTestear() { 
+// 
+//        ArrayList<Carta> cartas = new ArrayList<Carta>(); 
+//        //For testing 
+//        cartas.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
+//        cartas.add(new Carta(10, new Palo(4), 10 + "_" + 4 + ".gif", "10")); 
+//        cartas.add(new Carta(13, new Palo(4), 13 + "_" + 4 + ".gif", "13")); 
+//        cartas.add(new Carta(2, new Palo(4), 2 + "_" + 4 + ".gif", "2")); 
+//        cartas.add(new Carta(4, new Palo(4), 4 + "_" + 4 + ".gif", "4")); 
+//        ManoJugador mj = new ManoJugador(cartas); 
+// 
+//        jugadoresActivos.get(1).setManoJugador(mj); 
+//         
+//         ArrayList<Carta> cartas2 = new ArrayList<Carta>(); 
+//    
+//        cartas2.add(new Carta(8, new Palo(2), 8 + "_" + 2 + ".gif", "8")); 
+//        cartas2.add(new Carta(10, new Palo(2), 10 + "_" + 2 + ".gif", "10")); 
+//        cartas2.add(new Carta(13, new Palo(2), 13 + "_" + 2 + ".gif", "13")); 
+//        cartas2.add(new Carta(2, new Palo(2), 2 + "_" + 2 + ".gif", "2")); 
+//        cartas2.add(new Carta(4, new Palo(2), 4 + "_" + 2 + ".gif", "4")); 
+//        ManoJugador mj2 = new ManoJugador(cartas2);  
+//        jugadoresActivos.get(1).setManoJugador(mj2); 
+//
+// 
+//    } 
+//   
+   private void cartasParaTestear(){
+       
+         ArrayList<Carta> cartas = new ArrayList<Carta>(); 
         //For testing 
         cartas.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
-        cartas.add(new Carta(10, new Palo(4), 10 + "_" + 4 + ".gif", "10")); 
-        cartas.add(new Carta(13, new Palo(4), 13 + "_" + 4 + ".gif", "13")); 
-        cartas.add(new Carta(2, new Palo(4), 2 + "_" + 4 + ".gif", "2")); 
-        cartas.add(new Carta(4, new Palo(4), 4 + "_" + 4 + ".gif", "4")); 
+        cartas.add(new Carta(8, new Palo(3), 8 + "_" + 3 + ".gif", "8")); 
+        cartas.add(new Carta(8, new Palo(1), 8 + "_" + 1 + ".gif", "8")); 
+        cartas.add(new Carta(9, new Palo(1), 9 + "_" + 1 + ".gif", "9")); 
+        cartas.add(new Carta(9, new Palo(2), 9 + "_" + 2 + ".gif", "9")); 
         ManoJugador mj = new ManoJugador(cartas); 
  
         jugadoresActivos.get(0).setManoJugador(mj); 
          
          ArrayList<Carta> cartas2 = new ArrayList<Carta>(); 
     
-        cartas2.add(new Carta(8, new Palo(2), 8 + "_" + 2 + ".gif", "8")); 
-        cartas2.add(new Carta(10, new Palo(2), 10 + "_" + 2 + ".gif", "10")); 
-        cartas2.add(new Carta(13, new Palo(2), 13 + "_" + 2 + ".gif", "13")); 
-        cartas2.add(new Carta(2, new Palo(2), 2 + "_" + 2 + ".gif", "2")); 
-        cartas2.add(new Carta(4, new Palo(2), 4 + "_" + 2 + ".gif", "4")); 
+        cartas2.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
+        cartas2.add(new Carta(8, new Palo(3), 8 + "_" + 3 + ".gif", "8")); 
+        cartas2.add(new Carta(8, new Palo(1), 8 + "_" + 1 + ".gif", "8")); 
+        cartas2.add(new Carta(9, new Palo(1), 9 + "_" + 1 + ".gif", "9")); 
+        cartas2.add(new Carta(9, new Palo(2), 9 + "_" + 2 + ".gif", "9")); 
         ManoJugador mj2 = new ManoJugador(cartas2); 
  
         jugadoresActivos.get(1).setManoJugador(mj2); 
- 
-    } 
+   
+   }
  // </editor-fold> 
 
 

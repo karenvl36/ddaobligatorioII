@@ -24,7 +24,7 @@ public class FiguraColor extends Figura{
 
 
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
+    public boolean esFigura(List<Carta> cartasEvaluar) {
 
         for (int i = 0; i < cartasEvaluar.size(); i++) {
             for (int j = 1; j < cartasEvaluar.size(); j++) {

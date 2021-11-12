@@ -22,7 +22,7 @@ public class FiguraHighCard extends Figura{
     }
 
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
+    public boolean esFigura(List<Carta> cartasEvaluar) {
           ArrayList<Carta> temp = new ArrayList<>(cartasEvaluar);
             Collections.sort(temp);
             this.setHighCard(temp.get(0)); //TODO: Chequear que esté ordenado descenndente

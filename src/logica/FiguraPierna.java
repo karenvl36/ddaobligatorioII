@@ -5,6 +5,7 @@
  */
 package logica;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,24 +23,32 @@ public class FiguraPierna extends Figura {
     
     
     @Override
-    public boolean esFigura(List<Carta> cartasEvaluar, Carta ref) {
-        if (cartasEvaluar.get(0) == cartasEvaluar.get(1) && cartasEvaluar.get(2) == cartasEvaluar.get(1)) {
-            return true; //Para el caso que la mano tenga un par y una pierna 
-        }
+    public boolean esFigura(List<Carta> cartasEvaluar) {
+        List<Carta> cartasRestantes = new ArrayList<Carta>();
+        // cartasEvaluar.removeAll(this.getCartas());
+
         for (Carta c : cartasEvaluar) {
             if (!this.getCartas().contains(c)) {
+                cartasRestantes.add(c);
+                if (c.getNumero() == this.getCartas().get(0).getNumero()) {
 
-                if (c.getNumero() == ref.getNumero()) {
                     this.getCartas().add(c);
                     return true;
 
+              
                 }
 
             }
-        }
+        }    
+        
+        if (cartasRestantes.get(0).getNumero() == cartasRestantes.get(1).getNumero() && cartasRestantes.get(2).getNumero() == cartasRestantes.get(1).getNumero()) {
 
-        return false;
-    }
+                this.setCartas(cartasRestantes);
+                return true;
+            }
+
+            return false;
+        }
 
  
     @Override

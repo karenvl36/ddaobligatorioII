@@ -86,20 +86,20 @@ public class ManoJugador implements Comparable<ManoJugador> {
         Figura highCard = new FiguraHighCard();
        
 
-        if (color.esFigura(cartas, null)) {
+        if (color.esFigura(cartas)) {
             this.figura = color;
 
-        } else if (par.esFigura(cartas, null)) {
+        } else if (par.esFigura(cartas)) {
             
             this.figura = par;
             
             pierna.setCartas(par.getCartas());
             
-            if (pierna.esFigura(cartas, par.getCartas().get(0))) {
+            if (pierna.esFigura(cartas)) {
                 this.figura = pierna;
             }
             
-        } else if (highCard.esFigura(cartas, null)) {
+        } else if (highCard.esFigura(cartas)) {
             this.figura = highCard;
         }
 
