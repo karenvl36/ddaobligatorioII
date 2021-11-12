@@ -17,6 +17,7 @@ import observador.Observable;
 import observador.Observador;
 import interfaz.IVistaMano;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,17 +28,18 @@ import logica.Carta;
  *
  * @author chiqu
  */
-public class ControladorPartida implements Observador {
+public class ControladorMano implements Observador {
 
     private Partida estaPartida;
     private IVistaMano vistaMano;
     private JugadorPartida player;
     private IDialogoApuesta diaApuesta;
+ 
 
 
 
     
-    public ControladorPartida(IVistaMano vistaMano, Partida unaPartida, JugadorPartida player){
+    public ControladorMano(IVistaMano vistaMano, Partida unaPartida, JugadorPartida player){
         this.vistaMano = vistaMano;
         this.estaPartida = unaPartida;
         this.player = player;
@@ -184,16 +186,16 @@ public class ControladorPartida implements Observador {
           // vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         
         }else if(event == Observador.Evento.MANO_FINALIZADA){
-            
-           // vistaMano.mostrarError("Se terminó la mano");    
-            vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
-            //vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
-             //espera(2000);
-           
-            comenzarSiguienteMano();
+             //   vistaMano.cerrarVentana();
+//           // vistaMano.mostrarError("Se terminó la mano");    
+//            vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
+//            //vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
+//             //espera(2000);
+//           
+    //           comenzarSiguienteMano();
         }else if(event == Observador.Evento.MANO_COMENZADA){
               //TODO: Ver como hacer que no sustituya el mensaje de nuva mano. Un frame partida con frame mano?
-              init();
+              //init();
               
         }else if(event == Observador.Evento.TURNO_JUGADO){
         

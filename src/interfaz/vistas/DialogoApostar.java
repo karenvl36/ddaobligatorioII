@@ -6,7 +6,7 @@
 package interfaz.vistas;
 
 import interfaz.IDialogoApuesta;
-import interfaz.controladores.ControladorPartida;
+import interfaz.controladores.ControladorMano;
 import javax.swing.JOptionPane;
 import logica.JugadorPartida;
 import logica.Partida;
@@ -19,9 +19,9 @@ public class DialogoApostar extends javax.swing.JDialog implements IDialogoApues
 
 
     
-    ControladorPartida cp;
+    ControladorMano cp;
 
-    public DialogoApostar(java.awt.Frame parent, boolean modal, ControladorPartida controlador) {
+    public DialogoApostar(java.awt.Frame parent, boolean modal, ControladorMano controlador) {
         super(parent, modal);
         initComponents();
         cp = controlador;

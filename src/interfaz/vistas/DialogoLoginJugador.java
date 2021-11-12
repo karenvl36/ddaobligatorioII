@@ -82,6 +82,8 @@ public class DialogoLoginJugador extends VistaLoginGeneral {
     }
     
       public void abrirFramePartida(Partida p, JugadorPartida jp) {
+       
+            // new VistaPartida(p, jp).setVisible(true);
          new VistaMano(p, jp).setVisible(true);
          this.dispose();
        

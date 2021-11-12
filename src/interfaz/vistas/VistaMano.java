@@ -6,7 +6,7 @@
 package interfaz.vistas;
 
 import interfaz.IVistaMano;
-import interfaz.controladores.ControladorPartida;
+import interfaz.controladores.ControladorMano;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
      * Creates new form VistaPartida
      */
     
-    ControladorPartida cp;
+    ControladorMano cp;
 
     
     
@@ -34,7 +34,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this.getParent());
-        cp = new ControladorPartida(this, p, jp);
+     
+      cp = new ControladorMano(this, p, jp);
     
 
 

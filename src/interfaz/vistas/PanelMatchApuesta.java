@@ -5,7 +5,7 @@
  */
 package interfaz.vistas;
 
-import interfaz.controladores.ControladorPartida;
+import interfaz.controladores.ControladorMano;
 
 /**
  *
@@ -16,7 +16,7 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     /**
      * Creates new form PanelMatchApuesta
      */
-    public PanelMatchApuesta(ControladorPartida cp, int valor, String apostante, String playerActual) {
+    public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual) {
         initComponents();
         init(valor, apostante, playerActual);
         

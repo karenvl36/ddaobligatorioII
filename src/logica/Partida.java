@@ -136,7 +136,7 @@ public class Partida extends Observable implements Observador {
         if (manoActual.iniciar()) {
             
             this.notificar(Observador.Evento.MANO_COMENZADA);
-             //this.notificar(Observador.Evento.PARTIDA_INICIADA);
+          //   this.notificar(Observador.Evento.PARTIDA_INICIADA);
         } else {
 
             comprobarFinalizarMano();
