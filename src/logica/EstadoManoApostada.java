@@ -38,8 +38,11 @@ public class EstadoManoApostada implements EstadoMano {
             mano.agregarTurnoJugado(j);
 
         } catch (JugadorException jp) {
-            mano.eliminar(j);
-            // j.notificar(Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE);
+            mano.eliminar(j);  
+           
+            throw jp;
+             
+             
         }
 
     }
@@ -54,8 +57,7 @@ public class EstadoManoApostada implements EstadoMano {
              ganador = mano.revisarGanador();
         }
          mano.declararGanador(ganador);
-        // mano.notificar(Observador.Evento.MANO_FINALIZADA);
-         // mano.notificar(Observador.Evento.MANO_FINALIZADA_GANADOR);
+         mano.notificar(Observador.Evento.GANADOR_DECLARADO);
          return ganador;
     }
 

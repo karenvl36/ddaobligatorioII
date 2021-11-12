@@ -70,12 +70,9 @@ public class ControladorMano implements Observador {
 
     // <editor-fold defaultstate="collapsed" desc="Iniciar">
     public void init() {
-         vistaMano.init(player.getJugador().getNick()); 
+       vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo()); 
         mostrarJugadoresEnMano(); 
         mostrarCartas(); 
-
-        vistaMano.init(player.getJugador().getNick()); 
-
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores."); 
 
     }
@@ -149,7 +146,10 @@ public class ControladorMano implements Observador {
             estaPartida.recibirMatchApuesta(player);
         }catch(JugadorException je){
         
-        
+            vistaMano.mostrarError(je.getMessage());
+             //vistaMano.cerrarVentana();
+             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se saldo era insuficiente para el match de apuesta.");
+             this.desuscribir();
         }
     }
     
@@ -202,9 +202,11 @@ public class ControladorMano implements Observador {
             this.mostrarJugadoresEnMano();
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
              mostrarApuestaActiva();
-      }else if(event == Observador.Evento.MANO_FINALIZADA){
+             vistaMano.actualizarPozo("$" + manoActual.getPozo());
+        }else if(event == Observador.Evento. GANADOR_DECLARADO){
             
-            vistaMano.mostrarGanador("Mano finalizada. Ganador: " + this.manoActual.getGanador().getJugador().getNick());
+            vistaMano.mostrarGanador("Ganador: " + this.manoActual.getGanador().getJugador().getNick());
+            //TODO: Agregar dialogo o panel ganador que muestre el ganador, la figura y pregunte si se quiere unir a la próxima 
             
         }else if(event == Observador.Evento.MANO_COMENZADA){
           
@@ -215,10 +217,9 @@ public class ControladorMano implements Observador {
         }else if(event == Observador.Evento.APUESTA_PEDIDA){
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
             
-        }else if(event == Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE){
-            vistaMano.mostrarError("Su saldo es insuficiente para continuar.");
-            vistaMano.cerrarVentana();
-            this.desuscribir();
+        }else if(event == Observador.Evento.MANO_FINALIZADA){
+        
+             vistaMano.mostrarMensaje("Mano finalizada");
         }
         
 

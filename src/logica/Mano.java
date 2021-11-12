@@ -134,11 +134,9 @@ public class Mano extends Observable {
    
 
     public void eliminar(JugadorPartida j) {
-
         this.jugaronTurno.remove(j);
         this.jugadoresActivos.remove(j);
         this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
-
     }
 
     public void sumarPozo(int apuesta) {
@@ -167,7 +165,6 @@ public class Mano extends Observable {
     }
     
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
-    
         
         estado.recibirMatchApuesta(jugador, this);
         notificar(Observador.Evento.TURNO_JUGADO);
@@ -233,20 +230,13 @@ public class Mano extends Observable {
       } 
     
     
-    public JugadorPartida finalizarMano() {
-        return estado.finalizarMano(this);
-
-        // if(pasantes.size() == jugadoresActivos.size()) //no hay ganador y se pasa el pozo a la próxima mano. 
-        //   if(jugadoresActivos.size() == 1 )   es el ganador
-        //if(jugadoresACtivos.size() > 1 buscar ganador
-    }
 
     
 
     
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
-            finalizarMano();
+            estado.finalizarMano(this);
             notificar(Observador.Evento.MANO_FINALIZADA);
             return true;
         }
