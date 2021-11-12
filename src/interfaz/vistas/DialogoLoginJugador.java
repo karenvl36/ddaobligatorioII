@@ -26,7 +26,7 @@ public class DialogoLoginJugador extends VistaLoginGeneral {
      */
      //CtrLoginJugador controladorLogin;
     
-    ControladorLogin controladorLogin;
+   // ControladorLogin controladorLogin;
     
     public DialogoLoginJugador(java.awt.Frame parent, boolean modal) {
        

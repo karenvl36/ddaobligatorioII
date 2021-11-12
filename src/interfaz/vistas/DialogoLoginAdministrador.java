@@ -24,7 +24,7 @@ public class DialogoLoginAdministrador extends VistaLoginGeneral {
     /**
      * Creates new form DialogoLoginUsuario
      */
-    CtrLoginAdmin controladorLogin;
+   // CtrLoginAdmin controladorLogin;
     public DialogoLoginAdministrador(java.awt.Frame parent, boolean modal) {
 
         initComponents();
