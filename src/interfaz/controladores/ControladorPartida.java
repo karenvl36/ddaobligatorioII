@@ -70,6 +70,8 @@ public class ControladorPartida implements Observador {
         vistaMano.init(player.getJugador().getNick()); 
 
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores."); 
+
+        
       
 
     }
@@ -175,12 +177,14 @@ public class ControladorPartida implements Observador {
         if (event == Observador.Evento.JUGADOR_ELIMINADO) {
             this.mostrarJugadoresEnMano();
         }else if(event == Observador.Evento.APUESTA_RECIBIDA){
-           mostrarApuestaActiva();
+             mostrarApuestaActiva();
           
-           vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
+     
+          // vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         
         }else if(event == Observador.Evento.MANO_FINALIZADA){
-            vistaMano.mostrarError("Se terminó la mano");
+          //  vistaMano.mostrarError("Se terminó la mano");
+         
             //vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
            // vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
           // espera(5000);
@@ -191,6 +195,9 @@ public class ControladorPartida implements Observador {
         }else if(event == Observador.Evento.TURNO_JUGADO){
         
             vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
+        }else if(event == Observador.Evento.APUESTA_PEDIDA){
+            vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
+            
         }
         
 
@@ -201,8 +208,7 @@ public class ControladorPartida implements Observador {
     
         String jugador = estaPartida.getApuestaActiva().getNickJugador();
         int valorApuesta = estaPartida.getApuestaActiva().getValor();
-        vistaMano.mostrarApuestaActiva(jugador, valorApuesta);
-        vistaMano.pedirApuesta(jugador, valorApuesta);
+        vistaMano.mostrarApuestaActiva(jugador, valorApuesta);    
         
     }
     
