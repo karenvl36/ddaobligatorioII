@@ -2,7 +2,7 @@
 package interfaz.vistas;
 
 import interfaz.VistaLobbyPartida;
-import interfaz.controladores.ControladorPartida;
+import interfaz.controladores.ControladorMano;
 import interfaz.controladores.ControladorPartidaLobby;
 import logica.JugadorPartida;
 import logica.Partida;
@@ -101,7 +101,7 @@ private ControladorPartidaLobby cp;
 
     @Override
     public void abrirFrame(Partida p, JugadorPartida jp) {
-   
+        //new VistaPartida(p, jp).setVisible(true);
         VistaMano vm = new VistaMano(p, jp);
         vm.setVisible(true); 
         this.dispose();
