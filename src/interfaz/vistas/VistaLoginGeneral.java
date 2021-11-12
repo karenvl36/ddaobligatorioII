@@ -27,7 +27,7 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
 
     public VistaLoginGeneral() {
         initComponents();
-        controladorLogin = new CtrLoginGenerico(this);
+       // controladorLogin = new CtrLoginGenerico(this);
     }
 
     /**
