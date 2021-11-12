@@ -27,6 +27,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
      */
     
     ControladorMano cp;
+    JFrame panelApuesta;
 
     
     
@@ -340,11 +341,13 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void pedirApuesta(String apostante, int valor, String playerActual) {
-        JFrame window = new JFrame();
-        window.add(new PanelMatchApuesta(cp, valor, apostante, playerActual));
+        JFrame window = new JFrame(); 
+        panelApuesta = window;
+        PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual);
+        window.add(panel);
         window.pack();
         window.setVisible(true);
-      
+
     }
     
 
@@ -372,6 +375,13 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     @Override
     public void cerrarVentana() {
         this.dispose();
+    }
+
+    @Override
+    public void vistaFolded(String cartaReversa, String mensaje) {
+        panelApuesta.removeAll();
+        panelApuesta.setVisible(false);
+        mostrarCartas(cartaReversa, cartaReversa, cartaReversa, cartaReversa, cartaReversa, mensaje, "");
     }
     
     

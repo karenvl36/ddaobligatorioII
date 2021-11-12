@@ -20,7 +20,7 @@ public class DatosPrueba {
  
         Settings settings = Settings.getInstancia(); 
         settings.setApuestaBase(300);
-        settings.setCantMaximaJugadores(2);
+        settings.setCantMaximaJugadores(3);
         
         
         ServicioUsuario su = ServicioUsuario.getInstancia();

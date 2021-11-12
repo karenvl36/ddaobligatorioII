@@ -50,8 +50,8 @@ public class EstadoManoApostada implements EstadoMano {
 
         }
          mano.declararGanador(ganador);
-     //    mano.notificar(Observador.Evento.MANO_FINALIZADA);
-         
+        // mano.notificar(Observador.Evento.MANO_FINALIZADA);
+         // mano.notificar(Observador.Evento.MANO_FINALIZADA_GANADOR);
          return ganador;
     }
 

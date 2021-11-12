@@ -107,7 +107,7 @@ public class Mano extends Observable {
 
     // <editor-fold defaultstate="collapsed" desc="IniciarMano">
     public void agregar(JugadorPartida j, int luz) throws JugadorException {
-        j.realizarApuesta(luz); //Si falla retorna una exception
+       j.realizarApuesta(luz); //Si falla retorna una exception
        this.jugadoresActivos.add(j) ;
         sumarPozo(luz);
         
@@ -125,6 +125,7 @@ public class Mano extends Observable {
                 j.setManoJugador(mj);
             }
           // cartasParaTestear();
+      //      this.notificar(Observador.Evento.MANO_COMENZADA);
             return true;
         }
         return false;
@@ -136,6 +137,7 @@ public class Mano extends Observable {
 
         this.jugaronTurno.remove(j);
         this.jugadoresActivos.remove(j);
+        this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
 
     }
 
@@ -151,6 +153,8 @@ public class Mano extends Observable {
 
         estado.recibirApuesta(unApostante, monto, this);
         estado = new EstadoManoApostada();
+        notificar(Observador.Evento.APUESTA_RECIBIDA);
+        notificar(Observador.Evento.TURNO_JUGADO);
         pedirApuestas();
 
     }
@@ -158,12 +162,14 @@ public class Mano extends Observable {
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
 
         estado.recibirPasar(pasante, this);
-        //comprobarFinalizacion(); 
+        notificar(Observador.Evento.TURNO_JUGADO);
+        
     }
     
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
     
         estado.recibirMatchApuesta(jugador, this);
+        notificar(Observador.Evento.TURNO_JUGADO);
     }
     
     public int faltanPasar(){
@@ -239,7 +245,8 @@ public class Mano extends Observable {
     
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
-
+            notificar(Observador.Evento.MANO_FINALIZADA);
+            finalizarMano();
             return true;
         }
         

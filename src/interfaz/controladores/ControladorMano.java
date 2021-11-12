@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logica.Carta;
+import logica.Mano;
 
 
 /**
@@ -31,6 +32,7 @@ import logica.Carta;
 public class ControladorMano implements Observador {
 
     private Partida estaPartida;
+    private Mano manoActual;
     private IVistaMano vistaMano;
     private JugadorPartida player;
     private IDialogoApuesta diaApuesta;
@@ -43,7 +45,8 @@ public class ControladorMano implements Observador {
         this.vistaMano = vistaMano;
         this.estaPartida = unaPartida;
         this.player = player;
-        estaPartida.subscribir(this);
+        manoActual = estaPartida.getManoActual();
+        estaPartida.getManoActual().subscribir(this);
         player.subscribir(this);
         init();
         
@@ -75,9 +78,6 @@ public class ControladorMano implements Observador {
 
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores."); 
 
-        
-      
-
     }
 
     public void mostrarJugadoresEnMano() {
@@ -108,13 +108,7 @@ public class ControladorMano implements Observador {
     }
     
     
-    private String getFigura(){
-    
-        String figura = player.getManoJugador().getFigura().getDescripcion()  + "</n>"; //TODO: un método más directo?
-        figura += player.getManoJugador().getFigura().getDescripcionCartas();
-        
-        return figura;
-    }
+
     
    
 
@@ -146,6 +140,32 @@ public class ControladorMano implements Observador {
             
         }
     
+    }
+    
+    
+    public void matchApuesta(){
+    
+        try{      
+            estaPartida.recibirMatchApuesta(player);
+        }catch(JugadorException je){
+        
+        
+        }
+    }
+    
+    public void fold(){
+        try{      
+            estaPartida.recibirPasar(player);
+             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se retiró de la mano.");
+            
+        }catch(JugadorException je){
+            vistaMano.mostrarError(je.getMessage());
+           
+        }catch(ManoException me){ //TODO: Ver quién está generando esta exception
+        
+            vistaMano.mostrarError(me.getMessage());
+        }
+        
     }
     
     
@@ -187,9 +207,9 @@ public class ControladorMano implements Observador {
         
         }else if(event == Observador.Evento.MANO_FINALIZADA){
              //   vistaMano.cerrarVentana();
-//           // vistaMano.mostrarError("Se terminó la mano");    
-//            vistaMano.mostrarGanador("Mano finalizada. Siguiente mano comenzando...");
-//            //vistaMano.mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "", "");
+          //vistaMano.mostrarError("Se terminó la mano");    
+            vistaMano.mostrarGanador("Mano finalizada. Ganador: " + this.manoActual.getGanador());
+           
 //             //espera(2000);
 //           
     //           comenzarSiguienteMano();
@@ -198,7 +218,6 @@ public class ControladorMano implements Observador {
               //init();
               
         }else if(event == Observador.Evento.TURNO_JUGADO){
-        
             vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
         }else if(event == Observador.Evento.APUESTA_PEDIDA){
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
@@ -222,15 +241,15 @@ public class ControladorMano implements Observador {
     }
     
     public void comenzarSiguienteMano(){
-        try{
-            estaPartida.siguienteMano(estaPartida.getManoActual().getGanador());
-            init();
-        
-        }catch(JugadorException je){
-          
-            vistaMano.mostrarError(je.getMessage());
-        }
-    
+//        try{
+//            //estaPartida.siguienteMano(estaPartida.getManoActual().getGanador());
+//            init();
+//        
+//        }catch(JugadorException je){
+//          
+//            vistaMano.mostrarError(je.getMessage());
+//        }
+//    
     }
     
     
