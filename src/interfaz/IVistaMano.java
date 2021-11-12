@@ -27,6 +27,7 @@ public interface IVistaMano {
     public void mostrarMensaje(String mensaje);
     public void mostrarGanador(String mensaje);
     public void cerrarVentana();
+    public void vistaFolded(String cartaReserva, String mensaje);
 
    
     

@@ -42,6 +42,7 @@ public class EstadoManoSinApuestas implements EstadoMano {
     public JugadorPartida finalizarMano(Mano mano) {
       //  mano.notificar(Observador.Evento.MANO_FINALIZADA);
                  //   mano.revisarGanador(); //Solo para test
+        //mano.setGanador(mano.getJugadoresActivos().get(0));
         return null;
         //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto
        

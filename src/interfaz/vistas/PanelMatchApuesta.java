@@ -16,8 +16,11 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     /**
      * Creates new form PanelMatchApuesta
      */
+    
+    ControladorMano cm;
     public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual) {
         initComponents();
+        cm = cp;
         init(valor, apostante, playerActual);
         
     }
@@ -48,6 +51,11 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
         });
 
         btnFold.setText("Abandonar");
+        btnFold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFoldActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Apuesta:");
 
@@ -113,14 +121,32 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatchActionPerformed
-        // TODO add your handling code here:
+        matchApuesta();
     }//GEN-LAST:event_btnMatchActionPerformed
+
+    private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
+       fold();
+    }//GEN-LAST:event_btnFoldActionPerformed
 
     public void init(int valor, String jugador, String playerActual){
         this.lblDeJugador.setText(playerActual); //Para identificar de quien es la ventana
         lblValorApuesta.setText("$" + valor);
         lblJugador.setText(jugador);
         
+    }
+    
+    
+    public void matchApuesta(){
+    
+        cm.matchApuesta();
+        this.setVisible(false);
+    }
+    
+    
+    public void fold(){
+    
+        cm.fold();
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
