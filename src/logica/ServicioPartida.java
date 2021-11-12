@@ -9,6 +9,7 @@ import excepciones.JugadorException;
 import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.List;
+import observador.Observador;
 
 /**
  *
@@ -42,11 +43,13 @@ public class ServicioPartida {
         return this.partidasEnCurso.add(p);
     }
 
-    public void crearPartida() {
-
+    public void crearPartida(Partida p) {
+        if(p!=null){
+        partidasEnCurso.add(p);
+        Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_INICIADA);
+        }
         Partida partidaNueva = new Partida();
         partidaAIniciar = partidaNueva;
-
     }
 
     public Partida getPartidaSinIniciar() {
@@ -59,12 +62,15 @@ public class ServicioPartida {
         if (partida != null) {
            
             if (partida.agregar(j) != null) {
-                    agregar(partida);
-                    crearPartida();
+                    crearPartida(partida);
             }
         }
         return partida;
 
+    }
+
+    public List<Partida> getPartidasEnCurso() {
+        return this.partidasEnCurso;
     }
 
 }

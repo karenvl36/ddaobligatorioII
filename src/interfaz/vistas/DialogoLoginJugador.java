@@ -5,6 +5,7 @@
  */
 package interfaz.vistas;
 
+import interfaz.controladores.ControladorLogin;
 import interfaz.controladores.CtrLoginJugador;
 import interfaz.vistas.VistaLoginGeneral;
 import interfaz.vistas.VistaJugadorLobby;
@@ -24,6 +25,9 @@ public class DialogoLoginJugador extends VistaLoginGeneral {
      * Creates new form DialogoLoginJugador
      */
      //CtrLoginJugador controladorLogin;
+    
+    ControladorLogin controladorLogin;
+    
     public DialogoLoginJugador(java.awt.Frame parent, boolean modal) {
        
         initComponents();
@@ -81,6 +85,11 @@ public class DialogoLoginJugador extends VistaLoginGeneral {
          new VistaMano(p, jp).setVisible(true);
          this.dispose();
        
+    }
+
+    @Override
+    public void verificarLoginGenerico(String nick, String pw) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

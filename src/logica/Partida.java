@@ -34,6 +34,13 @@ public class Partida extends Observable implements Observador {
         manos = new ArrayList<Mano>();
     }
 
+    @Override
+    public String toString() {
+        return "Partida{" + "fechaInicio=" + fechaInicio + '}';
+    }
+    
+    
+
     
     // <editor-fold defaultstate="collapsed" desc=" Getter-Setter ">
     public Date getFecha() {

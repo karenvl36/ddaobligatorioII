@@ -6,23 +6,32 @@
 package interfaz.vistas;
 
 
+import interfaz.IVistaAdmin;
+import interfaz.controladores.ControladorAdmin;
+import java.util.List;
+import logica.Partida;
 import logica.UsuarioAdministrador;
 
 /**
  *
  * @author chiqu
  */
-public class VistaAdministrador extends javax.swing.JFrame {
+public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmin{
 
     private UsuarioAdministrador esteAdmin;
+    private ControladorAdmin ca;
   
     /**
      * Creates new form VistaAdministrador
      */
     public VistaAdministrador(UsuarioAdministrador admin) {
-        this.esteAdmin = admin;
+         ca = new ControladorAdmin(this);
+        
+         this.esteAdmin = admin;
+       
         initComponents();
         initListaYLabels();
+         ca.actualizar();
         
     }
 
@@ -113,5 +122,10 @@ public class VistaAdministrador extends javax.swing.JFrame {
 
     private void initListaYLabels() {
         labelAdminNick.setText("Bienvenido " + this.esteAdmin.getNombreCompleto() +  "!");
+    }
+
+    @Override
+    public void actualizar(List<Partida> partidasEnCurso) {
+        this.listaPartidasEnCurso.setListData(partidasEnCurso.toArray());
     }
 }

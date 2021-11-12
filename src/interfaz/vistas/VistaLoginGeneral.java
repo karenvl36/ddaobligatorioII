@@ -7,6 +7,8 @@ package interfaz.vistas;
 
 import interfaz.LoginVista;
 import interfaz.controladores.ControladorLogin;
+import interfaz.controladores.CtrLoginAdmin;
+import interfaz.controladores.CtrLoginGenerico;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import logica.Partida;
@@ -16,17 +18,16 @@ import logica.UsuarioGenerico;
  *
  * @author chiqu
  */
-public abstract class VistaLoginGeneral extends javax.swing.JFrame implements LoginVista{
+public abstract class VistaLoginGeneral extends javax.swing.JFrame implements LoginVista {
 
     /**
      * Creates new form LoginGeneral
      */
-    
     ControladorLogin controladorLogin;
-    
+
     public VistaLoginGeneral() {
         initComponents();
-      //  this.controladorLogin = new ControladorLogin(this);
+        controladorLogin = new CtrLoginGenerico(this);
     }
 
     /**
@@ -156,27 +157,31 @@ public abstract class VistaLoginGeneral extends javax.swing.JFrame implements Lo
     private javax.swing.JTextField txtNickName;
     // End of variables declaration//GEN-END:variables
 
-     @Override
+    @Override
     public void ingresar() {
         String nick = txtNickName.getText();
         String pass = txtContraseña.getText();
+
         controladorLogin.ingresar(nick, pass);
     }
-    
+
     @Override
-    public void mostrarError(String error){
+    public void mostrarError(String error) {
         JOptionPane.showMessageDialog(this, error);
     }
-    
+
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             ingresar();
         }
     }
-    
- 
-   // public abstract void logIn(String name, String passwd);
 
-    public abstract void abrirFrame(Partida partida,UsuarioGenerico usuario);
+    @Override
+    public void verificarLoginGenerico(String nick, String pw) {
+
+    }
+
+    // public abstract void logIn(String name, String passwd);
+    public abstract void abrirFrame(Partida partida, UsuarioGenerico usuario);
 
 }

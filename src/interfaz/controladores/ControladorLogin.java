@@ -6,12 +6,9 @@
 package interfaz.controladores;
 
 import interfaz.LoginVista;
-import logica.Fachada;
-import logica.UsuarioAdministrador;
+
 import logica.UsuarioGenerico;
 
-import logica.UsuarioJugador;
-import observador.Observador;
 
 /**
  *
