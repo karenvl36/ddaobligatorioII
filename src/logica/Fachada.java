@@ -7,12 +7,15 @@ package logica;
 
 import excepciones.JugadorException;
 import excepciones.PartidaException;
+import java.util.ArrayList;
+import java.util.List;
+import observador.Observable;
 
 /**
  *
  * @author chiqu
  */
-public class Fachada {
+public class Fachada extends Observable {
     private static Fachada instancia;
     ServicioUsuario su = ServicioUsuario.getInstancia();
     ServicioPartida sp = new ServicioPartida();
@@ -25,6 +28,8 @@ public class Fachada {
     }
     
     
+    
+
     
     public UsuarioGenerico logInAdmin(String name,String pw){
         return su.logInAdmin(name, pw);
@@ -42,6 +47,10 @@ public class Fachada {
     
     public Partida getPartidaSinIniciar(){
         return sp.getPartidaSinIniciar();
+    }
+    
+    public List<Partida> getPartidasEnCurso(){
+        return sp.getPartidasEnCurso();
     }
     
   

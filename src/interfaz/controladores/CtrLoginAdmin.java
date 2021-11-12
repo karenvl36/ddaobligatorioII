@@ -8,7 +8,6 @@ package interfaz.controladores;
 import interfaz.LoginVista;
 import logica.Fachada;
 import logica.UsuarioGenerico;
-import observador.Observable;
 
 /**
  *
