@@ -128,7 +128,6 @@ public class Partida extends Observable implements Observador {
     private void nuevaMano() throws JugadorException {
 
         Mano mano = new Mano();
-       System.out.println("Llegó acá");
         manoActual = mano;
         agregar(mano);
         asignarJugadoresAMano();
@@ -149,18 +148,18 @@ public class Partida extends Observable implements Observador {
 
     private void asignarJugadoresAMano() throws JugadorException {
 
-        for (JugadorPartida j : jugadores) {
-            try {
-                
-                manoActual.agregar(j, getApuestaBase()); //Esta función ya comprueba si el saldo es suficiente para laluz
+            for (JugadorPartida j : jugadores) {
+                try {
+                    manoActual.agregar(j, getApuestaBase());
 
-            } catch (JugadorException jp) {
-                retirarJugador(j);
-                throw jp;
-            }
 
-        }
-
+                } catch (JugadorException jp) {
+                    retirarJugador(j);
+                     j.notificar(Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE);
+                }finally{
+                   continue;
+                } 
+            } 
     }
 
 
@@ -215,8 +214,7 @@ public class Partida extends Observable implements Observador {
          manoActual.recibirApuesta(unApostante, monto);
          notificar(Observador.Evento.APUESTA_RECIBIDA); //TODO: Ver si esto va acá o donde para notificar solo a los no
         //  notificar(Observador.Evento.TURNO_JUGADO);
-       
-         
+     
     }
 
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
@@ -228,15 +226,24 @@ public class Partida extends Observable implements Observador {
     }
     
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
-        manoActual.recibirMatchApuesta(jugador);
-        notificar(Observador.Evento.TURNO_JUGADO);
+          try {
+                
+                manoActual.recibirMatchApuesta(jugador);
+                notificar(Observador.Evento.TURNO_JUGADO);
+
+            } catch (JugadorException jp) {
+                retirarJugador(jugador);
+                 jugador.notificar(Observador.Evento.JUGADOR_ELIMINADO_SALDO_INSUFICIENTE);
+            }
+        
+       
     }
 
     public void comprobarFinalizarMano() throws JugadorException {
         if (manoActual.manoFinalizada()) {
             notificar(Observador.Evento.MANO_FINALIZADA);
             JugadorPartida ganador = manoActual.finalizarMano(); 
-            siguienteMano(ganador);
+          //  siguienteMano(ganador);
         }
 
     }
@@ -272,7 +279,7 @@ public class Partida extends Observable implements Observador {
       
             }
             this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
-
+           
         } 
 
     }
@@ -287,7 +294,7 @@ public class Partida extends Observable implements Observador {
             if(ganadorAnterior == null){
                 pozoAnterior = manoActual.getPozo(); 
             }
-            espera(5000); //TODO: Probar
+           // espera(5000); //TODO: Probar
             nuevaMano();
             manoActual.sumarPozo(pozoAnterior);
 

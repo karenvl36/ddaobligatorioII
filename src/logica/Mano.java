@@ -108,8 +108,11 @@ public class Mano extends Observable {
     // <editor-fold defaultstate="collapsed" desc="IniciarMano">
     public void agregar(JugadorPartida j, int luz) throws JugadorException {
         j.realizarApuesta(luz); //Si falla retorna una exception
-        this.jugadoresActivos.add(j);
+       this.jugadoresActivos.add(j) ;
         sumarPozo(luz);
+        
+       
+       
 
     }
 
