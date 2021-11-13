@@ -42,7 +42,7 @@ public class EstadoManoSinApuestas implements EstadoMano {
     public JugadorPartida finalizarMano(Mano mano) {
       //  mano.notificar(Observador.Evento.MANO_FINALIZADA);
                  //   mano.revisarGanador(); //Solo para test
-        //mano.setGanador(mano.getJugadoresActivos().get(0));
+        mano.notificar(Observador.Evento.MANO_FINALIZADA);
         return null;
         //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto
        
@@ -51,6 +51,11 @@ public class EstadoManoSinApuestas implements EstadoMano {
     @Override
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
         throw new JugadorException("No hay apuestas que matchear");
+    }
+
+    @Override
+    public void retirarJugador(JugadorPartida j, Mano m) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

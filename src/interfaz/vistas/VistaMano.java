@@ -363,6 +363,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         framePanelGanador.add(panel);
         framePanelGanador.pack();
         framePanelGanador.setVisible(true);
+  
      
 
     }

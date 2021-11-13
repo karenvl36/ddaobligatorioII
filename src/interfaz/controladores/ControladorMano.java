@@ -53,7 +53,7 @@ public class ControladorMano implements Observador {
 
     // <editor-fold defaultstate="collapsed" desc="Iniciar">
     public void init() {
-
+        vistaMano.mostrarApuestaActiva("No hay apuestas.", 0);
         manoActual = estaPartida.getManoActual();
         vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo());
         mostrarJugadoresEnMano();
@@ -189,6 +189,9 @@ public class ControladorMano implements Observador {
             vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
             vistaMano.mostrarMensaje("Mano finalizada");
            // manoActual.desubscribir(this);
+        }else if(event == Observador.Evento.PARTIDA_FINALIZADA){
+        
+            vistaMano.mostrarError("Terminó la partida.");
         }
 
     }

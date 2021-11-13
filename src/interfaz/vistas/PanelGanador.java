@@ -14,7 +14,7 @@ import javax.swing.border.Border;
  *
  * @author Karen
  */
-public class PanelGanador extends javax.swing.JPanel {
+public class PanelGanador extends javax.swing.JPanel  {
 
     /**
      * Creates new form PanelGanador
@@ -218,7 +218,7 @@ public class PanelGanador extends javax.swing.JPanel {
     
  
      private void formAncestorRemovedAbandonar(javax.swing.event.AncestorEvent evt) {                                     
-       //   abandonarPartida(); 
+         abandonarPartida(); 
     } 
     
     
@@ -235,11 +235,13 @@ public class PanelGanador extends javax.swing.JPanel {
 
     private void agregarANuevaMano() {    
         cm.unirAProximaMano();
+       
         this.removeAncestorListener(listenerAbandonarPartida);
        
     }
 
     private void abandonarPartida() {
+       this.removeAncestorListener(listenerAbandonarPartida);
        cm.salir();  
      
     }
