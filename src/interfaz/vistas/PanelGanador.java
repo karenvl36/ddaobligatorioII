@@ -20,12 +20,13 @@ public class PanelGanador extends javax.swing.JPanel {
      * Creates new form PanelGanador
      */
     ControladorMano cm;
-    javax.swing.event.AncestorListener listenerCerrar;
-    public PanelGanador(ControladorMano cm, String ganador, String figura, String cartas, String saldo, String jugador, javax.swing.event.AncestorListener listener) {
+  //  javax.swing.event.AncestorListener listenerCerrar;
+    javax.swing.event.AncestorListener listenerAbandonarPartida;
+    public PanelGanador(ControladorMano cm, String ganador, String figura, String cartas, String saldo, String jugador) {
         initComponents();
-       //  crearListenerCerrarVentana();
-       this.listenerCerrar = listener;
-       this.addAncestorListener(listenerCerrar);
+        //this.removeAll();       
+        crearListenerCerrarVentana();
+
         this.cm = cm;
         init(ganador,  figura,  cartas,  saldo, jugador);
     }
@@ -168,7 +169,7 @@ public class PanelGanador extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaManoActionPerformed
-     
+        
          agregarANuevaMano();
          cerrarPanel();
     }//GEN-LAST:event_btnNuevaManoActionPerformed
@@ -201,23 +202,23 @@ public class PanelGanador extends javax.swing.JPanel {
     private javax.swing.JTextPane panGanador;
     // End of variables declaration//GEN-END:variables
 
-//      private void crearListenerCerrarVentana(){
-//              
-//        listenerCerrar = new javax.swing.event.AncestorListener() {
-//            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-//            }
-//            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-//            }
-//            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-//                formAncestorRemovedCerrar(evt);
-//            }
-//          };
-//        addAncestorListener (listenerCerrar);
-//    }
+      private void crearListenerCerrarVentana(){
+              
+        listenerAbandonarPartida = new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                formAncestorRemovedAbandonar(evt);
+            }
+          };
+        addAncestorListener (listenerAbandonarPartida);
+    }
     
  
-     private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
-          abandonarPartida(); 
+     private void formAncestorRemovedAbandonar(javax.swing.event.AncestorEvent evt) {                                     
+       //   abandonarPartida(); 
     } 
     
     
@@ -232,9 +233,10 @@ public class PanelGanador extends javax.swing.JPanel {
       
     }
 
-    private void agregarANuevaMano() {
-        this.removeAncestorListener(listenerCerrar);
+    private void agregarANuevaMano() {    
         cm.unirAProximaMano();
+        this.removeAncestorListener(listenerAbandonarPartida);
+       
     }
 
     private void abandonarPartida() {
@@ -242,8 +244,9 @@ public class PanelGanador extends javax.swing.JPanel {
      
     }
     private void cerrarPanel(){
-          Window win = SwingUtilities.getWindowAncestor(this);
-          win.dispose();
+           Window win = SwingUtilities.getWindowAncestor(this);
+        win.remove(this);
+        win.dispose();
     }
     
     

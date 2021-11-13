@@ -125,11 +125,18 @@ public class DialogoApostar extends javax.swing.JDialog implements IDialogoApues
 
     @Override
     public void recibirApuesta() {
-        
-            //try catch para comprobar que sea un numero
-          int apuesta = Integer.parseInt(txtValorApuesta.getText());
-          cp.realizarApuesta(apuesta);
-         
+
+        //try catch para comprobar que sea un numero
+        try {
+
+            int apuesta = Integer.parseInt(txtValorApuesta.getText());
+            cp.realizarApuesta(apuesta);
+
+        } catch (NumberFormatException numE) {
+
+            mostrarError("Ingrese un número válido.");
+        }
+
     }
 
     @Override
