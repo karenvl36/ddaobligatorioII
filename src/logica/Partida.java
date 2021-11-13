@@ -74,6 +74,7 @@ public class Partida extends Observable {
         return manoActual;
     }
 
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Iniciación de Partida">
@@ -248,15 +249,16 @@ public class Partida extends Observable {
     public void settearSiguienteMano() {
         if (jugadoresInsuficientes()) { //Solo queda un jugador en la partida
             //FinalizarPartida
-           // manoActual.notificar(Observador.Evento.PARTIDA_FINALIZADA); // Ver si vale la pena suscribir a Partida solo para este evento
+            //throw exception????
+          // manoActual.notificar(Observador.Evento.PARTIDA_FINALIZADA); // Ver si vale la pena suscribir a Partida solo para este evento
         }
-        int pozoAnterior = 0;
+         int pozoAnterior = 0;
         JugadorPartida ganadorAnterior = manoActual.getGanador();
         if (ganadorAnterior == null) {
             pozoAnterior = manoActual.getPozo();
         }
         manoActual = new Mano();
-     //   iniciarNuevaMano();
+        iniciarNuevaMano();
         manoActual.sumarPozo(pozoAnterior);
     }
 
@@ -273,10 +275,12 @@ public class Partida extends Observable {
     }
     
     public void unirASiguienteMano(JugadorPartida jp) throws JugadorException{
-        manoActual.agregar(jp, this.getApuestaBase());
-         iniciarNuevaMano();
-          
-        
+      
+           
+            manoActual.agregar(jp, this.getApuestaBase());
+            iniciarNuevaMano(); 
+
+    
     }
 
     // </editor-fold>

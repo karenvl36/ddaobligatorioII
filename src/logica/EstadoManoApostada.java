@@ -61,5 +61,12 @@ public class EstadoManoApostada implements EstadoMano {
          return ganador;
     }
 
+    @Override
+    public void retirarJugador(JugadorPartida j, Mano m) {
+        m.getJugaronTurno().remove(j);
+        m.getJugadoresActivos().remove(j);
+      
+    }
+
     
 }

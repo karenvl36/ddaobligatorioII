@@ -35,7 +35,7 @@ public class Mano extends Observable {
 //    }
     
     public Mano() {
-        estado = new EstadoManoSinApuestas();
+        estado = new EstadoManoSinIniciar();
         this.jugadoresActivos = new ArrayList<JugadorPartida>();
         this.mazo = new Mazo();
     }
@@ -97,7 +97,13 @@ public class Mano extends Observable {
     public void setEstado(EstadoMano estado) {
         this.estado = estado;
     }
+    
+    
     // </editor-fold>
+
+    public List<JugadorPartida> getJugaronTurno() {
+        return jugaronTurno;
+    }
 
  
 
@@ -117,6 +123,7 @@ public class Mano extends Observable {
 
     public boolean iniciar() {
         if (!jugadoresInsuficientes()) {
+            estado = new EstadoManoSinApuestas();
             mazo.barajar();
             for (JugadorPartida j : jugadoresActivos) {
                 ManoJugador mj = new ManoJugador(mazo.repartir());
@@ -135,8 +142,7 @@ public class Mano extends Observable {
    
 
     public void eliminar(JugadorPartida j) {
-        this.jugaronTurno.remove(j);
-        this.jugadoresActivos.remove(j);
+        estado.retirarJugador(j, this);
         this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
     }
 
@@ -223,7 +229,7 @@ public class Mano extends Observable {
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
             estado.finalizarMano(this);
-             notificar(Observador.Evento.MANO_FINALIZADA);
+             
             return true;
         }
         

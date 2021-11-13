@@ -189,7 +189,7 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }
 
     public void fold() {
-
+        this.removeAncestorListener(listenerCerrar);
         cm.fold();
 
     }
