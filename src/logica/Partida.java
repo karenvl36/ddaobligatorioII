@@ -14,7 +14,6 @@ import java.util.List;
 import observador.Observable;
 import observador.Observador;
 
-
 /**
  *
  * @author chiqu
@@ -33,6 +32,7 @@ public class Partida extends Observable {
         estado = new EstadoPartidaSinIniciar();
         manos = new ArrayList<Mano>();
         manoActual = new Mano();
+        
     }
 
     @Override
@@ -76,7 +76,6 @@ public class Partida extends Observable {
 
     // </editor-fold>
     
-    
     // <editor-fold defaultstate="collapsed" desc="Iniciación de Partida">
     public Partida agregar(JugadorPartida jp) throws JugadorException, PartidaException {
         if (estado.agregar(jp, this) != null) {
@@ -88,6 +87,7 @@ public class Partida extends Observable {
 
     public Partida comprobarInicio() throws JugadorException, PartidaException {
         if (faltanJugadores() == 0) {
+            
             iniciar();
             this.estado = new EstadoPartidaIniciada();
             return this;
@@ -103,8 +103,7 @@ public class Partida extends Observable {
     public void iniciar() throws JugadorException { //Tira la excepción si un jugador a unirse a la nueva mano no tiene saldo
         this.setFecha(new Date());
         guardarSaldoInicialJugadores();
-
-        nuevaMano();
+        iniciarNuevaMano();
         this.notificar(Observador.Evento.PARTIDA_INICIADA);
 
     }
@@ -121,10 +120,11 @@ public class Partida extends Observable {
         manos.add(m);
     }
 
-    private void nuevaMano() {
+    private void iniciarNuevaMano() { 
         agregar(manoActual);
         if (this.jugadores.size() == this.manoActual.getJugadoresActivos().size()) {
             manoActual.iniciar();
+            
 
         } else {
             // comprobarFinalizarMano();
@@ -134,9 +134,8 @@ public class Partida extends Observable {
         //TODO: else finalizarPartida???
     }
 
-
-
 // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Validaciones">
     public int faltanJugadores() {
 
@@ -188,31 +187,29 @@ public class Partida extends Observable {
     }
 
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException {
-        try{
-        
+        try {
+
             manoActual.recibirMatchApuesta(jugador);
-        }catch(JugadorException je){
-            
+        } catch (JugadorException je) {
+
             throw je;
-            
-        }finally{
-        
-               comprobarFinalizarMano();
+
+        } finally {
+
+            comprobarFinalizarMano();
 
         }
-        
-     
+
     }
 
-    public void comprobarFinalizarMano() throws JugadorException {
+    public void comprobarFinalizarMano() {
         if (manoActual.manoFinalizada()) {
-            retirarJugadoresSaldoInsuficiente();
-            siguienteMano();
+          //  retirarJugadoresSaldoInsuficiente();
+            settearSiguienteMano();
+           
         }
 
     }
-    
-
 
     public int faltanPasar() {
         return manoActual.faltanPasar();
@@ -228,13 +225,16 @@ public class Partida extends Observable {
     }
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Finalizar">
-    public void retirarJugador(JugadorPartida j) {
+    public void retirarJugador(JugadorPartida j){
         if (jugadores.remove(j)) {
             if (manoActual != null) {
+    
                 manoActual.eliminar(j);
+                comprobarFinalizarMano();
                 if (jugadoresInsuficientes()) {
-                    // throw new JugadorException("TNo hay más jugadores");
+                  
                     //TODO: FinalizarPartida
                 }
 
@@ -244,34 +244,39 @@ public class Partida extends Observable {
 
     }
 
-    public void siguienteMano() {
-        if (jugadoresInsuficientes()) {
+    public void settearSiguienteMano() {
+        if (jugadoresInsuficientes()) { //Solo queda un jugador en la partida
             //FinalizarPartida
-            manoActual.notificar(Observador.Evento.PARTIDA_FINALIZADA); // Ver si vale la pena suscribir a Partida solo para este evento
+           // manoActual.notificar(Observador.Evento.PARTIDA_FINALIZADA); // Ver si vale la pena suscribir a Partida solo para este evento
         }
         int pozoAnterior = 0;
         JugadorPartida ganadorAnterior = manoActual.getGanador();
         if (ganadorAnterior == null) {
             pozoAnterior = manoActual.getPozo();
         }
-        nuevaMano();
+        manoActual = new Mano();
+     //   iniciarNuevaMano();
         manoActual.sumarPozo(pozoAnterior);
     }
 
-
-
     private void retirarJugadoresSaldoInsuficiente() throws JugadorException {
-       for(JugadorPartida j: this.jugadores){
-           try{
-               saldoSuficiente(j);
-           }catch(JugadorException je){
-               retirarJugador(j);
-               j.notificar(j);
-               continue;
-           }
-       }
+        for (JugadorPartida j : this.jugadores) {
+            try {
+                saldoSuficiente(j);
+            } catch (JugadorException je) {
+                retirarJugador(j);
+                j.notificar(Observador.Evento.JUGADOR_RETIRADO_SALDO);
+                continue;
+            }
+        }
     }
+    
+    public void unirASiguienteMano(JugadorPartida jp) throws JugadorException{
+        manoActual.agregar(jp, this.getApuestaBase());
+         iniciarNuevaMano();
+          
+        
+    }
+
+    // </editor-fold>
 }
-
-
-

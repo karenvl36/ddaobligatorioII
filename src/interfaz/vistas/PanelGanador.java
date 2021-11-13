@@ -20,8 +20,10 @@ public class PanelGanador extends javax.swing.JPanel {
      * Creates new form PanelGanador
      */
     ControladorMano cm;
+    javax.swing.event.AncestorListener listenerCerrar;
     public PanelGanador(ControladorMano cm, String ganador, String figura, String cartas, String saldo) {
         initComponents();
+         crearListenerCerrarVentana();
         this.cm = cm;
         init(ganador,  figura,  cartas,  saldo);
     }
@@ -158,7 +160,9 @@ public class PanelGanador extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaManoActionPerformed
+     
         agregarANuevaMano();
+        cerrarPanel();
     }//GEN-LAST:event_btnNuevaManoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -169,7 +173,7 @@ public class PanelGanador extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
-         abandonarPartida();
+        
     }//GEN-LAST:event_formAncestorRemoved
 
 
@@ -189,6 +193,27 @@ public class PanelGanador extends javax.swing.JPanel {
     private javax.swing.JTextPane panGanador;
     // End of variables declaration//GEN-END:variables
 
+      private void crearListenerCerrarVentana(){
+              
+        listenerCerrar = new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                formAncestorRemovedCerrar(evt);
+            }
+          };
+        addAncestorListener (listenerCerrar);
+    }
+    
+    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
+        abandonarPartida();
+        
+    }  
+    
+    
+    
     private void init(String ganador, String figura, String cartas, String saldo) {
         this.panGanador.setText(ganador);
         this.panFigura.setText(figura); 
@@ -200,6 +225,7 @@ public class PanelGanador extends javax.swing.JPanel {
     }
 
     private void agregarANuevaMano() {
+        this.removeAncestorListener(listenerCerrar);
         cm.unirAProximaMano();
     }
 
