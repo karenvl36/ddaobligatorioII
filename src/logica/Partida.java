@@ -26,6 +26,7 @@ public class Partida extends Observable {
     private Settings settings;
     private Mano manoActual;
     private EstadoPartida estado;
+   // private Mano ultimaManoJugada;
 
     public Partida() {
         settings = Settings.getInstancia();
@@ -73,6 +74,8 @@ public class Partida extends Observable {
     public Mano getManoActual() {
         return manoActual;
     }
+    
+    
 
     
     // </editor-fold>
@@ -206,9 +209,11 @@ public class Partida extends Observable {
 
     public void comprobarFinalizarMano() {
         if (manoActual.manoFinalizada()) {
-          //  retirarJugadoresSaldoInsuficiente();
-            settearSiguienteMano();
-           
+            //  retirarJugadoresSaldoInsuficiente();
+             settearSiguienteMano();
+           // ultimaManoJugada = manoActual;
+          //  manoActual = null;
+
         }
 
     }
@@ -276,7 +281,7 @@ public class Partida extends Observable {
     
     public void unirASiguienteMano(JugadorPartida jp) throws JugadorException{
       
-           
+         
             manoActual.agregar(jp, this.getApuestaBase());
             iniciarNuevaMano(); 
 

@@ -167,7 +167,13 @@ public class ControladorMano implements Observador {
     // </editor-fold>
     @Override
     public void notificar(Observable source, Object event) {
-        if (event == Observador.Evento.JUGADOR_ELIMINADO) {
+         if (event == Observador.Evento.MANO_FINALIZADA) {
+            vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
+            vistaMano.mostrarMensaje("Mano finalizada");
+           // manoActual.desubscribir(this);
+        
+        
+         }  else if (event == Observador.Evento.JUGADOR_ELIMINADO) {
             this.mostrarJugadoresEnMano();
         } else if (event == Observador.Evento.APUESTA_RECIBIDA) {
             mostrarApuestaActiva();
@@ -185,10 +191,7 @@ public class ControladorMano implements Observador {
         } else if (event == Observador.Evento.APUESTA_PEDIDA) {
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
 
-        } else if (event == Observador.Evento.MANO_FINALIZADA) {
-            vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
-            vistaMano.mostrarMensaje("Mano finalizada");
-           // manoActual.desubscribir(this);
+        
         }else if(event == Observador.Evento.PARTIDA_FINALIZADA){
         
             vistaMano.mostrarError("Terminó la partida.");

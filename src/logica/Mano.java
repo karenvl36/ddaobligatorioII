@@ -174,6 +174,7 @@ public class Mano extends Observable {
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException{
         
         estado.recibirMatchApuesta(jugador, this);
+        notificar(Observador.Evento.APUESTA_RECIBIDA);
         notificar(Observador.Evento.TURNO_JUGADO);
     }
     

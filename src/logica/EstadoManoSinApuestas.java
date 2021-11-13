@@ -55,7 +55,8 @@ public class EstadoManoSinApuestas implements EstadoMano {
 
     @Override
     public void retirarJugador(JugadorPartida j, Mano m) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        m.getJugaronTurno().remove(j);
+        m.getJugadoresActivos().remove(j);
     }
 
 }

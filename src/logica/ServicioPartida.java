@@ -6,6 +6,7 @@
 package logica;
 
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +45,9 @@ public class ServicioPartida {
     }
 
     public void crearPartida(Partida p) {
-        if(p!=null){
-        partidasEnCurso.add(p);
-        Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_INICIADA);
+        if (p != null) {
+            partidasEnCurso.add(p);
+            Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_INICIADA);
         }
         Partida partidaNueva = new Partida();
         partidaAIniciar = partidaNueva;
@@ -73,4 +74,52 @@ public class ServicioPartida {
         return this.partidasEnCurso;
     }
 
+    public void apostar(Partida p, JugadorPartida j, int apuesta) throws JugadorException{
+        p.recibirApuesta(j, apuesta);
+        //notify nuevo gasto en partida
+    
+    }
+    
+    public void pasar(Partida p, JugadorPartida j) throws ManoException, JugadorException{
+        p.recibirPasar(j);  
+        //notify 
+    }
+    
+    public void matchApuesta(Partida p, JugadorPartida j) throws JugadorException{   
+        p.recibirMatchApuesta(j);
+        //notify nuevo gasto
+    }
+    
+
+    
+    public void retirarJugador(Partida p, JugadorPartida j){
+        p.retirarJugador(j); 
+
+        //notificar fin partida
+
+    }
+    
+    
+    
+    public void comprobarFinPartida(Partida p){
+        //if(p.comprobarFinPartida() // notify
+                  //TODO: Ver como hacer esto de otra forma? por ejemplo un p.comprobarFinPartida();
+        if(p.getEstado() instanceof EstadoPartidaFinalizada){
+            //notify finPartida
+        }
+       
+    }
+    
+    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException{
+        p.unirASiguienteMano(j);
+        //comrpobar inicio nueva Mano
+        //notificar inicio nueva Mano
+        
+          if(!(p.getManoActual().getEstado() instanceof EstadoManoSinIniciar)){
+            //notify finMano
+        }
+  
+    }
+    
+    
 }
