@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.AncestorEvent;
 
 import logica.JugadorPartida;
 import logica.Partida;
@@ -27,12 +28,10 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     /**
      * Creates new form VistaPartida
      */
-    
     ControladorMano cp;
     JFrame framePanelApuesta;
     JFrame framePanelGanador;
 
-    
     public VistaMano(Partida p, JugadorPartida jp) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -62,7 +61,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         carta2 = new javax.swing.JLabel();
         txtApuestaActual = new javax.swing.JLabel();
         lblCartasFigura = new javax.swing.JLabel();
-        lblGanador = new javax.swing.JLabel();
         lblMensajes = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lblPozo = new javax.swing.JTextPane();
@@ -122,8 +120,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
         lblCartasFigura.setText("cartasFigura");
 
-        lblGanador.setText("Ganador");
-
         lblPozo.setEditable(false);
         jScrollPane2.setViewportView(lblPozo);
 
@@ -136,11 +132,14 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCartasFigura))
-                .addGap(392, 392, 392))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(lblCartasFigura))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -181,10 +180,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(289, 289, 289)
-                        .addComponent(lblMensajes))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(lblGanador)))
+                        .addComponent(lblMensajes)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -231,9 +227,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                             .addComponent(btnApostar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblMensajes)
-                .addGap(39, 39, 39)
-                .addComponent(lblGanador)
-                .addGap(127, 127, 127))
+                .addGap(182, 182, 182))
         );
 
         pack();
@@ -241,11 +235,11 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         abrirDialogoApuesta(null, null);
-        
+
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
         abandonarPartida();
     }//GEN-LAST:event_formWindowClosed
 
@@ -257,13 +251,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         abandonarPartida();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    
-    
-
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
@@ -281,7 +271,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     private javax.swing.JList lJugadoresEnPartida;
     private javax.swing.JLabel lblCartasFigura;
     private javax.swing.JLabel lblFigura;
-    private javax.swing.JLabel lblGanador;
     private javax.swing.JLabel lblMensajes;
     private javax.swing.JTextPane lblPozo;
     private javax.swing.JLabel txtApuestaActual;
@@ -297,8 +286,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         lblFigura.setText(Figura);
         lblCartasFigura.setText(cartas);
     }
-    
-    
+
     @Override
     public void mostrarJugadoresActivos(List<String> jugadores) {
         lJugadoresEnPartida.setListData(jugadores.toArray());
@@ -311,22 +299,18 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void pasar() {
-        
-      
+
         cp.pasar();
 
-      // mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif");
+        // mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif");
         btnApostar.setEnabled(false);
         btnPasar.setEnabled(false);
         cp.mostrarJugadoresEnMano(); //TODO: Sacar esto
     }
-    
-    
 
-  
     public void abandonarPartida() {
         cp.salir();
-      
+
     }
 
     @Override
@@ -334,7 +318,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         btnApostar.setEnabled(true);
         btnPasar.setEnabled(true);
         this.setTitle(nombreJugador);
-       // lbJugador.setText(nombreJugador);
+        // lbJugador.setText(nombreJugador);
         actualizarPozo(pozo);
     }
 
@@ -343,20 +327,17 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         txtApuestaActual.setText("Apuesta por $ " + valor + "realizada por " + jugador);
         btnApostar.setEnabled(false);
         //TODO: Agregar un boton de match a la apuesta
-        
+
     }
 
     @Override
     public void pedirApuesta(String apostante, int valor, String playerActual) {
-        PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual);
+        PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual, crearListenerCerrarVentana());
         framePanelApuesta.add(panel);
         framePanelApuesta.pack();
         framePanelApuesta.setVisible(true);
 
     }
-    
-
-    
 
     @Override
     public void mostrarError(String error) {
@@ -372,17 +353,17 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public void mostrarMensaje(String mensaje) {
         lblMensajes.setText(mensaje);
     }
-    
-    
+
     @Override
-      public void mostrarGanador(String nombreGanador, String figura, String cartas, String saldo) {
+    public void mostrarFinMano(String nombreGanador, String figura, String cartas, String saldo, String jugador) {
         // cerrarPanel();
-  
-        lblGanador.setText(nombreGanador);
-        ofrecerSiguienteMano(nombreGanador, figura, cartas, saldo);
+        //  lblGanador.setText(nombreGanador);
+        PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador, crearListenerCerrarVentana());
+        framePanelGanador.add(panel);
+        framePanelGanador.pack();
+        framePanelGanador.setVisible(true);
+
     }
-    
-      
 
     @Override
     public void cerrarVentana() {
@@ -393,32 +374,43 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public void vistaFolded(String cartaReversa, String mensaje) {
         //cerrarPanel();
         mostrarCartas(cartaReversa, cartaReversa, cartaReversa, cartaReversa, cartaReversa, mensaje, "");
-        
+
     }
-    
-    
-    public void cerrarPanel(){
+
+    public void cerrarPanel() {
 //            framePanelApuesta.removeAll();
 //            framePanelApuesta.setVisible(false);  
     }
 
     @Override
     public void actualizarPozo(String pozo) {
-          lblPozo.setText(pozo);
+        lblPozo.setText(pozo);
     }
 
-    @Override
-    public void ofrecerSiguienteMano(String ganador, String figura, String cartas, String saldo) {
-         PanelGanador panel = new PanelGanador(cp, ganador, figura, cartas, saldo);
-        framePanelGanador.add(panel);
-        framePanelGanador.pack();
-        framePanelGanador.setVisible(true); 
-        
+    private javax.swing.event.AncestorListener crearListenerCerrarVentana() {
+
+        javax.swing.event.AncestorListener listenerCerrar = new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                formAncestorRemovedCerrar(evt);
+                
+            }
+
+            
+        };
+        return listenerCerrar;
+        // addAncestorListener (listenerCerrar);
+    }
+
+    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {
+
     }
     
-    
-  
 
-      
- 
+
 }

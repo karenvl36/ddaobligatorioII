@@ -107,6 +107,7 @@ public class Mano extends Observable {
 
     // <editor-fold defaultstate="collapsed" desc="IniciarMano">
     public void agregar(JugadorPartida j, int luz) throws JugadorException {
+       jugadorYaEnMano(j); 
        j.realizarApuesta(luz); //Si falla retorna una exception
        this.jugadoresActivos.add(j) ;
         sumarPozo(luz);
@@ -123,7 +124,8 @@ public class Mano extends Observable {
                 j.setManoJugador(mj);
             }
           // cartasParaTestear();
-         //  this.notificar(Observador.Evento.MANO_COMENZADA);
+         
+           this.notificar(Observador.Evento.MANO_COMENZADA);
 
             return true;
         }
@@ -240,7 +242,15 @@ public class Mano extends Observable {
     }
     // </editor-fold>
 
+    public void jugadorYaEnMano(JugadorPartida player) throws JugadorException {
 
+        for (JugadorPartida j : jugadoresActivos) {
+            if (j.getJugador().equals(player.getJugador())) {
+                throw new JugadorException("La nueva mano comenzará cuando todos los jugadores acepten.");
+            }
+        }
+
+    }
 
    // <editor-fold defaultstate="collapsed" desc="Testing"> 
 //   private void cartasParaTestear() { 

@@ -121,11 +121,12 @@ public class Partida extends Observable {
     }
 
     private void iniciarNuevaMano() { 
-        agregar(manoActual);
+       
         if (this.jugadores.size() == this.manoActual.getJugadoresActivos().size()) {
+           
+            agregar(manoActual);
             manoActual.iniciar();
-            
-
+           
         } else {
             // comprobarFinalizarMano();
 

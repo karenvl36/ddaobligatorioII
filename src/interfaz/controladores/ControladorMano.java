@@ -38,11 +38,11 @@ public class ControladorMano implements Observador {
         this.vistaMano = vistaMano;
         this.estaPartida = unaPartida;
         this.player = player;
-       
+
         estaPartida.getManoActual().subscribir(this);
         player.subscribir(this);
-        
-         init();
+
+        init();
 
     }
 
@@ -53,12 +53,12 @@ public class ControladorMano implements Observador {
 
     // <editor-fold defaultstate="collapsed" desc="Iniciar">
     public void init() {
-       
+
         manoActual = estaPartida.getManoActual();
         vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo());
         mostrarJugadoresEnMano();
         mostrarCartas();
-        vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
+        vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
 
     }
 
@@ -89,8 +89,6 @@ public class ControladorMano implements Observador {
     }
 
     // </editor-fold>
-    
-    
     public void realizarApuesta(int apuesta) {
         try {
             estaPartida.recibirApuesta(player, apuesta);
@@ -151,7 +149,7 @@ public class ControladorMano implements Observador {
         manoActual.desubscribir(this);
         retirarJugador(this.player);
         // estaPartida.desubscribir(this); 
-        
+
         vistaMano.cerrarVentana();
     }
 
@@ -175,18 +173,22 @@ public class ControladorMano implements Observador {
             mostrarApuestaActiva();
             vistaMano.actualizarPozo("$" + manoActual.getPozo());
         } else if (event == Observador.Evento.GANADOR_DECLARADO) {
+
             mostrarGanador();
+          //  manoActual.desubscribir(this);
 
         } else if (event == Observador.Evento.MANO_COMENZADA) {
-               init();
+            // vistaMano.abrirNuevaMano(estaPartida, player);
+            init();
         } else if (event == Observador.Evento.TURNO_JUGADO) {
-            vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + "jugadores.");
+            vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
         } else if (event == Observador.Evento.APUESTA_PEDIDA) {
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
 
         } else if (event == Observador.Evento.MANO_FINALIZADA) {
-            vistaMano.ofrecerSiguienteMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo());
+            vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
             vistaMano.mostrarMensaje("Mano finalizada");
+           // manoActual.desubscribir(this);
         }
 
     }
@@ -200,26 +202,26 @@ public class ControladorMano implements Observador {
     }
 
     public void unirAProximaMano() {
-        try{
+        vistaMano.vistaFolded("/cartas/Invertida.gif", "COMENZANDO LA SIGUIENTE MANO...");
+        estaPartida.getManoActual().subscribir(this);
+        try {
             estaPartida.unirASiguienteMano(player);
-          //  init();
-        
-        }catch(JugadorException je){
-          
+
+            //  init();
+        } catch (JugadorException je) {
+
             vistaMano.mostrarError(je.getMessage());
-            salir();
+            //  salir();
         }
-    
+
     }
 
-
-        private void mostrarGanador() {
+    private void mostrarGanador() {
         String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
         String cartasFigura = manoActual.getGanador().getManoJugador().getFigura().getDescripcionCartas();
         String ganador = manoActual.getGanador().getJugador().getNick();
         String saldo = "$" + player.getJugador().getSaldo();
-        vistaMano.mostrarGanador(ganador, figura, cartasFigura, saldo);
+        vistaMano.mostrarFinMano(ganador, figura, cartasFigura, saldo, player.getJugador().getNick());
     }
-
 
 }

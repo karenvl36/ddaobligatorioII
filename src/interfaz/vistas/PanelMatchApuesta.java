@@ -21,9 +21,11 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     
     ControladorMano cm;
     javax.swing.event.AncestorListener listenerCerrar;
-    public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual) {
+    public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual, javax.swing.event.AncestorListener listener) {
         initComponents();
-        crearListenerCerrarVentana();
+     //   crearListenerCerrarVentana();
+     this.listenerCerrar = listener;
+       this.addAncestorListener(listenerCerrar);
         cm = cp;
         init(valor, apostante, playerActual);
    
@@ -169,9 +171,12 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }
     
     private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
-        fold();
-        
+        fold();    
     }  
+     private void formAncestorRemovedAbandonar(javax.swing.event.AncestorEvent evt) {                                     
+      
+        
+    }
     
     public void init(int valor, String jugador, String playerActual){
         this.lblDeJugador.setText(playerActual); //Para identificar de quien es la ventana
