@@ -21,11 +21,13 @@ public class PanelGanador extends javax.swing.JPanel {
      */
     ControladorMano cm;
     javax.swing.event.AncestorListener listenerCerrar;
-    public PanelGanador(ControladorMano cm, String ganador, String figura, String cartas, String saldo) {
+    public PanelGanador(ControladorMano cm, String ganador, String figura, String cartas, String saldo, String jugador, javax.swing.event.AncestorListener listener) {
         initComponents();
-         crearListenerCerrarVentana();
+       //  crearListenerCerrarVentana();
+       this.listenerCerrar = listener;
+       this.addAncestorListener(listenerCerrar);
         this.cm = cm;
-        init(ganador,  figura,  cartas,  saldo);
+        init(ganador,  figura,  cartas,  saldo, jugador);
     }
 
     /**
@@ -50,6 +52,7 @@ public class PanelGanador extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         panGanador = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
+        lblJugador = new javax.swing.JLabel();
 
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -94,6 +97,8 @@ public class PanelGanador extends javax.swing.JPanel {
 
         jLabel1.setText("Ganador:");
 
+        lblJugador.setText("Jugador");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +110,9 @@ public class PanelGanador extends javax.swing.JPanel {
                 .addComponent(btnSalir)
                 .addGap(26, 26, 26))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(lblJugador)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(lblSaldo)
@@ -133,7 +140,8 @@ public class PanelGanador extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(lblSaldo))
+                    .addComponent(lblSaldo)
+                    .addComponent(lblJugador))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -161,13 +169,12 @@ public class PanelGanador extends javax.swing.JPanel {
 
     private void btnNuevaManoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaManoActionPerformed
      
-        agregarANuevaMano();
-        cerrarPanel();
+         agregarANuevaMano();
+         cerrarPanel();
     }//GEN-LAST:event_btnNuevaManoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-       
-       
+        abandonarPartida();
         cerrarPanel();
         
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -187,38 +194,39 @@ public class PanelGanador extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblJugador;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JTextPane panCartas;
     private javax.swing.JTextPane panFigura;
     private javax.swing.JTextPane panGanador;
     // End of variables declaration//GEN-END:variables
 
-      private void crearListenerCerrarVentana(){
-              
-        listenerCerrar = new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-                formAncestorRemovedCerrar(evt);
-            }
-          };
-        addAncestorListener (listenerCerrar);
-    }
+//      private void crearListenerCerrarVentana(){
+//              
+//        listenerCerrar = new javax.swing.event.AncestorListener() {
+//            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+//            }
+//            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+//            }
+//            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+//                formAncestorRemovedCerrar(evt);
+//            }
+//          };
+//        addAncestorListener (listenerCerrar);
+//    }
     
-    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
-        abandonarPartida();
-        
-    }  
+ 
+     private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
+          abandonarPartida(); 
+    } 
     
     
-    
-    private void init(String ganador, String figura, String cartas, String saldo) {
+    private void init(String ganador, String figura, String cartas, String saldo, String jugador) {
         this.panGanador.setText(ganador);
         this.panFigura.setText(figura); 
         this.panCartas.setText(cartas);
         this.lblSaldo.setText(saldo);
+        this.lblJugador.setText(jugador);
         
         
       
