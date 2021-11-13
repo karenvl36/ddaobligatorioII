@@ -332,7 +332,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void pedirApuesta(String apostante, int valor, String playerActual) {
-        PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual, crearListenerCerrarVentana());
+        PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual);
         framePanelApuesta.add(panel);
         framePanelApuesta.pack();
         framePanelApuesta.setVisible(true);
@@ -358,10 +358,12 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public void mostrarFinMano(String nombreGanador, String figura, String cartas, String saldo, String jugador) {
         // cerrarPanel();
         //  lblGanador.setText(nombreGanador);
-        PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador, crearListenerCerrarVentana());
+        
+        PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador);
         framePanelGanador.add(panel);
         framePanelGanador.pack();
         framePanelGanador.setVisible(true);
+     
 
     }
 
@@ -387,30 +389,31 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         lblPozo.setText(pozo);
     }
 
-    private javax.swing.event.AncestorListener crearListenerCerrarVentana() {
+//    private javax.swing.event.AncestorListener crearListenerCerrarVentana() {
+//
+//        javax.swing.event.AncestorListener listenerCerrar = new javax.swing.event.AncestorListener() {
+//            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+//            }
+//
+//            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+//            }
+//
+//            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+//                formAncestorRemovedCerrar(evt);
+//                
+//            }
+//            
+//              private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {
+//               abandonarPartida(); 
+//            }
+//
+//            
+//        };
+//        return listenerCerrar;
+//
+//    }
 
-        javax.swing.event.AncestorListener listenerCerrar = new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-                formAncestorRemovedCerrar(evt);
-                
-            }
-
-            
-        };
-        return listenerCerrar;
-        // addAncestorListener (listenerCerrar);
-    }
-
-    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {
-
-    }
-    
+   
 
 
 }

@@ -18,19 +18,15 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     /**
      * Creates new form PanelMatchApuesta
      */
-    
     ControladorMano cm;
     javax.swing.event.AncestorListener listenerCerrar;
-    public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual, javax.swing.event.AncestorListener listener) {
+
+    public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual) {
         initComponents();
-     //   crearListenerCerrarVentana();
-     this.listenerCerrar = listener;
-       this.addAncestorListener(listenerCerrar);
+        crearListenerCerrarVentana();
         cm = cp;
         init(valor, apostante, playerActual);
-   
-        
-        
+
     }
 
     /**
@@ -139,80 +135,72 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatchActionPerformed
-        
+
         matchApuesta();
         cerrarPanel();
     }//GEN-LAST:event_btnMatchActionPerformed
 
     private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
- 
+
         fold();
         cerrarPanel();
     }//GEN-LAST:event_btnFoldActionPerformed
 
     private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
-       // fold();
-        
+        // fold();
+
     }//GEN-LAST:event_formAncestorRemoved
 
-    
-    private void crearListenerCerrarVentana(){
-              
+    private void crearListenerCerrarVentana() {
+
         listenerCerrar = new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
+
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
+
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 formAncestorRemovedCerrar(evt);
             }
-          };
-        addAncestorListener (listenerCerrar);
+        };
+        addAncestorListener(listenerCerrar);
     }
-    
-    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
-        fold();    
-    }  
-     private void formAncestorRemovedAbandonar(javax.swing.event.AncestorEvent evt) {                                     
-      
-        
+
+    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {
+        fold();
     }
-    
-    public void init(int valor, String jugador, String playerActual){
+
+    public void init(int valor, String jugador, String playerActual) {
         this.lblDeJugador.setText(playerActual); //Para identificar de quien es la ventana
         lblValorApuesta.setText("$" + valor);
         lblJugador.setText(jugador);
-      
-        
-        
+
     }
-    
-    
-    public void matchApuesta(){
-    
+
+    public void matchApuesta() {
+
         cm.matchApuesta();
         Window win = SwingUtilities.getWindowAncestor(this);
         this.removeAncestorListener(listenerCerrar);
-      
+
         //win.remove(this);
         // win.setVisible(false);
-
     }
-    
-    
-    public void fold(){
-    
+
+    public void fold() {
+
         cm.fold();
-    
-    }
-    
-    public void cerrarPanel(){
-         Window win = SwingUtilities.getWindowAncestor(this);
-         win.dispose();
+
     }
 
-    
-    
+    public void cerrarPanel() {
+        Window win = SwingUtilities.getWindowAncestor(this);
+        win.remove(this);
+        win.dispose();
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFold;
     private javax.swing.JButton btnMatch;
