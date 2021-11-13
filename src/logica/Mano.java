@@ -110,9 +110,7 @@ public class Mano extends Observable {
        j.realizarApuesta(luz); //Si falla retorna una exception
        this.jugadoresActivos.add(j) ;
         sumarPozo(luz);
-        
-       
-       
+        iniciar();
 
     }
 
@@ -125,7 +123,8 @@ public class Mano extends Observable {
                 j.setManoJugador(mj);
             }
           // cartasParaTestear();
-      //      this.notificar(Observador.Evento.MANO_COMENZADA);
+         //  this.notificar(Observador.Evento.MANO_COMENZADA);
+
             return true;
         }
         return false;
@@ -200,33 +199,18 @@ public class Mano extends Observable {
  
     // <editor-fold defaultstate="collapsed" desc="FinalizarMano">
     
-//    public JugadorPartida revisarGanador(){
-//        JugadorPartida ganador = null;
-//        ArrayList<ManoJugador> cartasJugadores = new ArrayList();
-//        
-//        for(JugadorPartida jp: jugadoresActivos){
-//            //if(jp.getManoJugador().figura.compareTo(o))
-//            cartasJugadores.add(jp.getManoJugador());
-//        }
-//        ArrayList<ManoJugador> temp = new ArrayList<>(cartasJugadores);
-//        Collections.sort(temp);
-//        System.out.println(temp.get(0).getFigura().getDescripcionCartas());
-//        //TODO: Esto está mal. Tenemso que evaluar por JugadorPartida para saber quién es el dueño del set ganador
-//        return ganador;
-//    }
+
     
      public JugadorPartida revisarGanador(){ 
-          JugadorPartida ganador = jugadoresActivos.get(0); 
+          JugadorPartida ganadorMano = jugadoresActivos.get(0); 
           for(int i=1; i<jugadoresActivos.size(); i++){ 
               JugadorPartida jp = jugadoresActivos.get(i); 
-              if(jp.getManoJugador().figura.compareTo(ganador.getManoJugador().figura) < 0){ 
-                  ganador = jp; 
+              if(jp.getManoJugador().figura.compareTo(ganadorMano.getManoJugador().figura) < 0){ 
+                  ganadorMano = jp; 
               }    
           } 
-           
-          System.out.println(ganador.getManoJugador().getFigura().getDescripcionCartas()); 
-    
-          return ganador; 
+          declararGanador(ganadorMano);
+          return ganadorMano; 
       } 
     
     
@@ -237,7 +221,7 @@ public class Mano extends Observable {
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
             estado.finalizarMano(this);
-            notificar(Observador.Evento.MANO_FINALIZADA);
+             notificar(Observador.Evento.MANO_FINALIZADA);
             return true;
         }
         
@@ -314,13 +298,7 @@ public class Mano extends Observable {
 
 
       
-//    private void recibirMatchApuesta(JugadorPartida j) throws JugadorException{
-//        j.realizarApuesta(apuesta.getValor()); //pasamos el valor de la apuesta en juego
-//            sumarPozo(apuesta.getValor());
-//            comprobarFinalizacion();
-//    
-//        
-//    }
+
 
 
 

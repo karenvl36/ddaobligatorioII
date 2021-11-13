@@ -20,10 +20,13 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
      */
     
     ControladorMano cm;
+    javax.swing.event.AncestorListener listenerCerrar;
     public PanelMatchApuesta(ControladorMano cp, int valor, String apostante, String playerActual) {
         initComponents();
+        crearListenerCerrarVentana();
         cm = cp;
         init(valor, apostante, playerActual);
+   
         
         
     }
@@ -140,19 +143,41 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnMatchActionPerformed
 
     private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
+ 
+        fold();
         cerrarPanel();
-     //   fold();
     }//GEN-LAST:event_btnFoldActionPerformed
 
     private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
-        fold();
+       // fold();
+        
     }//GEN-LAST:event_formAncestorRemoved
 
+    
+    private void crearListenerCerrarVentana(){
+              
+        listenerCerrar = new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                formAncestorRemovedCerrar(evt);
+            }
+          };
+        addAncestorListener (listenerCerrar);
+    }
+    
+    private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {                                     
+        fold();
+        
+    }  
+    
     public void init(int valor, String jugador, String playerActual){
         this.lblDeJugador.setText(playerActual); //Para identificar de quien es la ventana
         lblValorApuesta.setText("$" + valor);
         lblJugador.setText(jugador);
-        Window win = SwingUtilities.getWindowAncestor(this);
+      
         
         
     }
@@ -161,6 +186,11 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     public void matchApuesta(){
     
         cm.matchApuesta();
+        Window win = SwingUtilities.getWindowAncestor(this);
+        this.removeAncestorListener(listenerCerrar);
+      
+        //win.remove(this);
+        // win.setVisible(false);
 
     }
     
@@ -172,7 +202,7 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     }
     
     public void cerrarPanel(){
-          Window win = SwingUtilities.getWindowAncestor(this);
+         Window win = SwingUtilities.getWindowAncestor(this);
          win.dispose();
     }
 

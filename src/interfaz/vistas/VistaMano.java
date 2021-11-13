@@ -376,7 +376,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     
     @Override
       public void mostrarGanador(String nombreGanador, String figura, String cartas, String saldo) {
-       // cerrarPanel();
+        // cerrarPanel();
   
         lblGanador.setText(nombreGanador);
         ofrecerSiguienteMano(nombreGanador, figura, cartas, saldo);
@@ -391,15 +391,15 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void vistaFolded(String cartaReversa, String mensaje) {
-        cerrarPanel();
+        //cerrarPanel();
         mostrarCartas(cartaReversa, cartaReversa, cartaReversa, cartaReversa, cartaReversa, mensaje, "");
         
     }
     
     
     public void cerrarPanel(){
-           // framePanel.removeAll();
-            //framePanel.setVisible(false);  
+//            framePanelApuesta.removeAll();
+//            framePanelApuesta.setVisible(false);  
     }
 
     @Override
