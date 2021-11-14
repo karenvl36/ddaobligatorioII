@@ -379,10 +379,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }
 
     public void cerrarPaneles() {
-          // framePanelApuesta.removeAll();
-          // framePanelApuesta.setVisible(false);  
-          // framePanelGanador.removeAll();
-          // framePanelGanador.setVisible(false);  
+           framePanelApuesta.removeAll();
+           framePanelGanador.removeAll();
            framePanelGanador.dispose();
            framePanelApuesta.dispose();
     }

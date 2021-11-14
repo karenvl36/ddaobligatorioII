@@ -82,26 +82,43 @@ public class ServicioPartida {
     
     public void pasar(Partida p, JugadorPartida j) throws ManoException, JugadorException{
         p.recibirPasar(j);  
-        //notify 
+        notificarSiFinMano(p);
+    
     }
     
     public void matchApuesta(Partida p, JugadorPartida j) throws JugadorException{   
-        p.recibirMatchApuesta(j);
-        //notify nuevo gasto
+       try{
+           p.recibirMatchApuesta(j);
+           //notify nuevo gasto
+       }catch(JugadorException je){
+       
+           throw je;
+       }finally{
+            notificarSiFinMano(p);
+       }
+      
+        
     }
     
 
     
     public void retirarJugador(Partida p, JugadorPartida j){
         p.retirarJugador(j); 
-        notificarFinPartida(p);
-        //notificar fin partida
+        notificarSiFinMano(p);
+        notificarSiFinPartida(p);
 
+    }
+    
+    private void notificarSiFinMano(Partida p){
+          if( p.comprobarFinalizarMano()){
+        
+          Fachada.getInstancia().notificar(Observador.Evento.MANO_FINALIZADA);
+        } 
     }
     
     
     
-    private void notificarFinPartida(Partida p){
+    private void notificarSiFinPartida(Partida p){
         if(p.partidaFinalizada()){
         
           Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_FINALIZADA);

@@ -181,7 +181,6 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
     public void matchApuesta() {
 
         cm.matchApuesta();
-        Window win = SwingUtilities.getWindowAncestor(this);
         this.removeAncestorListener(listenerCerrar);
 
         //win.remove(this);
