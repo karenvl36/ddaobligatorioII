@@ -6,6 +6,7 @@
 package logica;
 
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,32 @@ public class Fachada extends Observable {
     public List<Partida> getPartidasEnCurso(){
         return sp.getPartidasEnCurso();
     }
+
+    public boolean agregar(Partida p) {
+        return sp.agregar(p);
+    }
+
+    public void apostar(Partida p, JugadorPartida j, int apuesta) throws JugadorException {
+        sp.apostar(p, j, apuesta);
+    }
+
+    public void pasar(Partida p, JugadorPartida j) throws ManoException, JugadorException {
+        sp.pasar(p, j);
+    }
+
+    public void matchApuesta(Partida p, JugadorPartida j) throws JugadorException {
+        sp.matchApuesta(p, j);
+    }
+
+    public void retirarJugador(Partida p, JugadorPartida j) {
+        sp.retirarJugador(p, j);
+    }
+
+    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException {
+        sp.unirJugadorASiguienteMano(p, j);
+    }
+    
+    
     
   
     

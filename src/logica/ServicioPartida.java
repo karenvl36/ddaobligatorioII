@@ -44,7 +44,7 @@ public class ServicioPartida {
         return this.partidasEnCurso.add(p);
     }
 
-    public void crearPartida(Partida p) {
+    private void crearPartida(Partida p) {
         if (p != null) {
             partidasEnCurso.add(p);
             Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_INICIADA);
@@ -94,19 +94,22 @@ public class ServicioPartida {
     
     public void retirarJugador(Partida p, JugadorPartida j){
         p.retirarJugador(j); 
-
+        notificarFinPartida(p);
         //notificar fin partida
 
     }
     
     
     
-    public void comprobarFinPartida(Partida p){
-        //if(p.comprobarFinPartida() // notify
+    private void notificarFinPartida(Partida p){
+        if(p.partidaFinalizada()){
+        
+          Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_FINALIZADA);
+        } // notify
                   //TODO: Ver como hacer esto de otra forma? por ejemplo un p.comprobarFinPartida();
-        if(p.getEstado() instanceof EstadoPartidaFinalizada){
-            //notify finPartida
-        }
+//        if(p.getEstado() instanceof EstadoPartidaFinalizada){
+//            //notify finPartida
+//        }
        
     }
     
@@ -115,9 +118,9 @@ public class ServicioPartida {
         //comrpobar inicio nueva Mano
         //notificar inicio nueva Mano
         
-          if(!(p.getManoActual().getEstado() instanceof EstadoManoSinIniciar)){
-            //notify finMano
-        }
+//          if(!(p.getManoActual().getEstado() instanceof EstadoManoSinIniciar)){
+//            //notify finMano
+//        }
   
     }
     

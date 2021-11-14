@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logica.Carta;
+import logica.Fachada;
 import logica.Mano;
 
 /**
@@ -33,12 +34,13 @@ public class ControladorMano implements Observador {
     private IVistaMano vistaMano;
     private JugadorPartida player;
     private IDialogoApuesta diaApuesta;
+    private Fachada fachada = Fachada.getInstancia();;
 
     public ControladorMano(IVistaMano vistaMano, Partida unaPartida, JugadorPartida player) {
         this.vistaMano = vistaMano;
         this.estaPartida = unaPartida;
-        this.player = player;
-
+        this.player = player; 
+        fachada.subscribir(this);
         estaPartida.getManoActual().subscribir(this);
         player.subscribir(this);
 
@@ -88,7 +90,26 @@ public class ControladorMano implements Observador {
 
     }
 
+    public void unirAProximaMano() {
+        
+        
+        try {
+           
+            estaPartida.getManoActual().subscribir(this);
+            estaPartida.unirASiguienteMano(player);
+             vistaMano.vistaFolded("/cartas/Invertida.gif", "COMENZANDO LA SIGUIENTE MANO...");
+ 
+        } catch (JugadorException je) {
+
+            vistaMano.mostrarError(je.getMessage());
+             salir();
+        }
+
+    }
+
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Jugar">
     public void realizarApuesta(int apuesta) {
         try {
             estaPartida.recibirApuesta(player, apuesta);
@@ -99,6 +120,14 @@ public class ControladorMano implements Observador {
             diaApuesta.mostrarError(je.getMessage());
 
         }
+
+    }
+
+    public void mostrarApuestaActiva() {
+
+        String jugador = estaPartida.getApuestaActiva().getNickJugador();
+        int valorApuesta = estaPartida.getApuestaActiva().getValor();
+        vistaMano.mostrarApuestaActiva(jugador, valorApuesta);
 
     }
 
@@ -144,7 +173,9 @@ public class ControladorMano implements Observador {
 
     }
 
-// <editor-fold defaultstate="collapsed" desc="Terminar">
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Terminar">
     public void salir() {
         manoActual.desubscribir(this);
         retirarJugador(this.player);
@@ -162,64 +193,7 @@ public class ControladorMano implements Observador {
     public void desuscribir() {
         estaPartida.desubscribir(this);
         player.desubscribir(this);
-    }
-
-    // </editor-fold>
-    @Override
-    public void notificar(Observable source, Object event) {
-         if (event == Observador.Evento.MANO_FINALIZADA) {
-            vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
-            vistaMano.mostrarMensaje("Mano finalizada");
-           // manoActual.desubscribir(this);
-        
-        
-         }  else if (event == Observador.Evento.JUGADOR_ELIMINADO) {
-            this.mostrarJugadoresEnMano();
-        } else if (event == Observador.Evento.APUESTA_RECIBIDA) {
-            mostrarApuestaActiva();
-            vistaMano.actualizarPozo("$" + manoActual.getPozo());
-        } else if (event == Observador.Evento.GANADOR_DECLARADO) {
-
-            mostrarGanador();
-          //  manoActual.desubscribir(this);
-
-        } else if (event == Observador.Evento.MANO_COMENZADA) {
-            // vistaMano.abrirNuevaMano(estaPartida, player);
-            init();
-        } else if (event == Observador.Evento.TURNO_JUGADO) {
-            vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
-        } else if (event == Observador.Evento.APUESTA_PEDIDA) {
-            vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
-
-        
-        }else if(event == Observador.Evento.PARTIDA_FINALIZADA){
-        
-            vistaMano.mostrarError("Terminó la partida.");
-        }
-
-    }
-
-    public void mostrarApuestaActiva() {
-
-        String jugador = estaPartida.getApuestaActiva().getNickJugador();
-        int valorApuesta = estaPartida.getApuestaActiva().getValor();
-        vistaMano.mostrarApuestaActiva(jugador, valorApuesta);
-
-    }
-
-    public void unirAProximaMano() {
-        vistaMano.vistaFolded("/cartas/Invertida.gif", "COMENZANDO LA SIGUIENTE MANO...");
-        estaPartida.getManoActual().subscribir(this);
-        try {
-            estaPartida.unirASiguienteMano(player);
-
-            //  init();
-        } catch (JugadorException je) {
-
-            vistaMano.mostrarError(je.getMessage());
-            //  salir();
-        }
-
+        fachada.desubscribir(this);
     }
 
     private void mostrarGanador() {
@@ -228,6 +202,45 @@ public class ControladorMano implements Observador {
         String ganador = manoActual.getGanador().getJugador().getNick();
         String saldo = "$" + player.getJugador().getSaldo();
         vistaMano.mostrarFinMano(ganador, figura, cartasFigura, saldo, player.getJugador().getNick());
+    }
+
+    // </editor-fold>
+    
+    @Override
+    public void notificar(Observable source, Object event) {
+        if (event == Observador.Evento.MANO_FINALIZADA) {
+            vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
+            vistaMano.mostrarMensaje("Mano finalizada");
+            // manoActual.desubscribir(this);
+
+        } else if (event == Observador.Evento.JUGADOR_ELIMINADO) {
+            
+            this.mostrarJugadoresEnMano();
+            
+        } else if (event == Observador.Evento.APUESTA_RECIBIDA) {
+            
+            mostrarApuestaActiva();
+            vistaMano.actualizarPozo("$" + manoActual.getPozo());
+            
+        } else if (event == Observador.Evento.GANADOR_DECLARADO) {
+
+            mostrarGanador();
+            //  manoActual.desubscribir(this);
+
+        } else if (event == Observador.Evento.MANO_COMENZADA) {
+            // vistaMano.abrirNuevaMano(estaPartida, player);
+            init();
+            
+        } else if (event == Observador.Evento.TURNO_JUGADO) {
+            vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
+            
+        } else if (event == Observador.Evento.APUESTA_PEDIDA) {
+            vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
+
+        } else if (event == Observador.Evento.PARTIDA_FINALIZADA) {
+           vistaMano.mostrarError("Terminó la partida.");
+        }
+
     }
 
 }
