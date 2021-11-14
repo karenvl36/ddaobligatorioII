@@ -130,72 +130,64 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(86, 86, 86)
-                        .addComponent(lblCartasFigura))
+                        .addComponent(lblCartasFigura)
+                        .addGap(134, 134, 134)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(90, 90, 90)
                         .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
+                .addGap(289, 289, 289)
+                .addComponent(lblMensajes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(150, 150, 150)
-                                        .addComponent(btnApostar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(carta2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(carta1)))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(carta3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(carta4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(carta5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(134, 134, 134)
-                                .addComponent(txtApuestaActual))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(164, 164, 164)
-                                .addComponent(btnPasar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(134, 134, 134)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSalir)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(289, 289, 289)
-                        .addComponent(lblMensajes)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(btnApostar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(carta2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(carta1)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(carta3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(carta4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(carta5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(txtApuestaActual))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(btnPasar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir)
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(btnSalir)
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(79, 79, 79)
                                 .addComponent(txtApuestaActual))
@@ -206,11 +198,21 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(63, 63, 63))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblFigura)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblCartasFigura)
-                        .addGap(53, 53, 53)))
+                        .addGap(19, 19, 19)
+                        .addComponent(btnSalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblFigura)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblCartasFigura))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addComponent(jLabel2)))))
+                        .addGap(40, 40, 40)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(carta2)
                     .addGroup(layout.createSequentialGroup()
@@ -277,6 +279,16 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     // End of variables declaration//GEN-END:variables
 
     @Override
+    public void init(String nombreJugador, String pozo) {
+        btnApostar.setEnabled(true);
+        btnPasar.setEnabled(true);
+        this.setTitle(nombreJugador);
+        txtApuestaActual.setText("");
+        // lbJugador.setText(nombreJugador);
+        actualizarPozo(pozo);
+    }
+
+    @Override
     public void mostrarCartas(String c1, String c2, String c3, String c4, String c5, String Figura, String cartas) {
         carta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(c1)));
         carta2.setIcon(new javax.swing.ImageIcon(getClass().getResource(c2)));
@@ -293,19 +305,18 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }
 
     @Override
-    public void abrirDialogoApuesta(Partida p, JugadorPartida jp) {
-        new DialogoApostar(this, false, cp).setVisible(true);
-    }
-
-    @Override
     public void pasar() {
 
         cp.pasar();
 
-        // mostrarCartas("/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif", "/cartas/Invertida.gif");
         btnApostar.setEnabled(false);
         btnPasar.setEnabled(false);
-        cp.mostrarJugadoresEnMano(); //TODO: Sacar esto
+
+    }
+
+    @Override
+    public void abrirDialogoApuesta(Partida p, JugadorPartida jp) {
+        new DialogoApostar(this, false, cp).setVisible(true);
     }
 
     public void abandonarPartida() {
@@ -314,19 +325,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }
 
     @Override
-    public void init(String nombreJugador, String pozo) {
-        btnApostar.setEnabled(true);
-        btnPasar.setEnabled(true);
-        this.setTitle(nombreJugador);
-        // lbJugador.setText(nombreJugador);
-        actualizarPozo(pozo);
-    }
-
-    @Override
     public void mostrarApuestaActiva(String jugador, int valor) {
         txtApuestaActual.setText("Apuesta por $ " + valor + "realizada por " + jugador);
         btnApostar.setEnabled(false);
-        //TODO: Agregar un boton de match a la apuesta
 
     }
 
@@ -356,15 +357,11 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void mostrarFinMano(String nombreGanador, String figura, String cartas, String saldo, String jugador) {
-        // cerrarPanel();
-        //  lblGanador.setText(nombreGanador);
-        
+
         PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador);
         framePanelGanador.add(panel);
         framePanelGanador.pack();
         framePanelGanador.setVisible(true);
-  
-     
 
     }
 
@@ -375,7 +372,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     @Override
     public void vistaFolded(String cartaReversa, String mensaje) {
-        //cerrarPanel();
+        txtApuestaActual.setText("");
         mostrarCartas(cartaReversa, cartaReversa, cartaReversa, cartaReversa, cartaReversa, mensaje, "");
 
     }
@@ -389,32 +386,5 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public void actualizarPozo(String pozo) {
         lblPozo.setText(pozo);
     }
-
-//    private javax.swing.event.AncestorListener crearListenerCerrarVentana() {
-//
-//        javax.swing.event.AncestorListener listenerCerrar = new javax.swing.event.AncestorListener() {
-//            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-//            }
-//
-//            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-//            }
-//
-//            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-//                formAncestorRemovedCerrar(evt);
-//                
-//            }
-//            
-//              private void formAncestorRemovedCerrar(javax.swing.event.AncestorEvent evt) {
-//               abandonarPartida(); 
-//            }
-//
-//            
-//        };
-//        return listenerCerrar;
-//
-//    }
-
-   
-
 
 }
