@@ -43,12 +43,30 @@ public class ControladorAdmin implements Observador{
         if(event == Observador.Evento.PARTIDA_INICIADA){
             actualizar();
         }
+        //PARTIDA_FINALIZADA - saca la partida de la lista
+        //JUGADOR_ELIMINADO? - tiene que saber la cantidad de jugadores que tuvo la partida o lo que todavía están?
+                //Actualiza la info de cant jugadores de la partida
+        //POZO_AUMENTADO - el total apostado en la partida es tanto de las apuestas como de lo que matcheo?
+                //Actualiza el total apostado de la partida 
+                //Actualiza el total apostado por jugador
+        //MANO_INICIADA
+                //Actualiza la cant de manos de la partida
+        //MANO_FINALIZADA??? o GANADOR_DECLARADO???
+                //Para actualizar el total ganado por jugador
     }
 
     public void actualizar() {  
         vista.actualizar(Fachada.getInstancia().getPartidasEnCurso());
     }
     
+    
+    /*El sistema muestra la lista de partidas en curso indicando fecha/hora de inicio, cantidad de
+jugadores en la partida, total apostado en la partida y cantidad de manos jugadas.
+
+    El usuario podrá seleccionar una partida y visualizar el nombre completo, el total apostado
+en esa partida, el saldo al iniciar la partida y el total ganado (puede ser negativo) de cada
+uno de los jugadores que han participado en esa partida.*/
+
     
    
     

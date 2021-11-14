@@ -183,7 +183,7 @@ public class Partida extends Observable {
 
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
         manoActual.recibirPasar(pasante);
-        comprobarFinalizarMano();
+       
          jugadorTieneSaldoParaContinuar(pasante);
     }
     
@@ -193,14 +193,10 @@ public class Partida extends Observable {
         try {
 
             manoActual.recibirMatchApuesta(jugador);
-
+            
         } catch (JugadorException je) {
             jugadorTieneSaldoParaContinuar(jugador);
             throw je;
-
-        } finally {
-
-            comprobarFinalizarMano();
 
         }
 
@@ -213,15 +209,17 @@ public class Partida extends Observable {
         }
     }
 
-    public void comprobarFinalizarMano() {
+    public boolean comprobarFinalizarMano() {
         if (manoActual.manoFinalizada()) {
-            //  retirarJugadoresSaldoInsuficiente();
+           
+            //  retirarJugadoresSaldoInsuficiente() - da una excepcion por eliminar en un loop;
             settearSiguienteMano();
+             return true;
             // ultimaManoJugada = manoActual;
             //  manoActual = null;
 
         }
-
+        return false;
     }
 
     public int faltanPasar() {
@@ -244,7 +242,7 @@ public class Partida extends Observable {
             if (manoActual != null) {
 
                 manoActual.eliminar(j);
-                comprobarFinalizarMano();
+               // comprobarFinalizarMano();
            
 
             }
@@ -254,7 +252,12 @@ public class Partida extends Observable {
     }
     
     public boolean partidaFinalizada() {
-        return jugadoresInsuficientes();
+        if( jugadoresInsuficientes()){
+            this.notificar(Observador.Evento.PARTIDA_FINALIZADA);
+            return true;
+        }
+        
+        return false;
           
             //TODO: FinalizarPartida
     }

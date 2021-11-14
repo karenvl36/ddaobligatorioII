@@ -15,12 +15,12 @@ public class EstadoManoSinIniciar implements EstadoMano {
 
     @Override
     public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
     public void recibirPasar(JugadorPartida jugador, Mano mano) throws JugadorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
@@ -30,7 +30,7 @@ public class EstadoManoSinIniciar implements EstadoMano {
 
     @Override
     public void recibirMatchApuesta(JugadorPartida j, Mano mano) throws JugadorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override

@@ -42,7 +42,8 @@ public class ControladorMano implements Observador {
         this.vistaMano = vistaMano;
         this.estaPartida = unaPartida;
         this.player = player;        
-        fachada.subscribir(this);
+        //fachada.subscribir(this);
+        estaPartida.subscribir(this);
         estaPartida.getManoActual().subscribir(this);
         player.subscribir(this);
         
@@ -199,9 +200,10 @@ public class ControladorMano implements Observador {
     }
     
     public void desuscribir() {
+        estaPartida.desubscribir(this);
         manoActual.desubscribir(this);
         player.desubscribir(this);
-        fachada.desubscribir(this);
+       // fachada.desubscribir(this);
     }
     
     private void mostrarGanador() {
