@@ -160,7 +160,7 @@ public class Partida extends Observable {
     }
 
     public void saldoSuficiente(JugadorPartida player) throws JugadorException {
-        player.saldoSuficiente(this.settings.getApuestaBase());
+        player.saldoSuficiente(this.settings.getApuestaBase()+1);
     }
 
     public boolean jugadoresInsuficientes() {
@@ -184,7 +184,10 @@ public class Partida extends Observable {
     public void recibirPasar(JugadorPartida pasante) throws ManoException, JugadorException {
         manoActual.recibirPasar(pasante);
         comprobarFinalizarMano();
+         jugadorTieneSaldoParaContinuar(pasante);
     }
+    
+    
 
     public void recibirMatchApuesta(JugadorPartida jugador) throws JugadorException {
         try {
@@ -192,7 +195,7 @@ public class Partida extends Observable {
             manoActual.recibirMatchApuesta(jugador);
 
         } catch (JugadorException je) {
-
+            jugadorTieneSaldoParaContinuar(jugador);
             throw je;
 
         } finally {
@@ -201,6 +204,13 @@ public class Partida extends Observable {
 
         }
 
+    }
+    
+    public void jugadorTieneSaldoParaContinuar(JugadorPartida jugador) {
+        if (jugador.getSaldo() < getApuestaBase()) {
+            retirarJugador(jugador);
+            jugador.notificar(Observador.Evento.JUGADOR_RETIRADO_SALDO);
+        }
     }
 
     public void comprobarFinalizarMano() {
@@ -261,7 +271,7 @@ public class Partida extends Observable {
             pozoAnterior = manoActual.getPozo();
         }
         manoActual = new Mano();
-        iniciarNuevaMano();
+      //  iniciarNuevaMano();
         manoActual.sumarPozo(pozoAnterior);
     }
 
@@ -283,9 +293,6 @@ public class Partida extends Observable {
             manoActual.agregar(jp, this.getApuestaBase());
             iniciarNuevaMano();
 
-      
-       
-    
 
     }
 

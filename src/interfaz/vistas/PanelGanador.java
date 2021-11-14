@@ -246,9 +246,12 @@ public class PanelGanador extends javax.swing.JPanel  {
      
     }
     private void cerrarPanel(){
-           Window win = SwingUtilities.getWindowAncestor(this);
-        win.remove(this);
-        win.dispose();
+         Window win = SwingUtilities.getWindowAncestor(this);
+         if(win != null){
+              win.remove(this);
+               win.dispose();
+         }  
+       
     }
     
     
