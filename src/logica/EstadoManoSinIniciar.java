@@ -43,5 +43,7 @@ public class EstadoManoSinIniciar implements EstadoMano {
         }
 
     }
+
+
     
 }

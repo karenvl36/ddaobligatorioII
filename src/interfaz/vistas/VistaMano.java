@@ -368,6 +368,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     @Override
     public void cerrarVentana() {
         this.dispose();
+        cerrarPaneles();
     }
 
     @Override
@@ -377,9 +378,13 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     }
 
-    public void cerrarPanel() {
-//            framePanelApuesta.removeAll();
-//            framePanelApuesta.setVisible(false);  
+    public void cerrarPaneles() {
+          // framePanelApuesta.removeAll();
+          // framePanelApuesta.setVisible(false);  
+          // framePanelGanador.removeAll();
+          // framePanelGanador.setVisible(false);  
+           framePanelGanador.dispose();
+           framePanelApuesta.dispose();
     }
 
     @Override

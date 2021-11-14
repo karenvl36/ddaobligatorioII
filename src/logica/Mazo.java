@@ -38,9 +38,11 @@ public class Mazo {
         ArrayList<Carta> repartidas = new ArrayList<Carta>(5);
         
         for (int i = 0; i < 5; i++) {
+            
           repartidas.add(cartas.remove(0));
          
         }
+        System.out.println(cartas.size());
         return repartidas;
 
     }

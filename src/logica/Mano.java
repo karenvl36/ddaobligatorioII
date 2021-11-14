@@ -117,7 +117,7 @@ public class Mano extends Observable {
        j.realizarApuesta(luz); //Si falla retorna una exception
        this.jugadoresActivos.add(j) ;
         sumarPozo(luz);
-        iniciar();
+       // iniciar();
 
     }
 

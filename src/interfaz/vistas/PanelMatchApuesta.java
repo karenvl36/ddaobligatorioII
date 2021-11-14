@@ -196,8 +196,10 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
 
     public void cerrarPanel() {
         Window win = SwingUtilities.getWindowAncestor(this);
-        win.remove(this);
-        win.dispose();
+        if (win != null) {
+            win.remove(this);
+            win.dispose();
+        }
     }
 
 
