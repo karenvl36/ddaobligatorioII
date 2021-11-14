@@ -28,7 +28,7 @@ import logica.Mano;
  * @author chiqu
  */
 public class ControladorMano implements Observador {
-    
+
     private Partida estaPartida;
     private Mano manoActual;
     private IVistaMano vistaMano;
@@ -41,16 +41,16 @@ public class ControladorMano implements Observador {
     public ControladorMano(IVistaMano vistaMano, Partida unaPartida, JugadorPartida player) {
         this.vistaMano = vistaMano;
         this.estaPartida = unaPartida;
-        this.player = player;        
+        this.player = player;
         //fachada.subscribir(this);
         estaPartida.subscribir(this);
         estaPartida.getManoActual().subscribir(this);
         player.subscribir(this);
-        
+
         init();
-        
+
     }
-    
+
     public void setDiApuesta(IDialogoApuesta diApuesta) {
         this.diaApuesta = diApuesta;
         diaApuesta.mostrarSaldo(player.getJugador().getSaldo());
@@ -64,21 +64,21 @@ public class ControladorMano implements Observador {
         mostrarJugadoresEnMano();
         mostrarCartas();
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
-        
+
     }
-    
+
     public void mostrarJugadoresEnMano() {
         List<String> list = new ArrayList<>();
         estaPartida.jugadoresManoActual().forEach(jp -> {
             list.add(jp.getJugador().getNombreCompleto());
         });
-        
+
         vistaMano.mostrarJugadoresActivos(list);
-        
+
     }
-    
+
     public void mostrarCartas() {
-        
+
         String rootPath = "/cartas/";
         ArrayList<Carta> cartas = player.getCartasManoJugador();
         String c1 = rootPath + cartas.get(0).getImagen();
@@ -88,13 +88,13 @@ public class ControladorMano implements Observador {
         String c5 = rootPath + cartas.get(4).getImagen();
         String figura = player.getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
         String cartasFigura = player.getManoJugador().getFigura().getDescripcionCartas();
-        
+
         vistaMano.mostrarCartas(c1, c2, c3, c4, c5, figura, cartasFigura);
-        
+
     }
-    
+
     public void unirAProximaMano() {
-        
+
         try {
             vistaMano.vistaFolded("/cartas/Invertida.gif", "COMENZANDO LA SIGUIENTE MANO...");
             estaPartida.getManoActual().subscribir(this);
@@ -102,18 +102,20 @@ public class ControladorMano implements Observador {
 
             //  estaPartida.unirASiguienteMano(player);
         } catch (JugadorException je) {
-            
+
             vistaMano.mostrarError(je.getMessage());
             salir();
         }
-        
+
     }
+
+
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Jugar">
     public void realizarApuesta(int apuesta) {
         try {
-            
+
             fachada.apostar(estaPartida, player, apuesta);
             //estaPartida.recibirApuesta(player, apuesta);
             diaApuesta.cerrarDialogo();
@@ -121,91 +123,89 @@ public class ControladorMano implements Observador {
 
         } catch (JugadorException je) {
             diaApuesta.mostrarError(je.getMessage());
-            
+
         }
-        
+
     }
-    
+
     public void mostrarApuestaActiva() {
-        
+
         String jugador = estaPartida.getApuestaActiva().getNickJugador();
         int valorApuesta = estaPartida.getApuestaActiva().getValor();
         vistaMano.mostrarApuestaActiva(jugador, valorApuesta);
-        
+
     }
-    
+
     public void pasar() {
         try {
-            
+
             fachada.pasar(estaPartida, player);
             // estaPartida.recibirPasar(player);
 
         } catch (JugadorException je) {
-            
+
             vistaMano.mostrarError(je.getMessage());
         } catch (ManoException pe) {
             vistaMano.mostrarError(pe.getMessage());
-            
+
         }
-        
+
     }
-    
+
     public void matchApuesta() {
-        
+
         try {
-            
+
             fachada.matchApuesta(estaPartida, player);
             // estaPartida.recibirMatchApuesta(player);
         } catch (JugadorException je) {
-            
+
             vistaMano.mostrarError(je.getMessage());
             //vistaMano.cerrarVentana();
             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se saldo era insuficiente para el match de apuesta.");
             this.desuscribir();
         }
     }
-    
+
     public void fold() {
         try {
             fachada.pasar(estaPartida, player);
             //estaPartida.recibirPasar(player);
             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se retiró de la mano.");
-            
+
         } catch (JugadorException je) {
             vistaMano.mostrarError(je.getMessage());
             retirarJugador(player);
-            
+
         } catch (ManoException me) { //TODO: Ver quién está generando esta exception
 
             vistaMano.mostrarError(me.getMessage());
         }
-        
+
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Terminar">
     public void salir() {
-        
+
         desuscribir();
-        //manoActual.desubscribir(this);
         retirarJugador(this.player);
-        // estaPartida.desubscribir(this); 
         vistaMano.cerrarVentana();
     }
-    
+
     private void retirarJugador(JugadorPartida jp) {
         fachada.retirarJugador(estaPartida, jp);
         // estaPartida.retirarJugador(jp);
 
     }
-    
+
     public void desuscribir() {
         estaPartida.desubscribir(this);
         manoActual.desubscribir(this);
         player.desubscribir(this);
-       // fachada.desubscribir(this);
+        // fachada.desubscribir(this);
     }
-    
+
     private void mostrarGanador() {
         String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
         String cartasFigura = manoActual.getGanador().getManoJugador().getFigura().getDescripcionCartas();
@@ -222,40 +222,41 @@ public class ControladorMano implements Observador {
             vistaMano.mostrarMensaje("Mano finalizada");
             // manoActual.desubscribir(this);
 
-        } else if (event == Observador.Evento.JUGADOR_ELIMINADO) {
-            
+        } else if (event == Observador.Evento.JUGADOR_ELIMINADO || event == Observador.Evento.JUGADOR_AGREGADO) {
+
             this.mostrarJugadoresEnMano();
-            
+          
+
         } else if (event == Observador.Evento.APUESTA_RECIBIDA) {
-            
+
             mostrarApuestaActiva();
             vistaMano.actualizarPozo("$" + manoActual.getPozo());
-            
+
         } else if (event == Observador.Evento.GANADOR_DECLARADO) {
-            
+
             mostrarGanador();
             //  manoActual.desubscribir(this);
 
         } else if (event == Observador.Evento.MANO_COMENZADA) {
             // vistaMano.abrirNuevaMano(estaPartida, player);
             init();
-            
+
         } else if (event == Observador.Evento.TURNO_JUGADO) {
             vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
-            
+
         } else if (event == Observador.Evento.APUESTA_PEDIDA) {
             vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
-            
+
         } else if (event == Observador.Evento.PARTIDA_FINALIZADA) {
             vistaMano.mostrarError("Terminó la partida.");
             salir();
-        } else if(event == Observador.Evento.JUGADOR_RETIRADO_SALDO){
-           // manoActual.desubscribir(this);
-            
+        } else if (event == Observador.Evento.JUGADOR_RETIRADO_SALDO) {
+            // manoActual.desubscribir(this);
+
             vistaMano.mostrarError("No tiene saldo suficiente para continuar.");
             salir();
-        }
-        
+        } 
+
     }
-    
+
 }

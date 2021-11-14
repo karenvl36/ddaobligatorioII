@@ -39,11 +39,11 @@ public class EstadoManoSinApuestas implements EstadoMano {
     }
 
     @Override
-    public JugadorPartida finalizarMano(Mano mano) {
+    public boolean finalizarMano(Mano mano) {
       //  mano.notificar(Observador.Evento.MANO_FINALIZADA);
                  //   mano.revisarGanador(); //Solo para test
         mano.notificar(Observador.Evento.MANO_FINALIZADA);
-        return null;
+        return true;
         //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto
        
     }
@@ -57,6 +57,11 @@ public class EstadoManoSinApuestas implements EstadoMano {
     public void retirarJugador(JugadorPartida j, Mano m) {
         m.getJugaronTurno().remove(j);
         m.getJugadoresActivos().remove(j);
+    }
+
+    @Override
+    public boolean iniciar(Mano m) {
+        return false;
     }
 
 }

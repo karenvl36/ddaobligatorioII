@@ -26,6 +26,8 @@ public class Mano extends Observable {
     private ApuestaMano apuesta;   
     private JugadorPartida ganador;
     private EstadoMano estado;
+     private Settings settings;
+     
 
 //    public Mano(List<JugadorPartida> players, Mazo mazo, int pozo) {
 //        estado = new EstadoManoSinApuestas();
@@ -35,6 +37,7 @@ public class Mano extends Observable {
 //    }
     
     public Mano() {
+        settings = Settings.getInstancia();
         estado = new EstadoManoSinIniciar();
         this.jugadoresActivos = new ArrayList<JugadorPartida>();
         this.mazo = new Mazo();
@@ -104,7 +107,10 @@ public class Mano extends Observable {
     public List<JugadorPartida> getJugaronTurno() {
         return jugaronTurno;
     }
-
+    
+    public int getApuestaBase() {
+        return settings.getInstancia().getApuestaBase();
+    }
  
 
    
@@ -116,27 +122,15 @@ public class Mano extends Observable {
        jugadorYaEnMano(j); 
        j.realizarApuesta(luz); //Si falla retorna una exception
        this.jugadoresActivos.add(j) ;
+       this.notificar(Observador.Evento.JUGADOR_AGREGADO);
         sumarPozo(luz);
        // iniciar();
 
     }
 
     public boolean iniciar() {
-        if (!jugadoresInsuficientes()) {
-            estado = new EstadoManoSinApuestas();
-            mazo.barajar();
-            for (JugadorPartida j : jugadoresActivos) {
-                ManoJugador mj = new ManoJugador(mazo.repartir());
-
-                j.setManoJugador(mj);
-            }
-          // cartasParaTestear();
-         
-           this.notificar(Observador.Evento.MANO_COMENZADA);
-
-            return true;
-        }
-        return false;
+        
+        return estado.iniciar(this);
     }
 
    
@@ -229,9 +223,8 @@ public class Mano extends Observable {
     
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
-            estado.finalizarMano(this);
-             
-            return true;
+            return estado.finalizarMano(this);
+
         }
         
         return false;

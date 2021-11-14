@@ -34,6 +34,7 @@ private ControladorPartidaLobby cp;
     private void initComponents() {
 
         labelEsperandoJugadores = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -48,23 +49,30 @@ private ControladorPartidaLobby cp;
             }
         });
 
-        labelEsperandoJugadores.setText("jLabel1");
+        labelEsperandoJugadores.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        labelEsperandoJugadores.setText("Falatan");
+
+        jLabel1.setText("Esperando jugadores para iniciar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(labelEsperandoJugadores)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addGap(163, 163, 163)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelEsperandoJugadores)
+                    .addComponent(jLabel1))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(130, 130, 130)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelEsperandoJugadores)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,6 +95,7 @@ private ControladorPartidaLobby cp;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelEsperandoJugadores;
     // End of variables declaration//GEN-END:variables
 
@@ -94,8 +103,8 @@ private ControladorPartidaLobby cp;
     
     @Override
     public void mostrarJugadoresFaltantes(int cantJugadoresFaltantes) {
-        //labelEsperandoJugadores.setText(jugadorP.getJugador().getNick() + "Faltan: " + cantJugadoresFaltantes);
-        this.setTitle("Esperando jugadores, faltan: " + cantJugadoresFaltantes);
+        labelEsperandoJugadores.setText("Faltan: " + cantJugadoresFaltantes);
+        this.setTitle("Faltan: " + cantJugadoresFaltantes);
     }
 
 
