@@ -6,6 +6,7 @@
 package logica;
 
 import excepciones.JugadorException;
+import observador.Observador;
 
 /**
  *
@@ -24,8 +25,8 @@ public class EstadoManoSinIniciar implements EstadoMano {
     }
 
     @Override
-    public JugadorPartida finalizarMano(Mano mano) {
-        return null;
+    public boolean finalizarMano(Mano mano) {
+        return false;
     }
 
     @Override
@@ -35,13 +36,29 @@ public class EstadoManoSinIniciar implements EstadoMano {
 
     @Override
     public void retirarJugador(JugadorPartida j, Mano m) {  
-        if (m.getJugadoresActivos().contains(j)) {
-
-            int devolucion = m.getPozo() / m.getJugadoresActivos().size();
-            j.getJugador().sumarSaldo(devolucion);
+        if (m.getJugadoresActivos().contains(j)) {      
+            j.getJugador().sumarSaldo(m.getApuestaBase());
             m.getJugadoresActivos().remove(j);
         }
 
+    }
+    
+     public boolean iniciar(Mano m) {
+        if (!m.jugadoresInsuficientes()) {
+            m.setEstado(new EstadoManoSinApuestas());
+            m.getMazo().barajar();
+            for (JugadorPartida j : m.getJugadoresActivos()) {
+                ManoJugador mj = new ManoJugador(m.getMazo().repartir());
+
+                j.setManoJugador(mj);
+            }
+          // cartasParaTestear();
+         
+           m.notificar(Observador.Evento.MANO_COMENZADA);
+
+            return true;
+        }
+        return false;
     }
 
 

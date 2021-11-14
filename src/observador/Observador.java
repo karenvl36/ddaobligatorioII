@@ -18,7 +18,8 @@ public interface Observador {
         TURNO_JUGADO,
         MANO_FINALIZADA,
         GANADOR_DECLARADO,
-        JUGADOR_RETIRADO_SALDO;
+        JUGADOR_RETIRADO_SALDO,
+        NUEVO_POZO;
    
         
         

@@ -42,7 +42,7 @@ public class Mazo {
           repartidas.add(cartas.remove(0));
          
         }
-        System.out.println(cartas.size());
+       
         return repartidas;
 
     }

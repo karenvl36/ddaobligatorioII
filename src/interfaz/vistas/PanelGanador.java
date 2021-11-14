@@ -242,7 +242,7 @@ public class PanelGanador extends javax.swing.JPanel  {
 
     private void abandonarPartida() {
        this.removeAncestorListener(listenerAbandonarPartida);
-       cm.salir();  
+       cm.salir();
      
     }
     private void cerrarPanel(){

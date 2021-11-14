@@ -49,7 +49,7 @@ public class EstadoManoApostada implements EstadoMano {
     
     
     @Override
-   public JugadorPartida finalizarMano(Mano mano) {
+   public boolean finalizarMano(Mano mano) {
         JugadorPartida ganador = null;
         if(mano.getJugadoresActivos().size() == 1){
             ganador = mano.getApuesta().getJugador();
@@ -58,7 +58,7 @@ public class EstadoManoApostada implements EstadoMano {
         }
          mano.declararGanador(ganador);
          mano.notificar(Observador.Evento.GANADOR_DECLARADO);
-         return ganador;
+         return true;
     }
 
     @Override
@@ -66,6 +66,11 @@ public class EstadoManoApostada implements EstadoMano {
         m.getJugaronTurno().remove(j);
         m.getJugadoresActivos().remove(j);
       
+    }
+
+    @Override
+    public boolean iniciar(Mano m) {
+        return false;
     }
 
     

@@ -120,19 +120,16 @@ public class Partida extends Observable {
         manos.add(m);
     }
 
-    private void iniciarNuevaMano() {
+    protected boolean iniciarNuevaMano() {
 
         if (this.jugadores.size() == this.manoActual.getJugadoresActivos().size()) {
 
             agregar(manoActual);
-            manoActual.iniciar();
+            return manoActual.iniciar();
+       
 
-        } else {
-            // comprobarFinalizarMano();
-
-        }
-
-        //TODO: else finalizarPartida???
+        } 
+        return false;
     }
 
 // </editor-fold>
@@ -246,7 +243,7 @@ public class Partida extends Observable {
            
 
             }
-
+            notificar(Observador.Evento.JUGADOR_ELIMINADO);
         }
 
     }
@@ -294,9 +291,13 @@ public class Partida extends Observable {
 
  
             manoActual.agregar(jp, this.getApuestaBase());
-            iniciarNuevaMano();
+        //    iniciarNuevaMano();
 
 
+    }
+    
+    public void rechazarNuevaMano(JugadorPartida j){
+            jugadores.remove(j);
     }
 
     // </editor-fold>

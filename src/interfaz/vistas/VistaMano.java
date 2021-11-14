@@ -72,6 +72,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
         });
 
         jScrollPane1.setViewportView(lJugadoresEnPartida);
@@ -242,7 +245,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        abandonarPartida();
+     
     }//GEN-LAST:event_formWindowClosed
 
     private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
@@ -250,8 +253,12 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }//GEN-LAST:event_btnPasarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        abandonarPartida();
+        
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        abandonarPartida();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -375,6 +382,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     public void vistaFolded(String cartaReversa, String mensaje) {
         txtApuestaActual.setText("");
         mostrarCartas(cartaReversa, cartaReversa, cartaReversa, cartaReversa, cartaReversa, mensaje, "");
+        lblPozo.setText("");
 
     }
 

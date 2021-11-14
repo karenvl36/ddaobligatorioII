@@ -105,9 +105,16 @@ public class ServicioPartida {
     public void retirarJugador(Partida p, JugadorPartida j){
         p.retirarJugador(j); 
         notificarSiFinMano(p);
+         notificarSiInicioMano(p);
         notificarSiFinPartida(p);
 
     }
+    
+//    public void rechazarNuevaMano(Partida p, JugadorPartida j){
+//        p.rechazarNuevaMano(j);
+//        notificarSiInicioMano(p);
+//        notificarSiFinPartida(p);  
+//    }
     
     private void notificarSiFinMano(Partida p){
           if( p.comprobarFinalizarMano()){
@@ -130,8 +137,17 @@ public class ServicioPartida {
        
     }
     
+    private void notificarSiInicioMano(Partida p) {
+
+        if (p.iniciarNuevaMano()) {
+
+            Fachada.getInstancia().notificar(Observador.Evento.MANO_COMENZADA);
+        }
+    }
+    
     public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException{
         p.unirASiguienteMano(j);
+        notificarSiInicioMano(p);
         //comrpobar inicio nueva Mano
         //notificar inicio nueva Mano
         
