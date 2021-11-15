@@ -21,10 +21,9 @@ public interface IVistaMano {
     public void mostrarApuestaActiva(String jugador, int valor);
     public void actualizarPozo(String pozo);
     
-    public void pedirApuesta(String apostante, int valor, String jugador);
+    public void pedirApuesta(String apostante, int valor, String jugador, int saldo);
     public void abrirDialogoApuesta(Partida p, JugadorPartida jp);
     public void pasar();
-    public void fold();
     public void vistaFolded(String cartaReserva, String mensaje);
     
     public void mostrarError(String error);

@@ -146,7 +146,7 @@ public class ServicioPartida {
         }
     }
     
-    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException{
+    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException, ManoException{
         p.unirASiguienteMano(j);
         notificarSiInicioMano(p);
         //comrpobar inicio nueva Mano

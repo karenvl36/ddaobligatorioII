@@ -6,6 +6,7 @@
 package logica;
 
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.PartidaException;
 
 /**
@@ -15,7 +16,7 @@ import excepciones.PartidaException;
 public class EstadoPartidaFinalizada implements EstadoPartida {
 
     @Override
-   public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException {
+   public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException, ManoException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //Exception: Esta partida está fnalizada
     }

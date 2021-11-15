@@ -74,7 +74,7 @@ public class Fachada extends Observable {
         sp.retirarJugador(p, j);
     }
 
-    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException {
+    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException, ManoException {
         sp.unirJugadorASiguienteMano(p, j);
     }
 
