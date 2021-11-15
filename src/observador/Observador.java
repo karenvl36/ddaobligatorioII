@@ -19,7 +19,7 @@ public interface Observador {
         MANO_FINALIZADA,
         GANADOR_DECLARADO,
         JUGADOR_RETIRADO_SALDO,
-        NUEVO_POZO;
+        POZO_MODIFICADO;
    
         
         

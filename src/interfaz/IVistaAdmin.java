@@ -6,6 +6,7 @@
 package interfaz;
 
 import java.util.List;
+import logica.JugadorPartida;
 import logica.Partida;
 
 /**
@@ -15,5 +16,7 @@ import logica.Partida;
 public interface IVistaAdmin {
 
     public void actualizar(List<Partida> partidasEnCurso);
+
+    public void mostrarDetallesJugadores(List<JugadorPartida> jugadores);
     
 }

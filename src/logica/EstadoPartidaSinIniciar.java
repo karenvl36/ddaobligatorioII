@@ -26,6 +26,7 @@ public class EstadoPartidaSinIniciar implements EstadoPartida {
             p.saldoSuficiente(jp);
             p.guardarEnLista(jp);
             p.getManoActual().agregar(jp, p.getApuestaBase());
+            p.modificarTotalApostado(p.getApuestaBase());
             p.notificar(Observador.Evento.JUGADOR_AGREGADO);
             return p;
         }

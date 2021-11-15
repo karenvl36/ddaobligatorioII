@@ -6,7 +6,7 @@
 package logica;
 
 import excepciones.JugadorException;
-import excepciones.ManoException;
+
 
 
 /**

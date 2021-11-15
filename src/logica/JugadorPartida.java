@@ -5,7 +5,6 @@
  */
 package logica;
 
-
 import excepciones.JugadorException;
 import java.util.ArrayList;
 import observador.Observable;
@@ -16,7 +15,6 @@ import observador.Observable;
  */
 public class JugadorPartida extends Observable {
 
-   
     private UsuarioJugador jugador;
     private int saldoInicial;
     private int gananciaPartida;
@@ -66,71 +64,60 @@ public class JugadorPartida extends Observable {
     public void setManoJugador(ManoJugador manoJugador) {
         this.manoJugador = manoJugador;
     }
-    
-    public int getSaldo(){
+
+    public int getSaldo() {
         return getJugador().getSaldo();
     }
-    
-    public int getGananciaNeta(){ 
-     
-        return this.gananciaPartida - this.apuestaPartida; 
-    } 
-   
-    
-    public void guardarSaldoInicial(){
+
+    public int getGananciaNeta() {
+
+        return this.gananciaPartida - this.apuestaPartida;
+    }
+
+    public void guardarSaldoInicial() {
         setSaldoInicial(this.getSaldo());
     }
-    
-    
-    
-    
-    
+
     public void saldoSuficiente(int valorAApostar) throws JugadorException {
-    
-        if(!(valorAApostar <= jugador.getSaldo())){
+
+        if (!(valorAApostar <= jugador.getSaldo())) {
             throw new JugadorException("Su saldo es insuficiente.");
-        
+
         }
-     
-        
+
     }
-    
-    private void restarSaldo(int apuesta){
+
+    private void restarSaldo(int apuesta) {
         sumarApuestaPartida(apuesta);
         this.jugador.restarSaldo(apuesta);
-    
     }
-    
-     private void sumarSaldo(int valor){
-        sumarApuestaPartida(valor);
+
+    private void sumarSaldo(int valor) {
         this.jugador.sumarSaldo(valor);
     }
-    
-    private void sumarApuestaPartida(int apuesta){
+
+    private void sumarApuestaPartida(int apuesta) {
         apuestaPartida += apuesta;
     }
-    
-    private void sumarGananciaPartida(int valor){
+
+    private void sumarGananciaPartida(int valor) {
         gananciaPartida += valor;
     }
-    
-   
-    
-    public void recibirGanancia(int pozo){
+
+    public void recibirGanancia(int pozo) {
         sumarSaldo(pozo);
-        
+        sumarGananciaPartida(pozo);
     }
-    
+
     public void realizarApuesta(int apuesta) throws JugadorException {
-   
+
         saldoSuficiente(apuesta);
         restarSaldo(apuesta);
 
     }
-    
-    public ArrayList<Carta> getCartasManoJugador(){
+
+    public ArrayList<Carta> getCartasManoJugador() {
         return manoJugador.getCartas();
     }
-
 
 }
