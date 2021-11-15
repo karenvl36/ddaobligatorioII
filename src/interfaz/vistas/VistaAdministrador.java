@@ -5,10 +5,13 @@
  */
 package interfaz.vistas;
 
-
 import interfaz.IVistaAdmin;
 import interfaz.controladores.ControladorAdmin;
+import java.awt.Component;
 import java.util.List;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import logica.JugadorPartida;
 import logica.Partida;
 import logica.UsuarioAdministrador;
 
@@ -16,23 +19,26 @@ import logica.UsuarioAdministrador;
  *
  * @author chiqu
  */
-public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmin{
+public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmin {
 
     private UsuarioAdministrador esteAdmin;
     private ControladorAdmin ca;
-  
+
     /**
      * Creates new form VistaAdministrador
      */
     public VistaAdministrador(UsuarioAdministrador admin) {
-         ca = new ControladorAdmin(this);
-        
-         this.esteAdmin = admin;
-       
+        ca = new ControladorAdmin(this);
+
+        this.esteAdmin = admin;
+
         initComponents();
         initListaYLabels();
-         ca.actualizar();
-        
+        listaPartidasEnCurso.setCellRenderer(new PartidasRenderer());
+        listaDetallesJugadores.setCellRenderer(new JugadoresRenderer());
+        ca.actualizar();
+       
+
     }
 
     /**
@@ -47,88 +53,131 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
         jScrollPane1 = new javax.swing.JScrollPane();
         listaPartidasEnCurso = new javax.swing.JList();
         labelPartidasEnCurso = new javax.swing.JLabel();
-        labelDetallesPartida = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtDetallesPartida = new javax.swing.JTextArea();
+        labelDetalleJugador = new javax.swing.JLabel();
         labelAdminNick = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaDetallesJugadores = new javax.swing.JList();
+        lblPrueba = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        listaPartidasEnCurso.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaPartidasEnCursoValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaPartidasEnCurso);
 
         labelPartidasEnCurso.setText("Partidas en curso");
 
-        labelDetallesPartida.setText("Detalles de la partida:");
-
-        txtDetallesPartida.setColumns(20);
-        txtDetallesPartida.setRows(5);
-        jScrollPane2.setViewportView(txtDetallesPartida);
+        labelDetalleJugador.setText("Detalles de los jugadores:");
 
         labelAdminNick.setForeground(new java.awt.Color(255, 51, 51));
         labelAdminNick.setText("labelAdminNick");
+
+        jScrollPane3.setViewportView(listaDetallesJugadores);
+
+        lblPrueba.setText("FECHA INICIO -  CANT JUGADORES- TOTAL APOSTADO - CANT MANOS JUGADAS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPartidasEnCurso))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(labelDetallesPartida))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(labelAdminNick))
-                .addContainerGap(155, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                            .addComponent(labelPartidasEnCurso, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelAdminNick, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDetalleJugador, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(lblPrueba)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelAdminNick)
-                        .addGap(23, 23, 23)
-                        .addComponent(labelPartidasEnCurso))
-                    .addComponent(labelDetallesPartida, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(labelAdminNick)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(lblPrueba)
+                .addGap(3, 3, 3)
+                .addComponent(labelPartidasEnCurso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(labelDetalleJugador)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void listaPartidasEnCursoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPartidasEnCursoValueChanged
+        this.seleccionarPartida();
+    }//GEN-LAST:event_listaPartidasEnCursoValueChanged
+
     /**
      * @param args the command line arguments
      */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelAdminNick;
-    private javax.swing.JLabel labelDetallesPartida;
+    private javax.swing.JLabel labelDetalleJugador;
     private javax.swing.JLabel labelPartidasEnCurso;
+    private javax.swing.JLabel lblPrueba;
+    private javax.swing.JList listaDetallesJugadores;
     private javax.swing.JList listaPartidasEnCurso;
-    private javax.swing.JTextArea txtDetallesPartida;
     // End of variables declaration//GEN-END:variables
 
     private void initListaYLabels() {
-        labelAdminNick.setText("Bienvenido " + this.esteAdmin.getNombreCompleto() +  "!");
+        labelAdminNick.setText("Bienvenido " + this.esteAdmin.getNombreCompleto() + "!");
+    }
+
+    public void seleccionarPartida() {
+        ca.getJugadoresPartidaSeleccionada(listaPartidasEnCurso.getSelectedValue());
     }
 
     @Override
     public void actualizar(List<Partida> partidasEnCurso) {
         this.listaPartidasEnCurso.setListData(partidasEnCurso.toArray());
+        seleccionarPartida();
+    }
+
+    @Override
+    public void mostrarDetallesJugadores(List<JugadorPartida> jugadores) {
+        listaDetallesJugadores.setListData(jugadores.toArray());
+    }
+
+    private class PartidasRenderer extends PanelDetallesPartida implements ListCellRenderer<Partida> {
+
+        public Component getListCellRendererComponent(JList<? extends Partida> list, Partida partida, int index, boolean isSelected, boolean cellHasFocus) {
+            this.lblFechaPartida.setText(partida.getFecha().toString());
+            this.lblCantJugadores.setText(partida.getJugadores().size() + "");
+            this.lblCantManosJugadas.setText(partida.getManos().size() + "");
+            this.lblTotalApostado.setText(partida.getTotalApostado() + "");
+            return this;
+        }
+    }
+
+    private class JugadoresRenderer extends PanelDetallesJugadores implements ListCellRenderer<JugadorPartida> {
+
+        public Component getListCellRendererComponent(JList<? extends JugadorPartida> list, JugadorPartida jp, int index, boolean isSelected, boolean cellHasFocus) {
+            this.lblNombre.setText(jp.getJugador().getNombreCompleto());
+            this.lblTotalApostado.setText(jp.getApuestaPartida() + "$");
+            this.lblSaldoInicial.setText(jp.getSaldoInicial() + "");
+            this.lblTotalGanado.setText(jp.getGananciaNeta() + "");
+            return this;
+
+        }
+
     }
 }

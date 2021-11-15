@@ -76,7 +76,7 @@ public class ServicioPartida {
 
     public void apostar(Partida p, JugadorPartida j, int apuesta) throws JugadorException{
         p.recibirApuesta(j, apuesta);
-        //notify nuevo gasto en partida
+        Fachada.getInstancia().notificar(Observador.Evento.POZO_MODIFICADO);
     
     }
     
@@ -89,7 +89,7 @@ public class ServicioPartida {
     public void matchApuesta(Partida p, JugadorPartida j) throws JugadorException{   
        try{
            p.recibirMatchApuesta(j);
-           //notify nuevo gasto
+          Fachada.getInstancia().notificar(Observador.Evento.POZO_MODIFICADO);
        }catch(JugadorException je){
        
            throw je;
@@ -104,6 +104,7 @@ public class ServicioPartida {
     
     public void retirarJugador(Partida p, JugadorPartida j){
         p.retirarJugador(j); 
+        Fachada.getInstancia().notificar(Observador.Evento.JUGADOR_ELIMINADO);
         notificarSiFinMano(p);
          notificarSiInicioMano(p);
         notificarSiFinPartida(p);
@@ -117,7 +118,7 @@ public class ServicioPartida {
 //    }
     
     private void notificarSiFinMano(Partida p){
-          if( p.comprobarFinalizarMano()){
+          if(p.comprobarFinalizarMano()){
         
           Fachada.getInstancia().notificar(Observador.Evento.MANO_FINALIZADA);
         } 
@@ -127,7 +128,7 @@ public class ServicioPartida {
     
     private void notificarSiFinPartida(Partida p){
         if(p.partidaFinalizada()){
-        
+           this.partidasEnCurso.remove(p);
           Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_FINALIZADA);
         } // notify
                   //TODO: Ver como hacer esto de otra forma? por ejemplo un p.comprobarFinPartida();
