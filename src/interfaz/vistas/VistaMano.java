@@ -29,8 +29,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
      * Creates new form VistaPartida
      */
     ControladorMano cp;
-    JFrame framePanelApuesta;
-    JFrame framePanelGanador;
+
 
     public VistaMano(Partida p, JugadorPartida jp) {
         initComponents();
@@ -38,8 +37,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
         setLocationRelativeTo(this.getParent());
 
         cp = new ControladorMano(this, p, jp);
-        framePanelApuesta = new JFrame();
-        framePanelGanador = new JFrame();
+
 
     }
 
@@ -291,7 +289,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
         btnPasar.setEnabled(true);
         this.setTitle(nombreJugador);
         txtApuestaActual.setText("");
-        // lbJugador.setText(nombreJugador);
         actualizarPozo(pozo);
     }
 
@@ -328,6 +325,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
 
     public void abandonarPartida() {
         cp.salir();
+        
 
     }
 
@@ -339,12 +337,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
     }
 
     @Override
-    public void pedirApuesta(String apostante, int valor, String playerActual) {
-        PanelMatchApuesta panel = new PanelMatchApuesta(cp, valor, apostante, playerActual);
-        framePanelApuesta.add(panel);
-        framePanelApuesta.pack();
-        framePanelApuesta.setVisible(true);
-
+    public void pedirApuesta(String apostante, int valor, String playerActual, int saldo) {     
+        new DialogoMatchApuesta(this, false, cp, valor, apostante, playerActual, saldo).setVisible(true);
     }
 
     @Override
@@ -352,10 +346,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
         JOptionPane.showMessageDialog(this, error);
     }
 
-    @Override
-    public void fold() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public void mostrarMensaje(String mensaje) {
@@ -364,18 +355,18 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
 
     @Override
     public void mostrarFinMano(String nombreGanador, String figura, String cartas, String saldo, String jugador) {
-
-        PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador);
-        framePanelGanador.add(panel);
-        framePanelGanador.pack();
-        framePanelGanador.setVisible(true);
+        new DialogoGanador(this, false, cp, nombreGanador, figura, cartas, saldo, jugador).setVisible(true);
+//        PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador);
+//        framePanelGanador.add(panel);
+//        framePanelGanador.pack();
+//        framePanelGanador.setVisible(true);
 
     }
 
     @Override
     public void cerrarVentana() {
         this.dispose();
-        cerrarPaneles();
+       // this.removeAll();
     }
 
     @Override
@@ -386,12 +377,6 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
 
     }
 
-    public void cerrarPaneles() {
-           framePanelApuesta.removeAll();
-           framePanelGanador.removeAll();
-           framePanelGanador.dispose();
-           framePanelApuesta.dispose();
-    }
 
     @Override
     public void actualizarPozo(String pozo) {

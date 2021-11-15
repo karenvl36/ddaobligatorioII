@@ -298,7 +298,7 @@ public class Partida extends Observable {
         }
     }
 
-    public void unirASiguienteMano(JugadorPartida jp) throws JugadorException {
+    public void unirASiguienteMano(JugadorPartida jp) throws JugadorException, ManoException {
 
         manoActual.agregar(jp, this.getApuestaBase());
         //    iniciarNuevaMano();

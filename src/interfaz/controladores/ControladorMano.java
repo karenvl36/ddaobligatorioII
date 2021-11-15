@@ -76,6 +76,11 @@ public class ControladorMano implements Observador {
         vistaMano.mostrarJugadoresActivos(list);
 
     }
+    
+    public void pedirApuesta(){
+    
+         vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick(), player.getJugador().getSaldo());
+    }
 
     public void mostrarCartas() {
 
@@ -105,6 +110,9 @@ public class ControladorMano implements Observador {
 
             vistaMano.mostrarError(je.getMessage());
             salir();
+        }catch (ManoException me){
+            vistaMano.mostrarError(me.getMessage());
+        
         }
 
     }
@@ -235,23 +243,21 @@ public class ControladorMano implements Observador {
         } else if (event == Observador.Evento.GANADOR_DECLARADO) {
 
             mostrarGanador();
-            //  manoActual.desubscribir(this);
+
 
         } else if (event == Observador.Evento.MANO_COMENZADA) {
-            // vistaMano.abrirNuevaMano(estaPartida, player);
+
             init();
 
         } else if (event == Observador.Evento.TURNO_JUGADO) {
             vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
 
         } else if (event == Observador.Evento.APUESTA_PEDIDA) {
-            vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick());
-
+            pedirApuesta();
         } else if (event == Observador.Evento.PARTIDA_FINALIZADA) {
             vistaMano.mostrarError("Terminó la partida.");
             salir();
         } else if (event == Observador.Evento.JUGADOR_RETIRADO_SALDO) {
-            // manoActual.desubscribir(this);
 
             vistaMano.mostrarError("No tiene saldo suficiente para continuar.");
             salir();

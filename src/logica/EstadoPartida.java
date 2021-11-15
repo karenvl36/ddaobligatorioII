@@ -6,6 +6,7 @@
 package logica;
 
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.PartidaException;
 
 /**
@@ -15,7 +16,7 @@ import excepciones.PartidaException;
 public interface  EstadoPartida {
    
     
-    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException;
+    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException, ManoException;
            
     
 }
