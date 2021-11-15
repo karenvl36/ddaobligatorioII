@@ -14,6 +14,7 @@ import interfaz.controladores.ControladorMano;
 public class DialogoMatchApuesta extends javax.swing.JDialog {
 
     ControladorMano cm;
+
      
      
     public DialogoMatchApuesta(java.awt.Frame parent, boolean modal, ControladorMano controlador, int valor, String apostante, String playerActual, int saldo) {
@@ -21,6 +22,7 @@ public class DialogoMatchApuesta extends javax.swing.JDialog {
         initComponents();
         this.cm = controlador;
         init(valor, apostante, playerActual, saldo);
+     
     }
    
     @SuppressWarnings("unchecked")
@@ -160,6 +162,7 @@ public class DialogoMatchApuesta extends javax.swing.JDialog {
     public void matchApuesta() {
         cm.matchApuesta();
         this.dispose();
+
     }
 
     public void fold() {

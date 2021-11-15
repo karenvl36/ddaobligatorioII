@@ -356,10 +356,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
     @Override
     public void mostrarFinMano(String nombreGanador, String figura, String cartas, String saldo, String jugador) {
         new DialogoGanador(this, false, cp, nombreGanador, figura, cartas, saldo, jugador).setVisible(true);
-//        PanelGanador panel = new PanelGanador(cp, nombreGanador, figura, cartas, saldo, jugador);
-//        framePanelGanador.add(panel);
-//        framePanelGanador.pack();
-//        framePanelGanador.setVisible(true);
+
 
     }
 
@@ -381,6 +378,16 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
     @Override
     public void actualizarPozo(String pozo) {
         lblPozo.setText(pozo);
+    }
+
+    @Override
+    public void ofrecerSiguienteMano() {
+        int n = JOptionPane.showConfirmDialog(this,  "Quiere unirse a la siguiente mano?",    "An Inane Question",  JOptionPane.YES_NO_OPTION);
+        if(n == 0){
+            cp.unirAProximaMano();
+        }else{
+            cp.salir();
+        }
     }
 
 }

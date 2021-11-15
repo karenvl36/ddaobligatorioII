@@ -57,6 +57,11 @@ public class EstadoManoApostada implements EstadoMano {
              ganador = mano.revisarGanador();
         }
          mano.declararGanador(ganador);
+//         for(JugadorPartida j: mano.getJugadoresActivos()){
+//             j.notificar(Observador.Evento.GANADOR_DECLARADO);
+//         
+//         }
+//        
          mano.notificar(Observador.Evento.GANADOR_DECLARADO);
          return true;
     }

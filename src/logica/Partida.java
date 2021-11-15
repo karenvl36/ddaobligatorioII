@@ -90,7 +90,7 @@ public class Partida extends Observable {
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Iniciación de Partida">
-    public Partida agregar(JugadorPartida jp) throws JugadorException, PartidaException {
+    public Partida agregar(JugadorPartida jp) throws JugadorException, PartidaException, ManoException {
         if (estado.agregar(jp, this) != null) {
 
             return comprobarInicio();
@@ -184,7 +184,9 @@ public class Partida extends Observable {
 
     // <editor-fold defaultstate="collapsed" desc="Delega a Mano">
     public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
-        if(monto <= 0) throw new JugadorException("La apuesta debe ser mayor a 0");
+        if (monto <= 0) {
+            throw new JugadorException("La apuesta debe ser mayor a 0");
+        }
         manoActual.recibirApuesta(unApostante, monto);
         this.totalApostado += monto;
         //TODO: Ver si esto va acá o donde para notificar solo a los no
@@ -219,16 +221,23 @@ public class Partida extends Observable {
     }
 
     public boolean comprobarFinalizarMano() {
-        if (manoActual.manoFinalizada()) {
-
+        if (manoActual.manoFinalizada()) {     
+            notificarInicioNuevaPartida();
             //  retirarJugadoresSaldoInsuficiente() - da una excepcion por eliminar en un loop;
             settearSiguienteMano();
             return true;
-            // ultimaManoJugada = manoActual;
-            //  manoActual = null;
 
         }
         return false;
+    }
+
+    public void notificarInicioNuevaPartida() {
+        for (JugadorPartida j : jugadores) {
+            if (!manoActual.getJugadoresActivos().contains(j)) {
+                j.notificar(Observador.Evento.MANO_FINALIZADA);
+            }
+
+        }
     }
 
     public int faltanPasar() {

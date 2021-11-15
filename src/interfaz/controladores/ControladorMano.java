@@ -76,10 +76,10 @@ public class ControladorMano implements Observador {
         vistaMano.mostrarJugadoresActivos(list);
 
     }
-    
-    public void pedirApuesta(){
-    
-         vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick(), player.getJugador().getSaldo());
+
+    public void pedirApuesta() {
+
+        vistaMano.pedirApuesta(estaPartida.getApuestaActiva().getNickJugador(), estaPartida.getApuestaActiva().getValor(), player.getJugador().getNick(), player.getJugador().getSaldo());
     }
 
     public void mostrarCartas() {
@@ -99,7 +99,7 @@ public class ControladorMano implements Observador {
     }
 
     public void unirAProximaMano() {
-
+        manoActual.desubscribir(this);
         try {
             vistaMano.vistaFolded("/cartas/Invertida.gif", "COMENZANDO LA SIGUIENTE MANO...");
             estaPartida.getManoActual().subscribir(this);
@@ -110,14 +110,12 @@ public class ControladorMano implements Observador {
 
             vistaMano.mostrarError(je.getMessage());
             salir();
-        }catch (ManoException me){
+        } catch (ManoException me) {
             vistaMano.mostrarError(me.getMessage());
-        
+
         }
 
     }
-
-
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Jugar">
@@ -165,11 +163,10 @@ public class ControladorMano implements Observador {
         try {
 
             fachada.matchApuesta(estaPartida, player);
-            // estaPartida.recibirMatchApuesta(player);
+
         } catch (JugadorException je) {
 
             vistaMano.mostrarError(je.getMessage());
-            //vistaMano.cerrarVentana();
             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se saldo era insuficiente para el match de apuesta.");
             this.desuscribir();
         }
@@ -177,8 +174,8 @@ public class ControladorMano implements Observador {
 
     public void fold() {
         try {
+             manoActual.desubscribir(this);
             fachada.pasar(estaPartida, player);
-            //estaPartida.recibirPasar(player);
             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se retiró de la mano.");
 
         } catch (JugadorException je) {
@@ -203,7 +200,6 @@ public class ControladorMano implements Observador {
 
     private void retirarJugador(JugadorPartida jp) {
         fachada.retirarJugador(estaPartida, jp);
-        // estaPartida.retirarJugador(jp);
 
     }
 
@@ -211,7 +207,7 @@ public class ControladorMano implements Observador {
         estaPartida.desubscribir(this);
         manoActual.desubscribir(this);
         player.desubscribir(this);
-        // fachada.desubscribir(this);
+
     }
 
     private void mostrarGanador() {
@@ -226,14 +222,14 @@ public class ControladorMano implements Observador {
     @Override
     public void notificar(Observable source, Object event) {
         if (event == Observador.Evento.MANO_FINALIZADA) {
-            vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
+           // vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
+            vistaMano.mostrarFinMano("", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
             vistaMano.mostrarMensaje("Mano finalizada");
-            // manoActual.desubscribir(this);
+            //  vistaMano.ofrecerSiguienteMano();
 
         } else if (event == Observador.Evento.JUGADOR_ELIMINADO || event == Observador.Evento.JUGADOR_AGREGADO) {
 
             this.mostrarJugadoresEnMano();
-          
 
         } else if (event == Observador.Evento.APUESTA_RECIBIDA) {
 
@@ -243,7 +239,7 @@ public class ControladorMano implements Observador {
         } else if (event == Observador.Evento.GANADOR_DECLARADO) {
 
             mostrarGanador();
-
+       
 
         } else if (event == Observador.Evento.MANO_COMENZADA) {
 
@@ -261,8 +257,7 @@ public class ControladorMano implements Observador {
 
             vistaMano.mostrarError("No tiene saldo suficiente para continuar.");
             salir();
-        } 
-
+        }
     }
 
 }
