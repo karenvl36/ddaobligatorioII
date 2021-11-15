@@ -8,6 +8,7 @@ package interfaz.vistas;
 import interfaz.IVistaAdmin;
 import interfaz.controladores.ControladorAdmin;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -37,7 +38,10 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
         listaPartidasEnCurso.setCellRenderer(new PartidasRenderer());
         listaDetallesJugadores.setCellRenderer(new JugadoresRenderer());
         ca.actualizar();
-       
+  
+     
+                   
+                   
 
     }
 
@@ -58,9 +62,15 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
         jScrollPane3 = new javax.swing.JScrollPane();
         listaDetallesJugadores = new javax.swing.JList();
         lblPrueba = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        listaPartidasEnCurso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                listaPartidasEnCursoFocusLost(evt);
+            }
+        });
         listaPartidasEnCurso.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listaPartidasEnCursoValueChanged(evt);
@@ -79,41 +89,48 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
 
         lblPrueba.setText("FECHA INICIO -  CANT JUGADORES- TOTAL APOSTADO - CANT MANOS JUGADAS");
 
+        jLabel1.setText("Nombre - Total apostado - Saldo inicial - total ganado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
-                            .addComponent(labelPartidasEnCurso, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelAdminNick, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDetalleJugador, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(164, 164, 164))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(lblPrueba)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelAdminNick)
+                            .addComponent(labelDetalleJugador)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPartidasEnCurso))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelAdminNick)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPrueba)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelPartidasEnCurso)
+                .addGap(21, 21, 21)
+                .addComponent(lblPrueba)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addComponent(labelDetalleJugador)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,11 +140,16 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
         this.seleccionarPartida();
     }//GEN-LAST:event_listaPartidasEnCursoValueChanged
 
+    private void listaPartidasEnCursoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listaPartidasEnCursoFocusLost
+ 
+    }//GEN-LAST:event_listaPartidasEnCursoFocusLost
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelAdminNick;
@@ -143,13 +165,15 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
     }
 
     public void seleccionarPartida() {
+        
         ca.getJugadoresPartidaSeleccionada(listaPartidasEnCurso.getSelectedValue());
     }
 
     @Override
     public void actualizar(List<Partida> partidasEnCurso) {
+        
         this.listaPartidasEnCurso.setListData(partidasEnCurso.toArray());
-        seleccionarPartida();
+        
     }
 
     @Override
@@ -172,12 +196,16 @@ public class VistaAdministrador extends javax.swing.JFrame implements IVistaAdmi
 
         public Component getListCellRendererComponent(JList<? extends JugadorPartida> list, JugadorPartida jp, int index, boolean isSelected, boolean cellHasFocus) {
             this.lblNombre.setText(jp.getJugador().getNombreCompleto());
-            this.lblTotalApostado.setText(jp.getApuestaPartida() + "$");
-            this.lblSaldoInicial.setText(jp.getSaldoInicial() + "");
-            this.lblTotalGanado.setText(jp.getGananciaNeta() + "");
+            this.lblTotalApostado.setText("$" + jp.getApuestaPartida());
+            this.lblSaldoInicial.setText("$" + jp.getSaldoInicial());
+            this.lblTotalGanado.setText("$" + jp.getGananciaNeta());
             return this;
 
         }
 
     }
+    
+
+    
+
 }
