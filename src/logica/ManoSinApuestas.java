@@ -13,7 +13,7 @@ import observador.Observador;
  *
  * @author chiqu
  */
-public class EstadoManoSinApuestas implements EstadoMano {
+public class ManoSinApuestas implements EstadoMano {
 
    @Override
     public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException {

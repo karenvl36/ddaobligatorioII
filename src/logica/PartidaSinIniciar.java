@@ -14,7 +14,7 @@ import observador.Observador;
  *
  * @author Karen
  */
-public class EstadoPartidaSinIniciar implements EstadoPartida {
+public class PartidaSinIniciar implements EstadoPartida {
 
     @Override
     public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException, ManoException {

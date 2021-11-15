@@ -13,7 +13,7 @@ import excepciones.PartidaException;
  *
  * @author chiqu
  */
-public class EstadoPartidaFinalizada implements EstadoPartida {
+public class PartidaFinalizada implements EstadoPartida {
 
     @Override
    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException, ManoException {

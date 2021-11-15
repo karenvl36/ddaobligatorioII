@@ -14,7 +14,7 @@ import observador.Observador;
  *
  * @author chiqu
  */
-public class EstadoManoApostada implements EstadoMano {
+public class ManoApostada implements EstadoMano {
 
     @Override
     public void recibirApuesta(JugadorPartida jugador,int monto, Mano mano) throws JugadorException{

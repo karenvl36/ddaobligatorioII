@@ -31,7 +31,7 @@ public class Partida extends Observable {
 
     public Partida() {
         settings = Settings.getInstancia();
-        estado = new EstadoPartidaSinIniciar();
+        estado = new PartidaSinIniciar();
         manos = new ArrayList<Mano>();
         manoActual = new Mano();
 
@@ -102,7 +102,7 @@ public class Partida extends Observable {
         if (faltanJugadores() == 0) {
 
             iniciar();
-            this.estado = new EstadoPartidaIniciada();
+            this.estado = new PartidaIniciada();
             return this;
         }
 

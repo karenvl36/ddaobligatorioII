@@ -32,7 +32,7 @@ public class Mano extends Observable {
     
     public Mano() {
         settings = Settings.getInstancia();
-        estado = new EstadoManoSinIniciar();
+        estado = new ManoSinIniciar();
         this.jugadoresActivos = new ArrayList<JugadorPartida>();
         this.mazo = new Mazo();
     }
@@ -155,7 +155,7 @@ public class Mano extends Observable {
     public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
 
         estado.recibirApuesta(unApostante, monto, this);
-        estado = new EstadoManoApostada();
+        estado = new ManoApostada();
         notificar(Observador.Evento.APUESTA_RECIBIDA);
         notificar(Observador.Evento.TURNO_JUGADO);
         pedirApuestas();
