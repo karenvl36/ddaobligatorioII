@@ -12,7 +12,7 @@ import observador.Observador;
  *
  * @author Karen
  */
-public class EstadoManoSinIniciar implements EstadoMano {
+public class ManoSinIniciar implements EstadoMano {
 
     @Override
     public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException {
@@ -45,7 +45,7 @@ public class EstadoManoSinIniciar implements EstadoMano {
     
      public boolean iniciar(Mano m) {
         if (!m.jugadoresInsuficientes()) {
-            m.setEstado(new EstadoManoSinApuestas());
+            m.setEstado(new ManoSinApuestas());
             m.getMazo().barajar();
             for (JugadorPartida j : m.getJugadoresActivos()) {
                 ManoJugador mj = new ManoJugador(m.getMazo().repartir());
