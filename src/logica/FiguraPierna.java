@@ -17,7 +17,7 @@ public class FiguraPierna extends Figura {
 
     public FiguraPierna() {
         this.setDescripcion("Pierna");
-        this.setPuntaje(15);
+        this.setPuntaje(150);
     }
 
     

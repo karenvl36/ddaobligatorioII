@@ -64,7 +64,7 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
             }
         });
 
-        btnFold.setText("Abandonar");
+        btnFold.setText("Rendirse");
         btnFold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFoldActionPerformed(evt);
@@ -109,7 +109,7 @@ public class PanelMatchApuesta extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(lblDeJugador)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

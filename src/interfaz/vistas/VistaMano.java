@@ -253,7 +253,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano {
     }//GEN-LAST:event_btnPasarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
+       abandonarPartida();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

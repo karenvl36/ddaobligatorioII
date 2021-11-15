@@ -18,7 +18,7 @@ public class FiguraPar extends Figura {
 
     public FiguraPar() {
         this.setDescripcion("Par");
-        this.setPuntaje(5);
+        this.setPuntaje(50);
     }
 
     

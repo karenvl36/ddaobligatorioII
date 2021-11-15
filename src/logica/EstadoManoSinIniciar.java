@@ -37,7 +37,7 @@ public class EstadoManoSinIniciar implements EstadoMano {
     @Override
     public void retirarJugador(JugadorPartida j, Mano m) {  
         if (m.getJugadoresActivos().contains(j)) {      
-            j.getJugador().sumarSaldo(m.getApuestaBase());
+            j.recibirDevolucion(m.getApuestaBase());
             m.getJugadoresActivos().remove(j);
         }
 
@@ -52,7 +52,7 @@ public class EstadoManoSinIniciar implements EstadoMano {
 
                 j.setManoJugador(mj);
             }
-          // cartasParaTestear();
+          // m.cartasParaTestear();
          
            m.notificar(Observador.Evento.MANO_COMENZADA);
 

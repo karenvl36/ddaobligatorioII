@@ -184,6 +184,7 @@ public class Partida extends Observable {
 
     // <editor-fold defaultstate="collapsed" desc="Delega a Mano">
     public void recibirApuesta(JugadorPartida unApostante, int monto) throws JugadorException {
+        if(monto <= 0) throw new JugadorException("La apuesta debe ser mayor a 0");
         manoActual.recibirApuesta(unApostante, monto);
         this.totalApostado += monto;
         //TODO: Ver si esto va acá o donde para notificar solo a los no
