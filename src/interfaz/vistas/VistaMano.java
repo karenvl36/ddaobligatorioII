@@ -23,7 +23,7 @@ import logica.Partida;
  *
  * @author Karen
  */
-public class VistaMano extends javax.swing.JFrame implements IVistaMano {
+public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
 
     /**
      * Creates new form VistaPartida

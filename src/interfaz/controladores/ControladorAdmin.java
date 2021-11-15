@@ -21,11 +21,13 @@ public class ControladorAdmin implements Observador {
 
     private UsuarioAdministrador admin;
     private IVistaAdmin vista;
+    private Partida partidaEnFoco;
 
     public ControladorAdmin(IVistaAdmin vista, UsuarioAdministrador adm) {
         this.vista = vista;
         this.admin = adm;
         Fachada.getInstancia().subscribir(this);
+      
     }
 
     public ControladorAdmin(IVistaAdmin vista) {
@@ -56,6 +58,8 @@ public class ControladorAdmin implements Observador {
 
     public void actualizar() {
         vista.actualizar(Fachada.getInstancia().getPartidasEnCurso());
+        if(partidaEnFoco != null) vista.mostrarDetallesJugadores(partidaEnFoco.getJugadores());
+        
     }
 
     /*El sistema muestra la lista de partidas en curso indicando fecha/hora de inicio, cantidad de
@@ -67,7 +71,9 @@ uno de los jugadores que han participado en esa partida.*/
     public void getJugadoresPartidaSeleccionada(Object selectedValue) {
         Partida p = (Partida) selectedValue;
         if (p != null) {
+            partidaEnFoco = p;
             vista.mostrarDetallesJugadores(p.getJugadores());
+            
         }
 
     }

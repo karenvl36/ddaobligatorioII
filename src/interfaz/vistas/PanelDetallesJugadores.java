@@ -31,6 +31,10 @@ public class PanelDetallesJugadores extends javax.swing.JPanel {
         lblTotalApostado = new javax.swing.JLabel();
         lblSaldoInicial = new javax.swing.JLabel();
         lblTotalGanado = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         lblNombre.setText("nombre");
 
@@ -40,25 +44,48 @@ public class PanelDetallesJugadores extends javax.swing.JPanel {
 
         lblTotalGanado.setText("totalGanado");
 
+        jLabel1.setText("Nombre");
+
+        jLabel2.setText("Total apostado");
+
+        jLabel3.setText("Saldo inicial");
+
+        jLabel4.setText("Total ganado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(lblNombre)
-                .addGap(18, 18, 18)
-                .addComponent(lblTotalApostado)
-                .addGap(18, 18, 18)
-                .addComponent(lblSaldoInicial)
-                .addGap(18, 18, 18)
-                .addComponent(lblTotalGanado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombre)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTotalApostado)
+                        .addGap(39, 39, 39)
+                        .addComponent(lblSaldoInicial))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)))
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTotalGanado)
+                    .addComponent(jLabel4))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(lblTotalApostado)
@@ -70,6 +97,10 @@ public class PanelDetallesJugadores extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     public javax.swing.JLabel lblNombre;
     public javax.swing.JLabel lblSaldoInicial;
     public javax.swing.JLabel lblTotalApostado;
