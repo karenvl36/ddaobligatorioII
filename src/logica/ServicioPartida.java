@@ -57,7 +57,7 @@ public class ServicioPartida {
         return this.partidaAIniciar;
     }
 
-    public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException {
+    public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException, ManoException {
       //  JugadorPartida jugadorRetorno = null;
         Partida partida = partidaAIniciar;
         if (partida != null) {

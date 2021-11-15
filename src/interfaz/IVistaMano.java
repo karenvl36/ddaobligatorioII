@@ -29,7 +29,7 @@ public interface IVistaMano {
     public void mostrarError(String error);
     public void mostrarMensaje(String mensaje);
     public void mostrarFinMano(String ganador, String figura, String cartas, String saldo, String jugador);
-   // public void ofrecerSiguienteMano(String ganador, String figura, String cartas, String saldo);
+    public void ofrecerSiguienteMano();
     public void cerrarVentana();
     //public void abrirNuevaMano(Partida p, JugadorPartida jp);
     

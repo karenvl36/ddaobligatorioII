@@ -6,7 +6,6 @@
 package interfaz.controladores;
 
 import interfaz.IVistaAdmin;
-import java.util.List;
 import logica.Fachada;
 import logica.Partida;
 import logica.UsuarioAdministrador;
@@ -39,7 +38,7 @@ public class ControladorAdmin implements Observador {
     public void notificar(Observable source, Object event) {
         if (event == Observador.Evento.PARTIDA_INICIADA || event == Observador.Evento.PARTIDA_FINALIZADA
                 || event == Observador.Evento.POZO_MODIFICADO || event == Observador.Evento.MANO_COMENZADA
-                || event == Observador.Evento.MANO_FINALIZADA) {
+                || event == Observador.Evento.MANO_FINALIZADA  || event == Observador.Evento.JUGADOR_ELIMINADO) {
             actualizar();
         }
         //JUGADOR_ELIMINADO? - tiene que saber la cantidad de jugadores que tuvo la partida o lo que todavía están?
@@ -62,12 +61,7 @@ public class ControladorAdmin implements Observador {
         
     }
 
-    /*El sistema muestra la lista de partidas en curso indicando fecha/hora de inicio, cantidad de
-jugadores en la partida, total apostado en la partida y cantidad de manos jugadas.
 
-    El usuario podrá seleccionar una partida y visualizar el nombre completo, el total apostado
-en esa partida, el saldo al iniciar la partida y el total ganado (puede ser negativo) de cada
-uno de los jugadores que han participado en esa partida.*/
     public void getJugadoresPartidaSeleccionada(Object selectedValue) {
         Partida p = (Partida) selectedValue;
         if (p != null) {

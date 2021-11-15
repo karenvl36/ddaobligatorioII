@@ -29,12 +29,6 @@ public class Mano extends Observable {
      private Settings settings;
      
 
-//    public Mano(List<JugadorPartida> players, Mazo mazo, int pozo) {
-//        estado = new EstadoManoSinApuestas();
-//        this.jugadoresActivos = players;
-//        this.mazo = mazo;
-//        this.pozo = pozo;
-//    }
     
     public Mano() {
         settings = Settings.getInstancia();
@@ -127,6 +121,16 @@ public class Mano extends Observable {
        // iniciar();
 
     }
+    
+     public void jugadorYaEnMano(JugadorPartida player) throws JugadorException, ManoException {
+
+        for (JugadorPartida j : jugadoresActivos) {
+            if (j.getJugador().equals(player.getJugador())) {
+                throw new ManoException("La nueva mano comenzará cuando todos los jugadores acepten.");
+            }
+        }
+
+    }
 
     public boolean iniciar() {
         
@@ -215,15 +219,13 @@ public class Mano extends Observable {
           declararGanador(ganadorMano);
           return ganadorMano; 
       } 
-    
-    
-
-    
-
+   
     
      public boolean manoFinalizada() {
         if (jugaronTurno.size() == jugadoresActivos.size() || jugadoresInsuficientes()) {
+          
             return estado.finalizarMano(this);
+           
 
         }
         
@@ -242,15 +244,7 @@ public class Mano extends Observable {
     }
     // </editor-fold>
 
-    public void jugadorYaEnMano(JugadorPartida player) throws JugadorException, ManoException {
-
-        for (JugadorPartida j : jugadoresActivos) {
-            if (j.getJugador().equals(player.getJugador())) {
-                throw new ManoException("La nueva mano comenzará cuando todos los jugadores acepten.");
-            }
-        }
-
-    }
+   
 
    // <editor-fold defaultstate="collapsed" desc="Testing"> 
 //   private void cartasParaTestear() { 

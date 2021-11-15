@@ -6,6 +6,7 @@
 package interfaz.vistas;
 
 import interfaz.controladores.ControladorMano;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,8 @@ public class DialogoGanador extends javax.swing.JDialog {
         initComponents();
         this.cm = controlador;
         init(ganador, figura, cartas, saldo, jugador);
+        
+     
     }
 
     /**
@@ -188,6 +191,7 @@ public class DialogoGanador extends javax.swing.JDialog {
         cm.salir();
         this.dispose();
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevaMano;

@@ -42,7 +42,7 @@ public class Fachada extends Observable {
     }
     
     
-    public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException{
+    public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException, ManoException{
          return sp.unirJugadorPartida(j);
     }
     
