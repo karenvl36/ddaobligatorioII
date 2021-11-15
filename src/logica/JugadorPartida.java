@@ -87,8 +87,7 @@ public class JugadorPartida extends Observable {
 
     }
 
-    private void restarSaldo(int apuesta) {
-        sumarApuestaPartida(apuesta);
+    private void restarSaldo(int apuesta) { 
         this.jugador.restarSaldo(apuesta);
     }
 
@@ -98,6 +97,10 @@ public class JugadorPartida extends Observable {
 
     private void sumarApuestaPartida(int apuesta) {
         apuestaPartida += apuesta;
+    }
+    
+    private void restarApuestaPartida(int apuesta) {
+        apuestaPartida -= apuesta;
     }
 
     private void sumarGananciaPartida(int valor) {
@@ -113,11 +116,17 @@ public class JugadorPartida extends Observable {
 
         saldoSuficiente(apuesta);
         restarSaldo(apuesta);
+        sumarApuestaPartida(apuesta);
 
     }
 
     public ArrayList<Carta> getCartasManoJugador() {
         return manoJugador.getCartas();
+    }
+    
+    public void recibirDevolucion(int valor){
+        sumarSaldo(valor);
+        restarApuestaPartida(valor);
     }
 
 }

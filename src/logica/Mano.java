@@ -279,31 +279,58 @@ public class Mano extends Observable {
 // 
 //    } 
 //   
-   private void cartasParaTestear(){
-       
-         ArrayList<Carta> cartas = new ArrayList<Carta>(); 
-        //For testing 
-        cartas.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
-        cartas.add(new Carta(8, new Palo(3), 8 + "_" + 3 + ".gif", "8")); 
-        cartas.add(new Carta(8, new Palo(1), 8 + "_" + 1 + ".gif", "8")); 
-        cartas.add(new Carta(9, new Palo(1), 9 + "_" + 1 + ".gif", "9")); 
-        cartas.add(new Carta(9, new Palo(2), 9 + "_" + 2 + ".gif", "9")); 
-        ManoJugador mj = new ManoJugador(cartas); 
- 
-        jugadoresActivos.get(0).setManoJugador(mj); 
-         
-         ArrayList<Carta> cartas2 = new ArrayList<Carta>(); 
-    
-        cartas2.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
-        cartas2.add(new Carta(8, new Palo(3), 8 + "_" + 3 + ".gif", "8")); 
-        cartas2.add(new Carta(8, new Palo(1), 8 + "_" + 1 + ".gif", "8")); 
-        cartas2.add(new Carta(9, new Palo(1), 9 + "_" + 1 + ".gif", "9")); 
-        cartas2.add(new Carta(9, new Palo(2), 9 + "_" + 2 + ".gif", "9")); 
-        ManoJugador mj2 = new ManoJugador(cartas2); 
- 
-        jugadoresActivos.get(1).setManoJugador(mj2); 
+//   private void cartasParaTestear(){
+//       
+//         ArrayList<Carta> cartas = new ArrayList<Carta>(); 
+//        //For testing 
+//        cartas.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
+//        cartas.add(new Carta(8, new Palo(3), 8 + "_" + 3 + ".gif", "8")); 
+//        cartas.add(new Carta(8, new Palo(1), 8 + "_" + 1 + ".gif", "8")); 
+//        cartas.add(new Carta(9, new Palo(1), 9 + "_" + 1 + ".gif", "9")); 
+//        cartas.add(new Carta(9, new Palo(2), 9 + "_" + 2 + ".gif", "9")); 
+//        ManoJugador mj = new ManoJugador(cartas); 
+// 
+//        jugadoresActivos.get(0).setManoJugador(mj); 
+//         
+//         ArrayList<Carta> cartas2 = new ArrayList<Carta>(); 
+//    
+//        cartas2.add(new Carta(8, new Palo(4), 8 + "_" + 4 + ".gif", "8")); 
+//        cartas2.add(new Carta(8, new Palo(3), 8 + "_" + 3 + ".gif", "8")); 
+//        cartas2.add(new Carta(8, new Palo(1), 8 + "_" + 1 + ".gif", "8")); 
+//        cartas2.add(new Carta(9, new Palo(1), 9 + "_" + 1 + ".gif", "9")); 
+//        cartas2.add(new Carta(9, new Palo(2), 9 + "_" + 2 + ".gif", "9")); 
+//        ManoJugador mj2 = new ManoJugador(cartas2); 
+// 
+//        jugadoresActivos.get(1).setManoJugador(mj2); 
+//   
+//   }
    
-   }
+   
+//      public void cartasParaTestear(){
+//       
+//         ArrayList<Carta> cartas = new ArrayList<Carta>(); 
+//        //For testing 
+//        cartas.add(new Carta(14, new Palo(3), 14 + "_" + 4 + ".gif", "14")); 
+//        cartas.add(new Carta(5, new Palo(3), 5 + "_" + 3 + ".gif", "5")); 
+//        cartas.add(new Carta(2, new Palo(1), 2 + "_" + 1 + ".gif", "2")); 
+//        cartas.add(new Carta(4, new Palo(1), 4 + "_" + 1 + ".gif", "4")); 
+//        cartas.add(new Carta(3, new Palo(2), 3 + "_" + 2 + ".gif", "3")); 
+//        ManoJugador mj = new ManoJugador(cartas); 
+// 
+//        jugadoresActivos.get(0).setManoJugador(mj); 
+//         
+//         ArrayList<Carta> cartas2 = new ArrayList<Carta>(); 
+//    
+//        cartas2.add(new Carta(13, new Palo(4), 13 + "_" + 3 + ".gif", "14")); 
+//        cartas2.add(new Carta(5, new Palo(4), 5 + "_" + 4 + ".gif", "5")); 
+//        cartas2.add(new Carta(2, new Palo(2), 2 + "_" + 2 + ".gif", "2")); 
+//        cartas2.add(new Carta(4, new Palo(2), 4 + "_" + 2 + ".gif", "4")); 
+//        cartas2.add(new Carta(3, new Palo(1), 3 + "_" + 1 + ".gif", "3")); 
+//        ManoJugador mj2 = new ManoJugador(cartas2); 
+// 
+//        jugadoresActivos.get(1).setManoJugador(mj2); 
+//   
+//   }
  // </editor-fold> 
 
 

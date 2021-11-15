@@ -17,7 +17,7 @@ import java.util.List;
 public class FiguraHighCard extends Figura{
     
       public FiguraHighCard() {
-        this.setDescripcion("No tiene figuras");
+        this.setDescripcion("Carta más alta: ");
         this.setPuntaje(0);
     }
 
@@ -28,6 +28,7 @@ public class FiguraHighCard extends Figura{
             this.setHighCard(temp.get(0)); //TODO: Chequear que esté ordenado descenndente
             this.setPalo(temp.get(0).getPalo());
             this.agregar(temp.get(0));
+            this.setPuntaje(this.getHighCard().getNumero());
         return true;
     }
     

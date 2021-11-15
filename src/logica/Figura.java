@@ -80,6 +80,8 @@ public abstract class Figura implements Comparable<Figura>{
         this.cartas.add(c);
     }
     
+    
+    
     public String getDescripcionCartas(){
         String ret = "";
          for(Carta c: cartas){

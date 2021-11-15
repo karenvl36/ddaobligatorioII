@@ -16,7 +16,7 @@ public class FiguraColor extends Figura{
 
     public FiguraColor() {
         this.setDescripcion("Color");
-        this.setPuntaje(30);
+        this.setPuntaje(300);
     }
     
     
