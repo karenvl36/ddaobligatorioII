@@ -10,8 +10,8 @@ import excepciones.ManoException;
 
 import interfaz.IDialogoApuesta;
 
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 import observador.Observable;
 import observador.Observador;
 import interfaz.IVistaMano;
@@ -21,7 +21,7 @@ import java.util.List;
 
 import logica.Carta;
 import logica.Fachada;
-import logica.Mano;
+import logica.Partida.Mano;
 
 /**
  *
@@ -91,7 +91,7 @@ public class ControladorMano implements Observador {
         String c3 = rootPath + cartas.get(2).getImagen();
         String c4 = rootPath + cartas.get(3).getImagen();
         String c5 = rootPath + cartas.get(4).getImagen();
-        String figura = player.getManoJugador().getFigura().getDescripcion(); 
+        String figura = player.getManoJugador().getFigura().getDescripcion();
         String cartasFigura = player.getManoJugador().getFigura().getDescripcionCartas();
 
         vistaMano.mostrarCartas(c1, c2, c3, c4, c5, figura, cartasFigura);
@@ -107,7 +107,7 @@ public class ControladorMano implements Observador {
 
             //  estaPartida.unirASiguienteMano(player);
         } catch (JugadorException je) {
-
+             estaPartida.getManoActual().desubscribir(this);
             vistaMano.mostrarError(je.getMessage());
             salir();
         } catch (ManoException me) {
@@ -174,7 +174,7 @@ public class ControladorMano implements Observador {
 
     public void fold() {
         try {
-             manoActual.desubscribir(this);
+            manoActual.desubscribir(this);
             fachada.pasar(estaPartida, player);
             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se retiró de la mano.");
 
@@ -182,7 +182,7 @@ public class ControladorMano implements Observador {
             vistaMano.mostrarError(je.getMessage());
             retirarJugador(player);
 
-        } catch (ManoException me) { 
+        } catch (ManoException me) {
 
             vistaMano.mostrarError(me.getMessage());
         }
@@ -211,7 +211,7 @@ public class ControladorMano implements Observador {
     }
 
     private void mostrarGanador() {
-        String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion(); 
+        String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion();
         String cartasFigura = manoActual.getGanador().getManoJugador().getFigura().getDescripcionCartas();
         String ganador = manoActual.getGanador().getJugador().getNick();
         String saldo = "$" + player.getJugador().getSaldo();
@@ -222,7 +222,7 @@ public class ControladorMano implements Observador {
     @Override
     public void notificar(Observable source, Object event) {
         if (event == Observador.Evento.MANO_FINALIZADA) {
-           // vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
+            // vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
             vistaMano.mostrarFinMano("", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
             vistaMano.mostrarMensaje("Mano finalizada");
             //  vistaMano.ofrecerSiguienteMano();
@@ -239,7 +239,6 @@ public class ControladorMano implements Observador {
         } else if (event == Observador.Evento.GANADOR_DECLARADO) {
 
             mostrarGanador();
-       
 
         } else if (event == Observador.Evento.MANO_COMENZADA) {
 

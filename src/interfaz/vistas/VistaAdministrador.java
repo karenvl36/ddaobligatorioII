@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 import logica.UsuarioAdministrador;
 
 /**

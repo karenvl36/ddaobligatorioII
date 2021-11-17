@@ -5,8 +5,8 @@
  */
 package interfaz;
 
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 
 /**
  *

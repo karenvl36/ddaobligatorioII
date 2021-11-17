@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.Partida;
 
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import logica.Mazo;
+import logica.Settings;
 import observador.Observable;
 import observador.Observador;
 
@@ -139,7 +141,7 @@ public class Mano extends Observable {
 
    
 
-    public void eliminar(JugadorPartida j) {
+    protected void eliminar(JugadorPartida j) {
         estado.retirarJugador(j, this);
         this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
     }
@@ -208,7 +210,7 @@ public class Mano extends Observable {
     
 
     
-     public JugadorPartida revisarGanador(){ 
+     protected JugadorPartida revisarGanador(){ 
           JugadorPartida ganadorMano = jugadoresActivos.get(0); 
           for(int i=1; i<jugadoresActivos.size(); i++){ 
               JugadorPartida jp = jugadoresActivos.get(i); 
@@ -232,13 +234,13 @@ public class Mano extends Observable {
         return false;
     }
 
-    public void declararGanador(JugadorPartida jugador) {
+    protected void declararGanador(JugadorPartida jugador) {
         setGanador(jugador);
         jugador.recibirGanancia(pozo);
         this.setPozo(0);
     }
     
-    public boolean jugadoresInsuficientes(){
+    protected boolean jugadoresInsuficientes(){
     
         return jugadoresActivos.size() <= 1;
     }

@@ -3,11 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.Partida;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import logica.Carta;
+import logica.Figura;
+import logica.FiguraColor;
+import logica.FiguraHighCard;
+import logica.FiguraPar;
+import logica.FiguraPierna;
 
 
 /**
@@ -104,6 +110,8 @@ public class ManoJugador implements Comparable<ManoJugador> {
         }
 
     }
+    
+    
     
     @Override
     public int compareTo(ManoJugador o) {

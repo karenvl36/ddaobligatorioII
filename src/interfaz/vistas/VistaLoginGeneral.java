@@ -10,7 +10,7 @@ import interfaz.controladores.ControladorLogin;
 import interfaz.controladores.CtrLoginAdmin;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import logica.Partida;
+import logica.Partida.Partida;
 import logica.UsuarioGenerico;
 
 /**

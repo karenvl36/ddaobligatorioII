@@ -7,7 +7,7 @@ package interfaz.controladores;
 
 import interfaz.IVistaAdmin;
 import logica.Fachada;
-import logica.Partida;
+import logica.Partida.Partida;
 import logica.UsuarioAdministrador;
 import observador.Observable;
 import observador.Observador;

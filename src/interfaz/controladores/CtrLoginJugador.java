@@ -10,8 +10,8 @@ import excepciones.ManoException;
 import excepciones.PartidaException;
 import interfaz.LoginVista;
 import logica.Fachada;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 import logica.UsuarioGenerico;
 import logica.UsuarioJugador;
 

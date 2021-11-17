@@ -5,6 +5,9 @@
  */
 package logica;
 
+import logica.Partida.JugadorPartida;
+import logica.Partida.ServicioPartida;
+import logica.Partida.Partida;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.PartidaException;

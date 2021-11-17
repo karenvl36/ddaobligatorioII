@@ -6,8 +6,8 @@
 package interfaz;
 
 import java.util.List;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 
 /**
  *
