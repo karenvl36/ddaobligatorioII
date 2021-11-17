@@ -20,7 +20,7 @@ public class PartidaSinIniciar implements EstadoPartida {
     public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException, ManoException {
 
       // estado.agregar(usuarioJ, this); TODO: Fix el problema de la privacidad de los métodos que usa Estado
-      //  JugadorPartida jp = new JugadorPartida(usuarioJ);
+
 
         if (p.faltanJugadores() != 0) {
             p.jugadorYaEnPartida(jp);

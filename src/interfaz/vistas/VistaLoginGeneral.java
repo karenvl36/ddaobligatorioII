@@ -8,7 +8,6 @@ package interfaz.vistas;
 import interfaz.LoginVista;
 import interfaz.controladores.ControladorLogin;
 import interfaz.controladores.CtrLoginAdmin;
-import interfaz.controladores.CtrLoginGenerico;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import logica.Partida;

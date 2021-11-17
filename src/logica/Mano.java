@@ -144,7 +144,7 @@ public class Mano extends Observable {
         this.notificar(Observador.Evento.JUGADOR_ELIMINADO);
     }
 
-    public void sumarPozo(int apuesta) {
+    protected void sumarPozo(int apuesta) {
 
         this.setPozo(pozo + apuesta);
 
@@ -189,8 +189,8 @@ public class Mano extends Observable {
         }
     }
 
-    //TODO: tip para hacerlo private y poder acceder desde Estado
-    public void agregarTurnoJugado(JugadorPartida j) {
+
+    protected void agregarTurnoJugado(JugadorPartida j) {
 
         jugaronTurno.add(j);
        

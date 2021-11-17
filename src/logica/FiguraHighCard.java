@@ -25,7 +25,7 @@ public class FiguraHighCard extends Figura{
     public boolean esFigura(List<Carta> cartasEvaluar) {
           ArrayList<Carta> temp = new ArrayList<>(cartasEvaluar);
             Collections.sort(temp);
-            this.setHighCard(temp.get(0)); //TODO: Chequear que esté ordenado descenndente
+            this.setHighCard(temp.get(0)); 
             this.setPalo(temp.get(0).getPalo());
             this.agregar(temp.get(0));
             this.setPuntaje(this.getHighCard().getNumero());

@@ -109,7 +109,7 @@ public class Partida extends Observable {
         return null;
     }
 
-    public void guardarEnLista(JugadorPartida player) {
+    protected void guardarEnLista(JugadorPartida player) {
         this.jugadores.add(player);
     } //Para que el estado pueda agregar
 
@@ -158,7 +158,7 @@ public class Partida extends Observable {
         return 0;
     }
 
-    public void jugadorYaEnPartida(JugadorPartida player) throws JugadorException {
+    protected void jugadorYaEnPartida(JugadorPartida player) throws JugadorException {
 
         for (JugadorPartida j : jugadores) {
             if (j.getJugador().equals(player.getJugador())) {
@@ -168,7 +168,7 @@ public class Partida extends Observable {
 
     }
 
-    public void saldoSuficiente(JugadorPartida player) throws JugadorException {
+    protected void saldoSuficiente(JugadorPartida player) throws JugadorException {
         player.saldoSuficiente(this.settings.getApuestaBase() + 1);
     }
 
@@ -189,8 +189,6 @@ public class Partida extends Observable {
         }
         manoActual.recibirApuesta(unApostante, monto);
         this.totalApostado += monto;
-        //TODO: Ver si esto va acá o donde para notificar solo a los no
-        //  notificar(Observador.Evento.TURNO_JUGADO);
 
     }
 
@@ -275,8 +273,7 @@ public class Partida extends Observable {
         }
 
         return false;
-
-        //TODO: FinalizarPartida
+  
     }
 
     public void settearSiguienteMano() {
@@ -319,7 +316,7 @@ public class Partida extends Observable {
     }
 
     // </editor-fold>
-    public void modificarTotalApostado(int apuestaBase) {
+    protected void modificarTotalApostado(int apuestaBase) {
         this.totalApostado += apuestaBase;
     }
 }

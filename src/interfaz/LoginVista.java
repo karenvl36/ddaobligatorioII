@@ -21,7 +21,6 @@ public interface LoginVista {
     public void abrirFrame(Partida partida, UsuarioGenerico userGenerico, JugadorPartida jp);
     public void abrirFramePartida(Partida p, JugadorPartida jp);
     public void verificarLoginGenerico(String nick,String pw);
-   // public void logIn(String nick,String pw);
-   // public UsuarioGenerico metodoAuxiliar(UsuarioGenerico userG);
+
     
 }

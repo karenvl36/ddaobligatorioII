@@ -16,8 +16,7 @@ import java.util.List;
  */
 public class Mazo {
     public List<Carta> cartas;
-    //public HashSet<Carta> cartas = new HashSet<Carta>();
-    //TODO: Deberíamos hacer el mazo un hashset para que no repita cartas?
+
     
     public Mazo(){
 

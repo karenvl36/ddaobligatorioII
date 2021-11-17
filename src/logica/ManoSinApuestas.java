@@ -45,7 +45,7 @@ public class ManoSinApuestas implements EstadoMano {
          }        
          mano.notificar(Observador.Evento.MANO_FINALIZADA);
         return true;
-        //TODO: Si lo llama partida, lo tiene que notificar Partida que es a donde está suscripto
+
        
     }
 

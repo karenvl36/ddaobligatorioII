@@ -91,7 +91,7 @@ public class ControladorMano implements Observador {
         String c3 = rootPath + cartas.get(2).getImagen();
         String c4 = rootPath + cartas.get(3).getImagen();
         String c5 = rootPath + cartas.get(4).getImagen();
-        String figura = player.getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
+        String figura = player.getManoJugador().getFigura().getDescripcion(); 
         String cartasFigura = player.getManoJugador().getFigura().getDescripcionCartas();
 
         vistaMano.mostrarCartas(c1, c2, c3, c4, c5, figura, cartasFigura);
@@ -182,7 +182,7 @@ public class ControladorMano implements Observador {
             vistaMano.mostrarError(je.getMessage());
             retirarJugador(player);
 
-        } catch (ManoException me) { //TODO: Ver quién está generando esta exception
+        } catch (ManoException me) { 
 
             vistaMano.mostrarError(me.getMessage());
         }
@@ -211,7 +211,7 @@ public class ControladorMano implements Observador {
     }
 
     private void mostrarGanador() {
-        String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion(); //TODO: un método más directo?
+        String figura = manoActual.getGanador().getManoJugador().getFigura().getDescripcion(); 
         String cartasFigura = manoActual.getGanador().getManoJugador().getFigura().getDescripcionCartas();
         String ganador = manoActual.getGanador().getJugador().getNick();
         String saldo = "$" + player.getJugador().getSaldo();
