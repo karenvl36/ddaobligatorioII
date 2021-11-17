@@ -8,8 +8,8 @@ package interfaz.vistas;
 
 import interfaz.controladores.CtrLoginAdmin;
 import interfaz.vistas.VistaLoginGeneral;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 import logica.UsuarioAdministrador;
 import logica.UsuarioGenerico;
 

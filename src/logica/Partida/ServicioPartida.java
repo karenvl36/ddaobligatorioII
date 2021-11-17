@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.Partida;
 
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.PartidaException;
 import java.util.ArrayList;
 import java.util.List;
+import logica.Fachada;
 import observador.Observador;
 
 /**
@@ -58,12 +59,12 @@ public class ServicioPartida {
     }
 
     public Partida unirJugadorPartida(JugadorPartida j) throws PartidaException, JugadorException, ManoException {
-      //  JugadorPartida jugadorRetorno = null;
+        //  JugadorPartida jugadorRetorno = null;
         Partida partida = partidaAIniciar;
         if (partida != null) {
-           
+
             if (partida.agregar(j) != null) {
-                    crearPartida(partida);
+                crearPartida(partida);
             }
         }
         return partida;
@@ -74,66 +75,60 @@ public class ServicioPartida {
         return this.partidasEnCurso;
     }
 
-    public void apostar(Partida p, JugadorPartida j, int apuesta) throws JugadorException{
+    public void apostar(Partida p, JugadorPartida j, int apuesta) throws JugadorException {
         p.recibirApuesta(j, apuesta);
         Fachada.getInstancia().notificar(Observador.Evento.POZO_MODIFICADO);
-    
-    }
-    
-    public void pasar(Partida p, JugadorPartida j) throws ManoException, JugadorException{
-        p.recibirPasar(j);  
-        notificarSiFinMano(p);
-    
-    }
-    
-    public void matchApuesta(Partida p, JugadorPartida j) throws JugadorException{   
-       try{
-           p.recibirMatchApuesta(j);
-          Fachada.getInstancia().notificar(Observador.Evento.POZO_MODIFICADO);
-       }catch(JugadorException je){
-       
-           throw je;
-       }finally{
-            notificarSiFinMano(p);
-       }
-      
-        
-    }
-    
 
-    
-    public void retirarJugador(Partida p, JugadorPartida j){
-        p.retirarJugador(j); 
+    }
+
+    public void pasar(Partida p, JugadorPartida j) throws ManoException, JugadorException {
+        p.recibirPasar(j);
+        notificarSiFinMano(p);
+
+    }
+
+    public void matchApuesta(Partida p, JugadorPartida j) throws JugadorException {
+        try {
+            p.recibirMatchApuesta(j);
+            Fachada.getInstancia().notificar(Observador.Evento.POZO_MODIFICADO);
+        } catch (JugadorException je) {
+
+            throw je;
+        } finally {
+            notificarSiFinMano(p);
+        }
+
+    }
+
+    public void retirarJugador(Partida p, JugadorPartida j) {
+        p.retirarJugador(j);
         Fachada.getInstancia().notificar(Observador.Evento.JUGADOR_ELIMINADO);
         notificarSiFinMano(p);
-         notificarSiInicioMano(p);
+        notificarSiInicioMano(p);
         notificarSiFinPartida(p);
 
     }
-    
+
 //    public void rechazarNuevaMano(Partida p, JugadorPartida j){
 //        p.rechazarNuevaMano(j);
 //        notificarSiInicioMano(p);
 //        notificarSiFinPartida(p);  
 //    }
-    
-    private void notificarSiFinMano(Partida p){
-          if(p.comprobarFinalizarMano()){
-        
-          Fachada.getInstancia().notificar(Observador.Evento.MANO_FINALIZADA);
-        } 
+    private void notificarSiFinMano(Partida p) {
+        if (p.comprobarFinalizarMano()) {
+
+            Fachada.getInstancia().notificar(Observador.Evento.MANO_FINALIZADA);
+        }
     }
-    
-    
-    
-    private void notificarSiFinPartida(Partida p){
-        if(p.partidaFinalizada()){
-           this.partidasEnCurso.remove(p);
-          Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_FINALIZADA);
-        } 
-       
+
+    private void notificarSiFinPartida(Partida p) {
+        if (p.partidaFinalizada()) {
+            this.partidasEnCurso.remove(p);
+            Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_FINALIZADA);
+        }
+
     }
-    
+
     private void notificarSiInicioMano(Partida p) {
 
         if (p.iniciarNuevaMano()) {
@@ -141,18 +136,14 @@ public class ServicioPartida {
             Fachada.getInstancia().notificar(Observador.Evento.MANO_COMENZADA);
         }
     }
-    
-    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException, ManoException{
+
+    public void unirJugadorASiguienteMano(Partida p, JugadorPartida j) throws JugadorException, ManoException {
         p.unirASiguienteMano(j);
         notificarSiInicioMano(p);
-        //comrpobar inicio nueva Mano
-        //notificar inicio nueva Mano
-        
+
 //          if(!(p.getManoActual().getEstado() instanceof EstadoManoSinIniciar)){
 //            //notify finMano
 //        }
-  
     }
-    
-    
+
 }

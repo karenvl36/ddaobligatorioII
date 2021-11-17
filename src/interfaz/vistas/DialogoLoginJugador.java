@@ -10,8 +10,8 @@ import interfaz.controladores.CtrLoginJugador;
 import interfaz.vistas.VistaLoginGeneral;
 import interfaz.vistas.VistaJugadorLobby;
 import logica.Fachada;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 import logica.UsuarioGenerico;
 import logica.UsuarioJugador;
 

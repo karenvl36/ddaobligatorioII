@@ -7,8 +7,8 @@ package interfaz.controladores;
 
 import interfaz.IVistaMano;
 import interfaz.VistaLobbyPartida;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 import observador.Observable;
 import observador.Observador;
 

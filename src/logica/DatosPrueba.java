@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package logica;
-                import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 /**
  *

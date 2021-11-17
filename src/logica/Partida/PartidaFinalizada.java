@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.Partida;
 
 import excepciones.JugadorException;
 import excepciones.ManoException;
@@ -17,7 +17,7 @@ public class PartidaFinalizada implements EstadoPartida {
 
     @Override
    public Partida agregar(JugadorPartida jp, Partida p) throws PartidaException, JugadorException, ManoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new PartidaException("No puede unirse a una partida finalizada."); //To change body of generated methods, choose Tools | Templates.
         //Exception: Esta partida está fnalizada
     }
 

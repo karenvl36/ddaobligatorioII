@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.Partida;
 
+import logica.Partida.ManoJugador;
 import excepciones.JugadorException;
 import java.util.ArrayList;
+import logica.Carta;
+import logica.UsuarioJugador;
 import observador.Observable;
 
 /**

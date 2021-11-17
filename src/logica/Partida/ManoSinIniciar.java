@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package logica.Partida;
 
 import excepciones.JugadorException;
 import observador.Observador;
@@ -43,6 +43,8 @@ public class ManoSinIniciar implements EstadoMano {
 
     }
     
+    
+   @Override
      public boolean iniciar(Mano m) {
         if (!m.jugadoresInsuficientes()) {
             m.setEstado(new ManoSinApuestas());

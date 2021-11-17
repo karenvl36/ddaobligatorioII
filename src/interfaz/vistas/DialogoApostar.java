@@ -8,8 +8,8 @@ package interfaz.vistas;
 import interfaz.IDialogoApuesta;
 import interfaz.controladores.ControladorMano;
 import javax.swing.JOptionPane;
-import logica.JugadorPartida;
-import logica.Partida;
+import logica.Partida.JugadorPartida;
+import logica.Partida.Partida;
 
 /**
  *
