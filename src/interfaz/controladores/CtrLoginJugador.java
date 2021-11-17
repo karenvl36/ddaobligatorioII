@@ -6,6 +6,7 @@
 package interfaz.controladores;
 
 import excepciones.JugadorException;
+import excepciones.ManoException;
 import excepciones.PartidaException;
 import interfaz.LoginVista;
 import logica.Fachada;
@@ -53,6 +54,9 @@ public class CtrLoginJugador extends ControladorLogin {
         }catch(JugadorException je){
             loginVista.mostrarError(je.getMessage());
         
+        }catch(ManoException me){
+        
+            loginVista.mostrarError(me.getMessage());
         }
        
     }

@@ -62,7 +62,7 @@ public class DialogoLoginAdministrador extends VistaLoginGeneral {
 //    
 //
 //    }
-   //TODO: Q RECIBA UNA PARTIDA COMO PARAMETRO ESTÁ MAL. VER COMO SE HACE CORRECTAMENTE
+
     @Override 
      public void abrirFrame(Partida partida, UsuarioGenerico usuario, JugadorPartida jp) {
         new VistaAdministrador((UsuarioAdministrador) usuario).setVisible(true);

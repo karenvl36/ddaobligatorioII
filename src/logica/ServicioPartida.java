@@ -130,11 +130,7 @@ public class ServicioPartida {
         if(p.partidaFinalizada()){
            this.partidasEnCurso.remove(p);
           Fachada.getInstancia().notificar(Observador.Evento.PARTIDA_FINALIZADA);
-        } // notify
-                  //TODO: Ver como hacer esto de otra forma? por ejemplo un p.comprobarFinPartida();
-//        if(p.getEstado() instanceof EstadoPartidaFinalizada){
-//            //notify finPartida
-//        }
+        } 
        
     }
     
