@@ -11,7 +11,7 @@ import logica.Partida.Partida;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.PartidaException;
-import java.util.ArrayList;
+import excepciones.UserExceptions;
 import java.util.List;
 import observador.Observable;
 
@@ -35,12 +35,12 @@ public class Fachada extends Observable {
     
 
     
-    public UsuarioGenerico logInAdmin(String name,String pw){
+    public UsuarioGenerico logInAdmin(String name,String pw) throws UserExceptions {
         return su.logInAdmin(name, pw);
     }
     
     
-    public UsuarioGenerico logInJugador(String name,String pw){
+    public UsuarioGenerico logInJugador(String name,String pw) throws UserExceptions{
         return su.logInJugador(name, pw);
     }
     

@@ -41,14 +41,13 @@ public class ControladorAdmin implements Observador {
                 || event == Observador.Evento.MANO_FINALIZADA  || event == Observador.Evento.JUGADOR_ELIMINADO) {
             actualizar();
         }
-        //JUGADOR_ELIMINADO? - tiene que saber la cantidad de jugadores que tuvo la partida o lo que todavía están?
-        //Actualiza la info de cant jugadores de la partida
-        //POZO_AUMENTADO - el total apostado en la partida es tanto de las apuestas como de lo que matcheo?
+        //JUGADOR_ELIMINADO - actualiza cantidad de jugadores que siguen en la partida
+        //POZO_AUMENTADO 
         //Actualiza el total apostado de la partida 
         //Actualiza el total apostado por jugador
         //MANO_INICIADA
         //Actualiza la cant de manos de la partida
-        //MANO_FINALIZADA??? o GANADOR_DECLARADO???
+        //MANO_FINALIZADA
         //Para actualizar el total ganado por jugador
         {
             

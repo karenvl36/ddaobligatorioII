@@ -28,7 +28,7 @@ public class Partida extends Observable {
     private Mano manoActual;
     private EstadoPartida estado;
     private int totalApostado;
-    // private Mano ultimaManoJugada;
+
 
     public Partida() {
         settings = Settings.getInstancia();
@@ -110,9 +110,7 @@ public class Partida extends Observable {
         return null;
     }
 
-    protected void guardarEnLista(JugadorPartida player) {
-        this.jugadores.add(player);
-    } //Para que el estado pueda agregar
+
 
     public void iniciar() throws JugadorException { //Tira la excepción si un jugador a unirse a la nueva mano no tiene saldo
         this.setFecha(new Date());
@@ -122,7 +120,7 @@ public class Partida extends Observable {
 
     }
 
-    private void guardarSaldoInicialJugadores() {
+    private void guardarSaldoInicialJugadores() { //cuando empieza la partida, no cuando se une, por si se unió a otra
         for (JugadorPartida j : jugadores) {
 
             j.guardarSaldoInicial();
@@ -169,7 +167,7 @@ public class Partida extends Observable {
 
     }
 
-    protected void saldoSuficiente(JugadorPartida player) throws JugadorException {
+    protected void saldoSuficienteLuz(JugadorPartida player) throws JugadorException {
         player.saldoSuficiente(this.settings.getApuestaBase() + 1);
     }
 
@@ -221,7 +219,7 @@ public class Partida extends Observable {
 
     public boolean comprobarFinalizarMano() {
         if (manoActual.manoFinalizada()) {     
-            notificarInicioNuevaPartida();
+            notificarInicioNuevaMano();
             //  retirarJugadoresSaldoInsuficiente() - da una excepcion por eliminar en un loop;
             settearSiguienteMano();
             return true;
@@ -230,7 +228,7 @@ public class Partida extends Observable {
         return false;
     }
 
-    public void notificarInicioNuevaPartida() {
+    public void notificarInicioNuevaMano() {
         for (JugadorPartida j : jugadores) {
             if (!manoActual.getJugadoresActivos().contains(j)) {
                 j.notificar(Observador.Evento.MANO_FINALIZADA);
@@ -296,7 +294,7 @@ public class Partida extends Observable {
     private void retirarJugadoresSaldoInsuficiente() throws JugadorException {
         for (JugadorPartida j : this.jugadores) {
             try {
-                saldoSuficiente(j);
+                saldoSuficienteLuz(j);
             } catch (JugadorException je) {
                 retirarJugador(j);
                 j.notificar(Observador.Evento.JUGADOR_RETIRADO_SALDO);

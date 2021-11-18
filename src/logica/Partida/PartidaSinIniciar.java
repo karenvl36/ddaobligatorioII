@@ -24,8 +24,8 @@ public class PartidaSinIniciar implements EstadoPartida {
 
         if (p.faltanJugadores() != 0) {
             p.jugadorYaEnPartida(jp);
-            p.saldoSuficiente(jp);
-            p.guardarEnLista(jp);
+            p.saldoSuficienteLuz(jp);
+            p.getJugadores().add(jp);
             p.getManoActual().agregar(jp, p.getApuestaBase());
             p.modificarTotalApostado(p.getApuestaBase());
             p.notificar(Observador.Evento.JUGADOR_AGREGADO);

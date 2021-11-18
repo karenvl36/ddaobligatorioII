@@ -15,38 +15,34 @@ import observador.Observador;
  */
 public class ManoSinApuestas implements EstadoMano {
 
-   @Override
+    @Override
     public void recibirApuesta(JugadorPartida jugador, int monto, Mano mano) throws JugadorException {
-            jugador.realizarApuesta(monto);      
-            ApuestaMano apuesta = new ApuestaMano(jugador, monto);
-            mano.setApuesta(apuesta);
-            mano.sumarPozo(monto);
-            mano.vaciarListaPasantes();
-            mano.agregarTurnoJugado(jugador);
-           
-
-       
+        jugador.realizarApuesta(monto);   //valida el saldo + suma apuestaTotal de jugador + resta saldo   
+        ApuestaMano apuesta = new ApuestaMano(jugador, monto);
+        mano.setApuesta(apuesta);
+        mano.sumarPozo(monto);
+        mano.vaciarListaPasantes();
+        mano.agregarTurnoJugado(jugador);
 
     }
 
-  @Override
+    @Override
     public void recibirPasar(JugadorPartida jugador, Mano mano) throws JugadorException {
-        if(mano.getPasantes().contains(jugador)){
-            throw new JugadorException("Ya pasó esta mano"); 
+        if (mano.getPasantes().contains(jugador)) {
+            throw new JugadorException("Ya pasó esta mano");
         }
-            mano.agregarTurnoJugado(jugador);
-     
+        mano.agregarTurnoJugado(jugador);
+
     }
 
     @Override
     public boolean finalizarMano(Mano mano) {
-         if(mano.jugadoresInsuficientes()){
-             mano.declararGanador(mano.getJugadoresActivos().get(0));
-         }        
-         mano.notificar(Observador.Evento.MANO_FINALIZADA);
+        if (mano.jugadoresInsuficientes()) {
+            mano.declararGanador(mano.getJugadoresActivos().get(0));
+        }
+        mano.notificar(Observador.Evento.MANO_FINALIZADA);
         return true;
 
-       
     }
 
     @Override

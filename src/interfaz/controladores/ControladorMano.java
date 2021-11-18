@@ -57,10 +57,10 @@ public class ControladorMano implements Observador {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Iniciar">
-    public void init() {
-        vistaMano.mostrarApuestaActiva("No hay apuestas.", 0);
+    public final void init() {
         manoActual = estaPartida.getManoActual();
-        vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo());
+        vistaMano.mostrarApuestaActiva("No hay apuestas.", 0);
+        vistaMano.init(player.getJugador().getNick(), "$" + manoActual.getPozo(), "$" + player.getJugador().getSaldo());
         mostrarJugadoresEnMano();
         mostrarCartas();
         vistaMano.mostrarMensaje("Faltan jugar: " + estaPartida.faltanPasar() + " jugadores.");
@@ -105,9 +105,8 @@ public class ControladorMano implements Observador {
             estaPartida.getManoActual().subscribir(this);
             fachada.unirJugadorASiguienteMano(estaPartida, player);
 
-            //  estaPartida.unirASiguienteMano(player);
         } catch (JugadorException je) {
-             estaPartida.getManoActual().desubscribir(this);
+            estaPartida.getManoActual().desubscribir(this);
             vistaMano.mostrarError(je.getMessage());
             salir();
         } catch (ManoException me) {
@@ -123,9 +122,8 @@ public class ControladorMano implements Observador {
         try {
 
             fachada.apostar(estaPartida, player, apuesta);
-            //estaPartida.recibirApuesta(player, apuesta);
             diaApuesta.cerrarDialogo();
-            //Mensaje de éxito???
+            vistaMano.actualizarSaldo("$" + player.getJugador().getSaldo());
 
         } catch (JugadorException je) {
             diaApuesta.mostrarError(je.getMessage());
@@ -139,6 +137,7 @@ public class ControladorMano implements Observador {
         String jugador = estaPartida.getApuestaActiva().getNickJugador();
         int valorApuesta = estaPartida.getApuestaActiva().getValor();
         vistaMano.mostrarApuestaActiva(jugador, valorApuesta);
+        vistaMano.actualizarPozo("$" + manoActual.getPozo());
 
     }
 
@@ -146,14 +145,10 @@ public class ControladorMano implements Observador {
         try {
 
             fachada.pasar(estaPartida, player);
-            // estaPartida.recibirPasar(player);
 
-        } catch (JugadorException je) {
+        } catch (JugadorException | ManoException je) {
 
             vistaMano.mostrarError(je.getMessage());
-        } catch (ManoException pe) {
-            vistaMano.mostrarError(pe.getMessage());
-
         }
 
     }
@@ -163,12 +158,14 @@ public class ControladorMano implements Observador {
         try {
 
             fachada.matchApuesta(estaPartida, player);
+            vistaMano.actualizarSaldo("$" + player.getJugador().getSaldo());
 
         } catch (JugadorException je) {
-
+           // this.desuscribir();
+           manoActual.desubscribir(this);
             vistaMano.mostrarError(je.getMessage());
             vistaMano.vistaFolded("/cartas/Invertida.gif", "Se saldo era insuficiente para el match de apuesta.");
-            this.desuscribir();
+            
         }
     }
 
@@ -222,10 +219,8 @@ public class ControladorMano implements Observador {
     @Override
     public void notificar(Observable source, Object event) {
         if (event == Observador.Evento.MANO_FINALIZADA) {
-            // vistaMano.mostrarFinMano("No hay ganador en esta mano.", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
+
             vistaMano.mostrarFinMano("", "", "", "$" + player.getJugador().getSaldo(), player.getJugador().getNick());
-            vistaMano.mostrarMensaje("Mano finalizada");
-            //  vistaMano.ofrecerSiguienteMano();
 
         } else if (event == Observador.Evento.JUGADOR_ELIMINADO || event == Observador.Evento.JUGADOR_AGREGADO) {
 
@@ -234,10 +229,9 @@ public class ControladorMano implements Observador {
         } else if (event == Observador.Evento.APUESTA_RECIBIDA) {
 
             mostrarApuestaActiva();
-            vistaMano.actualizarPozo("$" + manoActual.getPozo());
 
         } else if (event == Observador.Evento.GANADOR_DECLARADO) {
-
+            vistaMano.actualizarSaldo("$" + player.getJugador().getSaldo());
             mostrarGanador();
 
         } else if (event == Observador.Evento.MANO_COMENZADA) {

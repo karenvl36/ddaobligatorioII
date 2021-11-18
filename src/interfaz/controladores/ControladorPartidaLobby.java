@@ -5,7 +5,6 @@
  */
 package interfaz.controladores;
 
-import interfaz.IVistaMano;
 import interfaz.VistaLobbyPartida;
 import logica.Partida.JugadorPartida;
 import logica.Partida.Partida;
@@ -17,12 +16,13 @@ import observador.Observador;
  * @author Karen
  */
 public class ControladorPartidaLobby implements Observador {
+
     private Partida estaPartida;
     private VistaLobbyPartida vistaLobby;
     private JugadorPartida player;
 
     public ControladorPartidaLobby(VistaLobbyPartida lobbyView, Partida unaPartida, JugadorPartida player) {
-   
+
         this.estaPartida = unaPartida;
         this.player = player;
         this.vistaLobby = lobbyView;
@@ -30,45 +30,43 @@ public class ControladorPartidaLobby implements Observador {
         vistaLobby.mostrarJugadoresFaltantes(estaPartida.faltanJugadores());
 
     }
-    
 
+    @Override
     public void notificar(Observable source, Object event) {
-        
+
         if (event == Observador.Evento.PARTIDA_INICIADA) {
-            abrirFramePartida();   
-            
+            abrirFramePartida();
+
         }
         if (event == Observador.Evento.JUGADOR_AGREGADO || event == Observador.Evento.JUGADOR_ELIMINADO) {
-            
+
             this.vistaLobby.mostrarJugadoresFaltantes(estaPartida.faltanJugadores());
 
         }
-        
 
     }
 
     public void salir() {
         retirarJugador(this.player);
-        estaPartida.desubscribir(this); 
+        estaPartida.desubscribir(this);
     }
 
-    public void retirarJugador(JugadorPartida jp)  {
+    public void retirarJugador(JugadorPartida jp) {
         estaPartida.retirarJugador(jp);
     }
 
     public void mostrarJugadoresFaltantes() {
         vistaLobby.mostrarJugadoresFaltantes(0);
     }
-    
-    public void abrirFramePartida(){  
-       
-            vistaLobby.abrirFrame(estaPartida, player);
-   
-        
+
+    public void abrirFramePartida() {
+
+        vistaLobby.abrirFrame(estaPartida, player);
+
     }
 
     public void desuscribir() {
-       estaPartida.desubscribir(this);
+        estaPartida.desubscribir(this);
     }
-    
+
 }
