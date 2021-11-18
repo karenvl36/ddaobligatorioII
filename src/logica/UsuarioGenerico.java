@@ -7,6 +7,7 @@ package logica;
 
 import excepciones.UserExceptions;
 
+
 /**
  *
  * @author chiqu
@@ -15,12 +16,12 @@ public abstract class UsuarioGenerico {
 
     private String nickName;
     private String nombreCompleto;
-    private String contraseña;
+    private String contrasenia;
 
-    public UsuarioGenerico(String nickName, String nombreCompleto, String contraseña) {
+    public UsuarioGenerico(String nickName, String nombreCompleto, String contrasenia) {
         this.nickName = nickName;
         this.nombreCompleto = nombreCompleto;
-        this.contraseña = contraseña;
+        this.contrasenia = contrasenia;
     }
 
     public boolean setNombreCompleto(String newName) {
@@ -35,12 +36,12 @@ public abstract class UsuarioGenerico {
     }
 
     public boolean setContraseña(String newPassword) {
-        String bkUp = this.contraseña;
-        this.contraseña = newPassword;
+        String bkUp = this.contrasenia;
+        this.contrasenia = newPassword;
         if (validarContraseña()) {
             return true;
         } else {
-            this.contraseña = bkUp;
+            this.contrasenia = bkUp;
             return false;
         }
     }
@@ -63,13 +64,18 @@ public abstract class UsuarioGenerico {
         return this.nombreCompleto;
     }
 
-    public String getContraseña() {
-        return this.contraseña;
+    
+    public void checkPassword(String passIngresada) throws UserExceptions{
+        if(! this.contrasenia.equals(passIngresada)){
+        
+             throw new UserExceptions("La contraseña es incorrecta");
+        }
     }
 
 
 
-    // Validaciones //   Puse un ejemplo viejo de  un práctico anterior, se puede mejorar la validación.
+
+   
     public boolean validarNick() {
         boolean isOk = false;
         if (this.getNick() != null && !this.getNick().trim().equals("")) {
@@ -83,8 +89,8 @@ public abstract class UsuarioGenerico {
 
     private boolean validarContraseña() {
          boolean isOk = false;
-        if (this.getContraseña()!= null && !this.getContraseña().trim().equals("")) {
-            int digitos = this.contraseña.length();
+        if (this.contrasenia != null && !this.contrasenia.trim().equals("")) {
+            int digitos = this.contrasenia.length();
             if (digitos >= 2) {
                 isOk = true;
             }
@@ -105,7 +111,9 @@ public abstract class UsuarioGenerico {
     
     
     
-    //Excepciones -- A TRABAJAR ESTO
+    
+    
+
     
      public void validar() throws UserExceptions {
         if(this.nickName.isBlank()){
@@ -114,7 +122,7 @@ public abstract class UsuarioGenerico {
         if(this.nombreCompleto.isBlank()){
             throw new UserExceptions("Falta el nombre completo del usuario.");
         }
-        if(this.contraseña.isBlank()){
+        if(this.contrasenia.isBlank()){
             throw new UserExceptions("La contraseña del usuario");
         }
     }

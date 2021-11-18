@@ -5,6 +5,7 @@
  */
 package interfaz.controladores;
 
+import excepciones.UserExceptions;
 import interfaz.LoginVista;
 
 import logica.UsuarioGenerico;
@@ -24,6 +25,8 @@ public abstract class ControladorLogin  {
     
     public void ingresar(String nick, String password) {
                 
+        try{
+        
         UsuarioGenerico u = logUsuario(nick, password);
       
         if (u == null) {
@@ -32,6 +35,11 @@ public abstract class ControladorLogin  {
             this.abrirFrame(u);
  
         }
+        
+        }catch(UserExceptions ex){
+        
+             loginVista.mostrarError(ex.getMessage());
+        }
     }
 
     public void setLoginVista(LoginVista loginVista) {
@@ -39,7 +47,7 @@ public abstract class ControladorLogin  {
     }
     
    
-    protected abstract UsuarioGenerico logUsuario(String nick, String pass);
+    protected abstract UsuarioGenerico logUsuario(String nick, String pass) throws UserExceptions;
     protected abstract void abrirFrame(UsuarioGenerico u);
 
 

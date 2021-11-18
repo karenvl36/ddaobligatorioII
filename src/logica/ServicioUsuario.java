@@ -5,6 +5,7 @@
  */
 package logica;
 
+import excepciones.UserExceptions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,6 @@ public class ServicioUsuario {
     public List<UsuarioJugador> jugadores;
     public static ServicioUsuario instancia;
 
-
     public static ServicioUsuario getInstancia() {
 
         if (instancia == null) {
@@ -32,7 +32,7 @@ public class ServicioUsuario {
         this.usuarios = new ArrayList<>();
         this.administradores = new ArrayList<>();
         this.jugadores = new ArrayList<>();
-   
+
     }
 
     // Agregar y Eliminar
@@ -74,29 +74,25 @@ public class ServicioUsuario {
     }
 
     /// Metodos ///
-    public UsuarioGenerico logInGenerico(String nickName, String password, List<UsuarioGenerico> usuarios) {
+    public UsuarioGenerico logInGenerico(String nickName, String password, List<UsuarioGenerico> usuarios) throws UserExceptions {
         for (UsuarioGenerico user : usuarios) {
             if (user.getNick().equals(nickName)) {
-                if (user.getContraseña().equals(password)) {
+
+                user.checkPassword(password);
+               
                     return user;
-                } else {
-                    return null;
-                }
+
             }
         }
         return null;
     }
 
-    public UsuarioAdministrador logInAdmin(String nickName, String password) {
+    public UsuarioAdministrador logInAdmin(String nickName, String password) throws UserExceptions {
         return (UsuarioAdministrador) logInGenerico(nickName, password, (ArrayList) administradores);
     }
 
-    public UsuarioJugador logInJugador(String nickName, String password) {
+    public UsuarioJugador logInJugador(String nickName, String password) throws UserExceptions {
         return (UsuarioJugador) logInGenerico(nickName, password, (ArrayList) jugadores);
     }
-
-  
-
-
 
 }
