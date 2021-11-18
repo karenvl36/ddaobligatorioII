@@ -91,12 +91,13 @@ public class ServicioPartida {
         try {
             p.recibirMatchApuesta(j);
             Fachada.getInstancia().notificar(Observador.Evento.POZO_MODIFICADO);
+           
         } catch (JugadorException je) {
-
+                
             throw je;
-        } finally {
+        }finally{
             notificarSiFinMano(p);
-        }
+        } 
 
     }
 

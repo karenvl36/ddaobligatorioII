@@ -39,7 +39,6 @@ public class ManoApostada implements EstadoMano {
 
         } catch (JugadorException jp) {
             mano.eliminar(j);  
-           
             throw jp;
              
              
@@ -57,11 +56,7 @@ public class ManoApostada implements EstadoMano {
              ganador = mano.revisarGanador();
         }
          mano.declararGanador(ganador);
-//         for(JugadorPartida j: mano.getJugadoresActivos()){
-//             j.notificar(Observador.Evento.GANADOR_DECLARADO);
-//         
-//         }
-//        
+     
          mano.notificar(Observador.Evento.GANADOR_DECLARADO);
          return true;
     }

@@ -80,10 +80,7 @@ public class DialogoLoginAdministrador extends VistaLoginGeneral {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void verificarLoginGenerico(String nick, String pw) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
     
     
 

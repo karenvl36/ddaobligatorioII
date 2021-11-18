@@ -14,7 +14,6 @@ public interface IDialogoApuesta {
     public void mostrarSaldo(int Saldo);
     public void recibirApuesta();
     public void mostrarError(String error);
-   // public void cancelar();
     public void cerrarDialogo();
     
 }

@@ -63,6 +63,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
         jScrollPane2 = new javax.swing.JScrollPane();
         lblPozo = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
+        lblSaldo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -126,6 +127,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
 
         jLabel2.setText("Pozo");
 
+        lblSaldo.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,6 +183,8 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
                         .addComponent(btnPasar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSaldo)
+                        .addGap(93, 93, 93)
                         .addComponent(btnSalir)
                         .addGap(80, 80, 80))))
         );
@@ -200,7 +205,9 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
                         .addGap(63, 63, 63))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(btnSalir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSalir)
+                            .addComponent(lblSaldo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,16 +287,18 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
     private javax.swing.JLabel lblFigura;
     private javax.swing.JLabel lblMensajes;
     private javax.swing.JTextPane lblPozo;
+    private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel txtApuestaActual;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void init(String nombreJugador, String pozo) {
+    public void init(String nombreJugador, String pozo, String saldo) {
         btnApostar.setEnabled(true);
         btnPasar.setEnabled(true);
         this.setTitle(nombreJugador);
         txtApuestaActual.setText("");
         actualizarPozo(pozo);
+        actualizarSaldo(saldo);
     }
 
     @Override
@@ -355,6 +364,7 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
 
     @Override
     public void mostrarFinMano(String nombreGanador, String figura, String cartas, String saldo, String jugador) {
+        mostrarMensaje("Mano finalizada");
         new DialogoGanador(this, false, cp, nombreGanador, figura, cartas, saldo, jugador).setVisible(true);
 
 
@@ -378,6 +388,11 @@ public class VistaMano extends javax.swing.JFrame implements IVistaMano  {
     @Override
     public void actualizarPozo(String pozo) {
         lblPozo.setText(pozo);
+    }
+    
+    @Override
+    public void actualizarSaldo(String saldo) {
+        lblSaldo.setText(saldo);
     }
 
     @Override

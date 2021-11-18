@@ -15,7 +15,7 @@ import logica.Partida.Partida;
  */
 public interface IVistaMano {
      
-    public void init(String nombreJugador, String pozo);
+    public void init(String nombreJugador, String pozo, String saldo);
     public void mostrarCartas(String c1, String c2, String c3, String c4, String c5, String Figura, String cartas);
     public void mostrarJugadoresActivos(List<String> jugadores);
     public void mostrarApuestaActiva(String jugador, int valor);
@@ -31,6 +31,7 @@ public interface IVistaMano {
     public void mostrarFinMano(String ganador, String figura, String cartas, String saldo, String jugador);
     public void ofrecerSiguienteMano();
     public void cerrarVentana();
+    public void actualizarSaldo(String saldo);
     //public void abrirNuevaMano(Partida p, JugadorPartida jp);
     
     

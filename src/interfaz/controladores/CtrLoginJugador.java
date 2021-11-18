@@ -8,6 +8,7 @@ package interfaz.controladores;
 import excepciones.JugadorException;
 import excepciones.ManoException;
 import excepciones.PartidaException;
+import excepciones.UserExceptions;
 import interfaz.LoginVista;
 import logica.Fachada;
 import logica.Partida.JugadorPartida;
@@ -30,7 +31,7 @@ public class CtrLoginJugador extends ControladorLogin {
    }
 
     @Override
-    public UsuarioGenerico logUsuario(String nick, String pass) {
+    public UsuarioGenerico logUsuario(String nick, String pass) throws UserExceptions {
          return Fachada.getInstancia().logInJugador(nick, pass);
     }
 
@@ -48,15 +49,15 @@ public class CtrLoginJugador extends ControladorLogin {
                
 
             
-        }catch(PartidaException pe ){
-        
-            loginVista.mostrarError(pe.getMessage());
-        }catch(JugadorException je){
-            loginVista.mostrarError(je.getMessage());
-        
         }catch(ManoException me){
         
             loginVista.mostrarError(me.getMessage());
+     
+        }catch(JugadorException je){
+            loginVista.mostrarError(je.getMessage());
+        
+        }catch(PartidaException pe){
+            loginVista.mostrarError(pe.getMessage());
         }
        
     }
